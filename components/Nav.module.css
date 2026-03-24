@@ -1,0 +1,107 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(247, 242, 235, 0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 0.5px solid var(--tan);
+}
+
+.nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.logo em { font-style: italic; color: var(--bronze); }
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.link {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bark);
+  transition: color 0.2s;
+}
+.link:hover { color: var(--espresso); }
+
+.cta {
+  background: var(--espresso);
+  color: var(--cream);
+  padding: 0.6rem 1.35rem;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.cta:hover { background: var(--bark); color: var(--cream); }
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.barTop, .barMid, .barBot {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--espresso);
+  transition: transform 0.25s, opacity 0.25s;
+  transform-origin: center;
+}
+.barTopOpen { transform: translateY(6px) rotate(45deg); }
+.barMidOpen { opacity: 0; }
+.barBotOpen { transform: translateY(-6px) rotate(-45deg); }
+
+/* Mobile dropdown */
+.mobileMenu {
+  background: var(--cream);
+  border-top: 0.5px solid var(--tan);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 2rem 2rem;
+  gap: 1.5rem;
+}
+
+.mobileCta {
+  display: inline-block;
+  background: var(--espresso);
+  color: var(--cream);
+  padding: 0.85rem 2rem;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .links { display: none; }
+  .hamburger { display: flex; }
+  .nav { padding: 1.25rem 1.5rem; }
+}

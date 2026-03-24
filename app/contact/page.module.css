@@ -1,0 +1,196 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10rem 3rem 6rem;
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.pageHeader {
+  max-width: 560px;
+  margin-bottom: 5rem;
+}
+
+.pageTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(42px, 5vw, 64px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+
+.pageTitle em {
+  font-style: italic;
+  color: var(--bronze);
+}
+
+.pageIntro {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--bark);
+}
+
+.formWrap {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 5rem;
+  align-items: start;
+}
+
+.form { display: flex; flex-direction: column; gap: 2rem; }
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.formGroup label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bark);
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid var(--tan);
+  padding: 0.75rem 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--espresso);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  border-bottom-color: var(--bronze);
+}
+
+.formGroup textarea { resize: vertical; }
+
+.submitBtn {
+  background: var(--espresso);
+  color: var(--cream);
+  border: none;
+  padding: 1rem 2.5rem;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.2s;
+}
+
+.submitBtn:hover { background: var(--bark); }
+
+/* Sidebar */
+.sidebar { display: flex; flex-direction: column; gap: 2rem; }
+
+.sidebarCard {
+  background: var(--sand);
+  padding: 2.5rem;
+}
+
+.expectList {
+  list-style: none;
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.expectList li {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--bark);
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.expectList li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--bronze);
+}
+
+.sidebarQuote {
+  border-left: 2px solid var(--bronze);
+  padding: 1rem 1.5rem;
+}
+
+.sidebarQuote p {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+}
+
+.sidebarQuote cite {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  font-style: normal;
+}
+
+/* Thank you state */
+.thankYou {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.thankYouTitle {
+  font-family: var(--font-serif);
+  font-size: 54px;
+  font-weight: 300;
+  color: var(--ink);
+  margin: 1rem 0;
+}
+
+.thankYouText {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--bark);
+  max-width: 440px;
+}
+
+@media (max-width: 1024px) {
+  .formWrap { grid-template-columns: 1fr; gap: 3rem; }
+  .page { padding: 8rem 2rem 5rem; }
+}
+
+@media (max-width: 640px) {
+  .formRow { grid-template-columns: 1fr; }
+}
