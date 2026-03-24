@@ -10,15 +10,27 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const navLink = (href: string, label: string) => {
-    if (isHome && href.startsWith('#')) {
+    const handleAnchorClick = (e: React.MouseEvent) => {
+      e.preventDefault()
+      setMenuOpen(false)
+      const id = href.replace('#', '')
+      const el = document.getElementById(id)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' })
+      } else {
+        window.location.href = `/${href}`
+      }
+    }
+
+    if (href.startsWith('#')) {
       return (
-        <a href={href} className={styles.link} onClick={() => setMenuOpen(false)}>
+        <a href={href} className={styles.link} onClick={handleAnchorClick}>
           {label}
         </a>
       )
     }
     return (
-      <Link href={isHome ? href : `/${href}`} className={styles.link} onClick={() => setMenuOpen(false)}>
+      <Link href={href} className={styles.link} onClick={() => setMenuOpen(false)}>
         {label}
       </Link>
     )
