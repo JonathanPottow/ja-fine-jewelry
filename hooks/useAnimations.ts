@@ -1,9 +1,7 @@
-'use client'
 import { useEffect } from 'react'
 
 export function useScrollAnimations() {
   useEffect(() => {
-    // Scroll fade-up observer
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -12,10 +10,29 @@ export function useScrollAnimations() {
           }
         })
       },
-      { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px 0px 0px' }
     )
 
-    document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el))
+    const els = document.querySelectorAll('.fade-up')
+    els.forEach((el) => {
+      // If already in viewport on mount (e.g. after nav jump), make visible immediately
+      const rect = el.getBoundingClientRect()
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('visible')
+      } else {
+        observer.observe(el)
+      }
+    })
+
+    // Re-check on scroll in case jump landed mid-page
+    const handleScrollCheck = () => {
+      document.querySelectorAll('.fade-up:not(.visible)').forEach((el) => {
+        const rect = el.getBoundingClientRect()
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('visible')
+        }
+      })
+    }
 
     // Nav scroll transition
     const nav = document.querySelector('header')
@@ -25,6 +42,7 @@ export function useScrollAnimations() {
       } else {
         nav?.classList.remove('nav-scrolled')
       }
+      handleScrollCheck()
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
 
@@ -38,7 +56,6 @@ export function useScrollAnimations() {
             const suffix = el.dataset.suffix || ''
             const duration = 1500
             const start = performance.now()
-
             const animate = (now: number) => {
               const elapsed = now - start
               const progress = Math.min(elapsed / duration, 1)
