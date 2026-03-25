@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <span className={styles.logo}>JA <em>Fine Jewelry</em></span>
+          <span className={styles.logo}>Jonathan <em>Alistair</em></span>
           <p>Private commissions by appointment.<br />Jonathan Pottow.</p>
         </div>
         <div className={styles.links}>
@@ -15,7 +15,7 @@ export default function Footer() {
           <Link href="/contact">Begin Your Journey</Link>
         </div>
         <div className={styles.copy}>
-          <p>© {new Date().getFullYear()} JA Fine Jewelry. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Jonathan Alistair Fine Jewelry. All rights reserved.</p>
         </div>
       </div>
     </footer>
