@@ -3,8 +3,8 @@ import { useRef } from 'react'
 import styles from './PortfolioGrid.module.css'
 
 const pieces = [
-  { ref: '252856', file: 'converted_252856.mp4' },
-  { ref: '252862', file: 'converted_252862.mp4' },
+  { ref: '252856', file: 'converted_#252856.mp4' },
+  { ref: '252862', file: 'converted_#252862.mp4' },
   { ref: '251880', file: 'converted_#251880.mp4' },
   { ref: '251941', file: 'converted_#251941.mp4' },
   { ref: '252224', file: 'converted_#252224.mp4' },
