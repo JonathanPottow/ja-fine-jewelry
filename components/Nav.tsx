@@ -47,7 +47,7 @@ export default function Nav() {
         <div className={styles.links}>
           {navLink('#about', 'About')}
           {navLink('#process', 'Process')}
-          {navLink('#portfolio', 'Portfolio')}
+
           {navLink('#testimonials', 'Stories')}
           <Link href="/experience" className={styles.link} onClick={() => setMenuOpen(false)}>Experience</Link>
           <Link href="/portfolio" className={styles.link}>Full Portfolio</Link>
@@ -74,7 +74,7 @@ export default function Nav() {
         <div className={styles.mobileMenu}>
           {navLink('#about', 'About')}
           {navLink('#process', 'Process')}
-          {navLink('#portfolio', 'Portfolio')}
+
           {navLink('#testimonials', 'Client Stories')}
           <Link href="/experience" className={styles.link} onClick={() => setMenuOpen(false)}>Experience</Link>
           <Link href="/portfolio" className={styles.link} onClick={() => setMenuOpen(false)}>Full Portfolio</Link>
