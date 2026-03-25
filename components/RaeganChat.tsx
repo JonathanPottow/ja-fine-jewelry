@@ -16,12 +16,8 @@ function getTypingDelay(text: string): number {
 
 export default function RaeganChat() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: "Hi, I'm Raegan. How can I help you today?",
-    },
-  ]);
+  const [hasJoined, setHasJoined] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [isReading, setIsReading] = useState(false);
@@ -30,7 +26,24 @@ export default function RaeganChat() {
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping, isReading]);
+  }, [messages, isTyping, isReading, hasJoined]);
+
+  // When chat opens for the first time, show join message then greeting
+  useEffect(() => {
+    if (open && !hasJoined) {
+      setHasJoined(true);
+      setTimeout(() => {
+        setIsTyping(true);
+        setTimeout(() => {
+          setIsTyping(false);
+          setMessages([{
+            role: 'assistant',
+            content: "Hi, I'm Raegan. How can I help you today?",
+          }]);
+        }, 2500);
+      }, 1500);
+    }
+  }, [open]);
 
   const sendMessage = async () => {
     if (!input.trim() || loading || isTyping || isReading) return;
@@ -50,18 +63,15 @@ export default function RaeganChat() {
       const replyText = data.message || 'Sorry, something went wrong.';
       const typingDelay = getTypingDelay(replyText);
 
-      // Step 1 — reading pause (2-3 seconds, no indicator shown)
       setLoading(false);
       setIsReading(true);
       const readingPause = 2000 + Math.random() * 1000;
       await new Promise(resolve => setTimeout(resolve, readingPause));
 
-      // Step 2 — typing animation
       setIsReading(false);
       setIsTyping(true);
       await new Promise(resolve => setTimeout(resolve, typingDelay));
 
-      // Step 3 — message appears
       setIsTyping(false);
       setMessages([...updated, { role: 'assistant', content: replyText }]);
     } catch {
@@ -84,6 +94,16 @@ export default function RaeganChat() {
             <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: '#fff', fontSize: '22px', cursor: 'pointer', lineHeight: 1, padding: 0 }}>×</button>
           </div>
           <div style={{ flex: 1, overflowY: 'auto', padding: '16px', background: '#fafaf9', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+
+            {/* Joined indicator */}
+            {hasJoined && (
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <span style={{ fontSize: '10px', color: '#bbb', letterSpacing: '0.08em', textTransform: 'uppercase', background: '#f0ede8', padding: '4px 12px', borderRadius: '20px' }}>
+                  Raegan has joined your chat
+                </span>
+              </div>
+            )}
+
             {messages.map((m, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
                 <div style={{ fontSize: '13px', lineHeight: '1.5', padding: '10px 14px', borderRadius: '18px', maxWidth: '85%', background: m.role === 'user' ? '#111' : '#fff', color: m.role === 'user' ? '#fff' : '#222', border: m.role === 'user' ? 'none' : '1px solid #e5e5e5' }}>
@@ -92,16 +112,8 @@ export default function RaeganChat() {
               </div>
             ))}
 
-            {/* Reading indicator — subtle, no dots */}
-            {isReading && (
-              <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: '6px', paddingLeft: '4px' }}>
-                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#c9b99a', animation: 'pulse 1.5s infinite' }} />
-                <span style={{ fontSize: '11px', color: '#bbb', letterSpacing: '0.05em' }}>Raegan is reading...</span>
-              </div>
-            )}
-
-            {/* Typing indicator — animated dots */}
-            {isTyping && (
+            {/* Typing indicator */}
+            {(isReading || isTyping) && (
               <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                 <div style={{ fontSize: '13px', padding: '10px 14px', borderRadius: '18px', background: '#fff', border: '1px solid #e5e5e5', display: 'flex', gap: '4px', alignItems: 'center' }}>
                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#bbb', display: 'inline-block', animation: 'bounce 1.4s infinite', animationDelay: '0s' }} />
@@ -117,10 +129,6 @@ export default function RaeganChat() {
             @keyframes bounce {
               0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
               30% { transform: translateY(-6px); opacity: 1; }
-            }
-            @keyframes pulse {
-              0%, 100% { opacity: 0.3; transform: scale(1); }
-              50% { opacity: 1; transform: scale(1.3); }
             }
           `}</style>
           <div style={{ padding: '12px 16px', borderTop: '1px solid #f0f0f0', background: '#fff', display: 'flex', gap: '8px', alignItems: 'center', flexShrink: 0 }}>
