@@ -11,14 +11,9 @@ export default function Home() {
         <div className={styles.heroText}>
           <p className={`${styles.eyebrow} hero-word`} style={{animationDelay: "0s"}}>Bespoke Fine Jewelry · Private Commission</p>
           <h1 className={styles.headline}>
-            <span className="hero-word">Worn</span>{' '}
-            <span className="hero-word">by</span>{' '}
-            <em className="hero-word">you.</em>
+            <span className="hero-word">Your jeweler.</span>
             <br />
-            <span className="hero-word">Made</span>{' '}
-            <span className="hero-word">for</span>
-            <br />
-            <span className="hero-word" style={{animationDelay: '0.85s'}}>no one else.</span>
+            <em className="hero-word" style={{animationDelay: '0.85s'}}>For life.</em>
           </h1>
           <p className={`${styles.subhead} hero-word`} style={{animationDelay: "1s"}}>
             Jonathan Pottow creates heirloom-quality pieces through a deeply
