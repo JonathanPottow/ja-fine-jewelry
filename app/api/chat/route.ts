@@ -41,31 +41,32 @@ async function sendLeadEmail(messages: {role: string, content: string}[], leadIn
     .join('\n\n');
 
   await resend.emails.send({
-    from: 'Raegan <onboarding@resend.dev>',
+    from: 'Raegan at JA Fine Jewelry <onboarding@resend.dev>',
     to: process.env.CONTACT_EMAIL!,
-    subject: `New Lead from Raegan — ${leadInfo.name || 'New Client'}`,
+    subject: `New Lead — ${leadInfo.name || 'New Client'} | JA Fine Jewelry`,
     html: `
       <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #2c2416;">
-        <h2 style="font-size: 22px; font-weight: normal; border-bottom: 1px solid #e8ddd0; padding-bottom: 16px; margin-bottom: 24px;">
-          New Lead — Jonathan Alistair Fine Jewelry
-        </h2>
+        <div style="border-bottom: 2px solid #8a6e4b; padding-bottom: 20px; margin-bottom: 32px;">
+          <p style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #8a6e4b; margin: 0 0 8px;">Jonathan Alistair Fine Jewelry</p>
+          <h2 style="font-size: 24px; font-weight: normal; margin: 0;">New Lead from Raegan</h2>
+        </div>
         
         <div style="background: #f7f2eb; padding: 24px; border-radius: 8px; margin-bottom: 32px;">
-          <h3 style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a6e4b; margin: 0 0 16px;">Client Details</h3>
-          <p style="margin: 0 0 8px;"><strong>Name:</strong> ${leadInfo.name || 'Not captured'}</p>
-          <p style="margin: 0 0 8px;"><strong>Email:</strong> ${leadInfo.email || 'Not captured'}</p>
-          <p style="margin: 0;"><strong>Phone:</strong> ${leadInfo.phone || 'Not captured'}</p>
+          <h3 style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a6e4b; margin: 0 0 16px;">Client Details</h3>
+          <p style="margin: 0 0 8px; font-size: 15px;"><strong>Name:</strong> ${leadInfo.name || 'Not captured'}</p>
+          <p style="margin: 0 0 8px; font-size: 15px;"><strong>Email:</strong> ${leadInfo.email ? `<a href="mailto:${leadInfo.email}" style="color: #8a6e4b;">${leadInfo.email}</a>` : 'Not captured'}</p>
+          <p style="margin: 0; font-size: 15px;"><strong>Phone:</strong> ${leadInfo.phone ? `<a href="tel:${leadInfo.phone}" style="color: #8a6e4b;">${leadInfo.phone}</a>` : 'Not captured'}</p>
         </div>
 
         <div style="margin-bottom: 32px;">
-          <h3 style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a6e4b; margin: 0 0 16px;">Full Conversation</h3>
-          <div style="background: #fff; border: 1px solid #e8ddd0; border-radius: 8px; padding: 24px; white-space: pre-wrap; font-size: 14px; line-height: 1.7; color: #2c2416;">
+          <h3 style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a6e4b; margin: 0 0 16px;">Full Conversation</h3>
+          <div style="background: #fff; border: 1px solid #e8ddd0; border-radius: 8px; padding: 24px; white-space: pre-wrap; font-size: 14px; line-height: 1.8; color: #2c2416;">
 ${conversation}
           </div>
         </div>
 
-        <p style="font-size: 12px; color: #aaa; border-top: 1px solid #e8ddd0; padding-top: 16px;">
-          Sent by Raegan — JA Fine Jewelry Concierge
+        <p style="font-size: 11px; color: #bbb; border-top: 1px solid #e8ddd0; padding-top: 16px; margin: 0;">
+          Sent automatically by Raegan — JA Fine Jewelry Concierge
         </p>
       </div>
     `,
@@ -153,8 +154,6 @@ export async function POST(req: Request) {
     });
 
     const replyText = response.content[0].type === 'text' ? response.content[0].text : '';
-
-    // Check if lead info is now complete and send email
     const allMessages = [...messages, { role: 'assistant', content: replyText }];
     const leadInfo = extractLeadInfo(allMessages);
 
