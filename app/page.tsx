@@ -66,8 +66,8 @@ export default function Home() {
           <Link href="/about" className={styles.sectionLink}>Full story →</Link>
         </div>
         <div className={styles.aboutGrid}>
-          <div className={`${styles.aboutImagePlaceholder} fade-up`}>
-            <span className={styles.aboutImageLabel}>Jonathan Pottow</span>
+          <div className={`${styles.aboutImagePlaceholder} fade-up`} style={{padding: 0, overflow: 'hidden'}}>
+            <img src="/Jonathan.jpeg" alt="Jonathan Pottow" style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block'}} />
           </div>
           <div className={`${styles.aboutContent} fade-up delay-2`}>
             <p className={styles.eyebrow}>South African born. Charlotte rooted. Built on trust.</p>
