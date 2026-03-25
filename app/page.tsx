@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styles from './page.module.css'
 import ContactForm from './ContactForm'
+import PortfolioGrid from './PortfolioGrid'
 
 export default function Home() {
   return (
@@ -161,15 +162,7 @@ export default function Home() {
           <div className={styles.sectionLine} />
           <Link href="/portfolio" className={styles.sectionLink}>View all →</Link>
         </div>
-        <div className={styles.workGrid}>
-          <div className={`${styles.workCell} ${styles.workCellFeatured} work-cell-animate`}>
-            <span className={styles.workLabel}>Featured Commission</span>
-          </div>
-          <div className={`${styles.workCell} work-cell-animate`}><span className={styles.workLabel}>Solitaire</span></div>
-          <div className={`${styles.workCell} work-cell-animate`}><span className={styles.workLabel}>Pendant</span></div>
-          <div className={`${styles.workCell} work-cell-animate`}><span className={styles.workLabel}>Wedding Band</span></div>
-          <div className={`${styles.workCell} work-cell-animate`}><span className={styles.workLabel}>Heirloom</span></div>
-        </div>
+        <PortfolioGrid />
       </section>
 
       {/* ─── TESTIMONIALS ─── */}
