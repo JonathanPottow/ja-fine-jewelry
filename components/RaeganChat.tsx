@@ -9,11 +9,8 @@ type Message = {
 function getTypingDelay(text: string): number {
   const words = text.split(' ').length;
   const chars = text.length;
-  // Simulate roughly 40 words per minute typing speed
   const typingTime = (words / 40) * 60 * 1000;
-  // Add a natural "thinking" pause at the start
   const thinkingPause = chars < 100 ? 1500 : chars < 200 ? 2500 : 3500;
-  // Cap at 8 seconds so it never feels broken
   return Math.min(thinkingPause + typingTime, 8000);
 }
 
@@ -27,15 +24,16 @@ export default function RaeganChat() {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isReading, setIsReading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
+  }, [messages, isTyping, isReading]);
 
   const sendMessage = async () => {
-    if (!input.trim() || loading || isTyping) return;
+    if (!input.trim() || loading || isTyping || isReading) return;
     const userMessage: Message = { role: 'user', content: input };
     const updated = [...messages, userMessage];
     setMessages(updated);
@@ -50,17 +48,25 @@ export default function RaeganChat() {
       });
       const data = await res.json();
       const replyText = data.message || 'Sorry, something went wrong.';
-      const delay = getTypingDelay(replyText);
+      const typingDelay = getTypingDelay(replyText);
 
+      // Step 1 — reading pause (2-3 seconds, no indicator shown)
       setLoading(false);
+      setIsReading(true);
+      const readingPause = 2000 + Math.random() * 1000;
+      await new Promise(resolve => setTimeout(resolve, readingPause));
+
+      // Step 2 — typing animation
+      setIsReading(false);
       setIsTyping(true);
+      await new Promise(resolve => setTimeout(resolve, typingDelay));
 
-      await new Promise(resolve => setTimeout(resolve, delay));
-
+      // Step 3 — message appears
       setIsTyping(false);
       setMessages([...updated, { role: 'assistant', content: replyText }]);
     } catch {
       setLoading(false);
+      setIsReading(false);
       setIsTyping(false);
       setMessages([...updated, { role: 'assistant', content: "I'm having trouble connecting right now. Please try again." }]);
     }
@@ -85,7 +91,17 @@ export default function RaeganChat() {
                 </div>
               </div>
             ))}
-            {(loading || isTyping) && (
+
+            {/* Reading indicator — subtle, no dots */}
+            {isReading && (
+              <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: '6px', paddingLeft: '4px' }}>
+                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#c9b99a', animation: 'pulse 1.5s infinite' }} />
+                <span style={{ fontSize: '11px', color: '#bbb', letterSpacing: '0.05em' }}>Raegan is reading...</span>
+              </div>
+            )}
+
+            {/* Typing indicator — animated dots */}
+            {isTyping && (
               <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                 <div style={{ fontSize: '13px', padding: '10px 14px', borderRadius: '18px', background: '#fff', border: '1px solid #e5e5e5', display: 'flex', gap: '4px', alignItems: 'center' }}>
                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#bbb', display: 'inline-block', animation: 'bounce 1.4s infinite', animationDelay: '0s' }} />
@@ -94,12 +110,17 @@ export default function RaeganChat() {
                 </div>
               </div>
             )}
+
             <div ref={bottomRef} />
           </div>
           <style>{`
             @keyframes bounce {
               0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
               30% { transform: translateY(-6px); opacity: 1; }
+            }
+            @keyframes pulse {
+              0%, 100% { opacity: 0.3; transform: scale(1); }
+              50% { opacity: 1; transform: scale(1.3); }
             }
           `}</style>
           <div style={{ padding: '12px 16px', borderTop: '1px solid #f0f0f0', background: '#fff', display: 'flex', gap: '8px', alignItems: 'center', flexShrink: 0 }}>
@@ -109,12 +130,12 @@ export default function RaeganChat() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-              disabled={loading || isTyping}
+              disabled={loading || isTyping || isReading}
             />
             <button
               onClick={sendMessage}
-              disabled={loading || isTyping || !input.trim()}
-              style={{ background: input.trim() && !loading && !isTyping ? '#111' : '#ddd', color: input.trim() && !loading && !isTyping ? '#fff' : '#999', border: 'none', borderRadius: '12px', padding: '10px 18px', fontSize: '13px', fontWeight: 500, cursor: input.trim() && !loading && !isTyping ? 'pointer' : 'not-allowed', fontFamily: 'sans-serif' }}
+              disabled={loading || isTyping || isReading || !input.trim()}
+              style={{ background: input.trim() && !loading && !isTyping && !isReading ? '#111' : '#ddd', color: input.trim() && !loading && !isTyping && !isReading ? '#fff' : '#999', border: 'none', borderRadius: '12px', padding: '10px 18px', fontSize: '13px', fontWeight: 500, cursor: input.trim() && !loading && !isTyping && !isReading ? 'pointer' : 'not-allowed', fontFamily: 'sans-serif' }}
             >
               Send
             </button>
