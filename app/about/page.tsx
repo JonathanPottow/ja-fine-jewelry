@@ -1,99 +1,99 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
-import styles from './page.module.css'
+import styles from './about.module.css'
 
-export const metadata: Metadata = {
-  title: 'About Jonathan Pottow | Bespoke Jeweler Charlotte NC',
-  description: 'Meet Jonathan Pottow — South African-born, Charlotte-based fine jewelry consultant and founder of Jonathan Alistair Fine Jewelry. 10+ years experience, GIA trained, founding board member of Charlotte ETA.',
-  alternates: { canonical: '/about' },
-  openGraph: {
-    title: 'About Jonathan Pottow | Jonathan Alistair Fine Jewelry Charlotte NC',
-    description: 'The story behind Jonathan Alistair Fine Jewelry — from a South African grandfathers collection to a bespoke jewelry business built on trust, heritage and white-glove service in Charlotte, NC.',
-    url: 'https://www.jafinejewelry.com/about',
-  },
+export const metadata = {
+  title: 'About Jonathan Pottow | Bespoke Jeweler Charlotte NC | Jonathan Alistair Fine Jewelry Charlotte NC',
 }
 
-export default function About() {
+export default function AboutPage() {
   return (
     <div className={styles.page}>
 
-      {/* Hero */}
+      {/* ─── HERO ─── */}
       <section className={styles.hero}>
-        <div className={styles.heroContent}>
+        <div className={styles.heroText}>
           <p className={styles.eyebrow}>The Story Behind the Craft</p>
           <h1 className={styles.heroTitle}>
             Born from <em>heritage.</em><br />
             Built on <em>trust.</em>
           </h1>
         </div>
-        <div className={styles.heroImagePlaceholder}>
-          <span className={styles.photoLabel}>Jonathan Pottow</span>
+        <div className={styles.heroImage}>
+          <img src="/Jonathan.jpeg" alt="Jonathan Pottow" className={styles.heroPhoto} />
         </div>
       </section>
 
-      {/* Origin Story */}
-      <section className={styles.storySection}>
-        <div className={styles.storySidebar}>
-          <p className={styles.eyebrow}>The Beginning</p>
-          <div className={styles.sidebarLine} />
-        </div>
-        <div className={styles.storyBody}>
-          <p className={styles.pullQuote}>
-            "My grandfather did not just collect beautiful things —
-            he taught me how to see them."
-          </p>
-          <p>
-            Growing up in South Africa, Jonathan Pottow was introduced to the world
-            of fine goods through his grandfather — an avid collector whose eye for
-            quality and appreciation for craftsmanship left a permanent mark. It was not
-            just about diamonds or gold. It was about the meaning behind objects made
-            to last a lifetime.
-          </p>
-          <p>
-            That sense of heritage — of honoring where something comes from and why it
-            matters — became the quiet foundation of everything Jonathan would later build.
-          </p>
+      {/* ─── INTRO ─── */}
+      <section className={styles.introSection}>
+        <div className={styles.introInner}>
+          <div className={styles.introLabel}>
+            <p className={styles.eyebrow}>The Beginning</p>
+            <div className={styles.verticalLine} />
+          </div>
+          <div className={styles.introContent}>
+            <blockquote className={styles.pullQuote}>
+              "My grandfather did not just collect beautiful things — he taught me how to see them."
+            </blockquote>
+            <p>
+              Jonathan Pottow grew up in South Africa watching his grandfather — a lifelong collector of fine goods — 
+              handle objects with a reverence that had nothing to do with price. It was about craftsmanship. 
+              Intention. The idea that something made well, made with purpose, carries meaning that outlasts its maker.
+            </p>
+            <p>
+              That early education shaped everything. Not just an appreciation for quality, but a belief that the 
+              things we choose to wear and give say something real about who we are and who we love. That belief 
+              became the quiet foundation of everything Jonathan would later build.
+            </p>
+            <p>
+              When he entered the jewelry industry in 2013, he wasn't chasing a career — he was following 
+              something he'd understood since childhood. That fine jewelry, done right, is one of the most 
+              personal things in the world.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Career Timeline */}
+      {/* ─── TIMELINE ─── */}
       <section className={styles.timelineSection}>
         <div className={styles.timelineHeader}>
-          <h2 className={styles.sectionTitle}>The Journey</h2>
+          <h2 className={styles.timelineTitle}>The Journey</h2>
           <div className={styles.sectionLine} />
         </div>
         <div className={styles.timeline}>
           {[
             {
               year: '2013',
-              title: 'a premier luxury jewelry group, Raleigh',
-              desc: 'Started at the front desk and within six months moved into sales as a diamond consultant — learning the craft from the ground up, one client at a time.'
+              title: 'A Premier Luxury Jewelry Group, Raleigh',
+              desc: 'Started at the front desk and earned his way into the sales floor within six months — becoming a diamond consultant and learning the craft from the ground up, one client and one conversation at a time. This is where Jonathan discovered that the best jewelry experiences are built on trust, not transactions.',
             },
             {
               year: '2017',
               title: 'General Manager, St. Louis',
-              desc: 'Promoted to lead the opening of a new a premier luxury jewelry group acquisition in St. Louis, Missouri. Spent two years building a team and a culture from scratch.'
+              desc: 'Promoted to lead the opening of a new acquisition location in St. Louis, Missouri. Built a team, a culture, and a clientele from scratch — proving that the principles he believed in could scale. Two years of leading a luxury retail team at the highest level, in a city that wasn\'t his own.',
             },
             {
               year: '2019',
               title: 'Back to Charlotte',
-              desc: 'Returned home to Charlotte to be closer to family as his wife was expecting their first son, Deacan. Some decisions are easier than they look.'
+              desc: 'With his wife expecting their first son Deacan, Jonathan made the decision to come home to Charlotte — a city he loves deeply and had no intention of leaving again. Some decisions are easier than they look. This one was simple.',
             },
             {
               year: '2020',
               title: 'Jonathan Alistair Fine Jewelry is Born',
-              desc: 'In the midst of a pandemic, Jonathan saw an opportunity: create a safe, intimate, and entirely personal way for clients to still access fine jewelry. The bespoke, white-glove experience that would become Jonathan Alistair Fine Jewelry was born.'
+              desc: 'In the midst of a pandemic, Jonathan saw a gap in the market and an opportunity to do something he had always believed in: a completely bespoke, white-glove jewelry experience for clients who deserved better than the generic store. No sales floor. No pressure. Just one jeweler, sitting on your side of the table, from the first conversation to the final piece.',
             },
             {
               year: 'Today',
               title: 'Charlotte, Community & Growth',
-              desc: 'With two sons — Deacan and Finnley — Jonathan is deeply rooted in Charlotte. A founding board member of Charlotte ETA and a six-year member of CYPG, he believes in giving back as much as building forward.'
+              desc: 'Jonathan and his wife are raising two sons — Deacan and Finnley — in Charlotte. He is a founding board member of Charlotte ETA and a six-year member of CYPG, investing in his community as genuinely as he invests in every client. His practice continues to grow entirely through word of mouth, built on the only currency that matters: the trust of the people he serves.',
             },
-          ].map((item) => (
-            <div key={item.year} className={styles.timelineItem}>
-              <div className={styles.timelineYear}>{item.year}</div>
-              <div className={styles.timelineContent}>
-                <h3 className={styles.timelineTitle}>{item.title}</h3>
+          ].map((item, i) => (
+            <div key={i} className={styles.timelineItem}>
+              <div className={styles.timelineLeft}>
+                <div className={styles.timelineYear}>{item.year}</div>
+                <div className={styles.timelineDot} />
+              </div>
+              <div className={styles.timelineRight}>
+                <h3 className={styles.timelineTitle2}>{item.title}</h3>
                 <p className={styles.timelineDesc}>{item.desc}</p>
               </div>
             </div>
@@ -101,85 +101,76 @@ export default function About() {
         </div>
       </section>
 
-      {/* Philosophy */}
+      {/* ─── PHILOSOPHY ─── */}
       <section className={styles.philosophySection}>
         <div className={styles.philosophyInner}>
-          <p className={styles.eyebrow}>The Philosophy</p>
-          <h2 className={styles.philosophyTitle}>
-            Not your jeweler.<br />
-            <em>Your expert.</em>
-          </h2>
-          <div className={styles.philosophyGrid}>
-            <div className={styles.philosophyCard}>
-              <h3>Your Guide, Not a Salesperson</h3>
-              <p>
-                Jonathan sits on your side of the table. With over a decade of experience,
-                he brings the knowledge you need to make a decision you will feel confident
-                about for the rest of your life.
-              </p>
+          <div className={styles.philosophyText}>
+            <p className={styles.eyebrow}>The Philosophy</p>
+            <h2 className={styles.philosophyTitle}>
+              Your jeweler.<br /><em>For life.</em>
+            </h2>
+            <p>
+              Jonathan's approach has never been about volume. It has always been about depth. Every client who 
+              comes to Jonathan Alistair Fine Jewelry gets his full attention — not a sales associate, not a 
+              catalog, not a commission-driven recommendation. Just Jonathan, with his decade of expertise, 
+              focused entirely on what you need.
+            </p>
+            <p>
+              The goal has always been simple: to be the last jeweler you ever need. The person you call when 
+              you get engaged, when you celebrate an anniversary, when you want to redesign an heirloom, when 
+              you simply want something beautiful and meaningful that no one else has. A relationship built 
+              over years, not a transaction completed in an afternoon.
+            </p>
+            <p>
+              That is what Jonathan Alistair Fine Jewelry was built for. And it is what every single 
+              commission is designed to deliver.
+            </p>
+          </div>
+          <div className={styles.philosophyStats}>
+            <div className={styles.statCard}>
+              <span className={styles.statNum}>10+</span>
+              <span className={styles.statLabel}>Years in the industry</span>
             </div>
-            <div className={styles.philosophyCard}>
-              <h3>Bespoke from the First Conversation</h3>
-              <p>
-                No two clients are the same. No two pieces should be either. Every
-                commission begins with listening — to your story, your vision, the
-                person you are buying for — before a single sketch is made.
-              </p>
+            <div className={styles.statCard}>
+              <span className={styles.statNum}>2013</span>
+              <span className={styles.statLabel}>Started in fine jewelry</span>
             </div>
-            <div className={styles.philosophyCard}>
-              <h3>Heritage in Every Detail</h3>
-              <p>
-                Raised in South Africa with a deep appreciation for craftsmanship
-                passed down through generations, Jonathan brings an eye for quality
-                and meaning that goes beyond the transaction.
-              </p>
+            <div className={styles.statCard}>
+              <span className={styles.statNum}>2020</span>
+              <span className={styles.statLabel}>Founded Jonathan Alistair</span>
+            </div>
+            <div className={styles.statCard}>
+              <span className={styles.statNum}>100%</span>
+              <span className={styles.statLabel}>Word of mouth growth</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Charlotte */}
+      {/* ─── CHARLOTTE ─── */}
       <section className={styles.charlotteSection}>
-        <div className={styles.charlotteText}>
+        <div className={styles.charlotteInner}>
           <p className={styles.eyebrow}>Rooted in Charlotte</p>
-          <h2 className={styles.charlotteTitle}>More than a business.<br />A community.</h2>
+          <h2 className={styles.charlotteTitle}>More than a business.<br /><em>A community.</em></h2>
           <p>
-            Charlotte is not just where Jonathan works — it is where he is raising his
-            family, investing his time, and building something that lasts. As a founding
-            board member of Charlotte ETA and a longtime member of CYPG, he is as
-            committed to this city as he is to every client who walks through his door.
+            Charlotte is not just where Jonathan works — it is where he is raising his family, investing 
+            his time, and building something that lasts. As a founding board member of Charlotte ETA and 
+            a longtime member of CYPG, he is as committed to this city as he is to every client who 
+            walks through his door.
           </p>
           <p>
-            When you work with Jonathan Alistair Fine Jewelry, you are working with someone who has
-            chosen Charlotte — and who believes the best businesses are built on
-            genuine relationships, not transactions.
+            When you work with Jonathan Alistair Fine Jewelry, you are working with someone who has 
+            chosen Charlotte — and who believes the best businesses are built on genuine relationships, 
+            not transactions.
           </p>
-        </div>
-        <div className={styles.charlotteStat}>
-          <div className={styles.statItem}>
-            <span className={styles.statNum}>10+</span>
-            <span className={styles.statLabel}>Years in the industry</span>
-          </div>
-          <div className={styles.statItem}>
-            <span className={styles.statNum}>6</span>
-            <span className={styles.statLabel}>Years with CYPG</span>
-          </div>
-          <div className={styles.statItem}>
-            <span className={styles.statNum}>1</span>
-            <span className={styles.statLabel}>Focus: you</span>
-          </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ─── CTA ─── */}
       <section className={styles.ctaSection}>
         <p className={styles.eyebrow}>Ready to begin?</p>
-        <h2 className={styles.ctaTitle}>
-          Every great piece starts<br />with a conversation.
-        </h2>
-        <Link href="/contact" className={styles.ctaBtn}>
-          Book a Consultation
-        </Link>
+        <h2 className={styles.ctaTitle}>Every great piece starts<br /><em>with a conversation.</em></h2>
+        <Link href="/contact" className={styles.ctaBtn}>Book a Consultation</Link>
       </section>
 
     </div>
