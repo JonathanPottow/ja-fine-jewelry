@@ -8,10 +8,13 @@ type Message = {
 
 function getTypingDelay(text: string): number {
   const words = text.split(' ').length;
-  if (words < 10) return 1000;
-  if (words < 25) return 2000;
-  if (words < 50) return 3000;
-  return 4000;
+  const chars = text.length;
+  // Simulate roughly 40 words per minute typing speed
+  const typingTime = (words / 40) * 60 * 1000;
+  // Add a natural "thinking" pause at the start
+  const thinkingPause = chars < 100 ? 1500 : chars < 200 ? 2500 : 3500;
+  // Cap at 8 seconds so it never feels broken
+  return Math.min(thinkingPause + typingTime, 8000);
 }
 
 export default function RaeganChat() {
@@ -32,7 +35,7 @@ export default function RaeganChat() {
   }, [messages, isTyping]);
 
   const sendMessage = async () => {
-    if (!input.trim() || loading) return;
+    if (!input.trim() || loading || isTyping) return;
     const userMessage: Message = { role: 'user', content: input };
     const updated = [...messages, userMessage];
     setMessages(updated);
@@ -85,9 +88,9 @@ export default function RaeganChat() {
             {(loading || isTyping) && (
               <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                 <div style={{ fontSize: '13px', padding: '10px 14px', borderRadius: '18px', background: '#fff', border: '1px solid #e5e5e5', display: 'flex', gap: '4px', alignItems: 'center' }}>
-                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#aaa', display: 'inline-block', animation: 'bounce 1.2s infinite', animationDelay: '0s' }} />
-                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#aaa', display: 'inline-block', animation: 'bounce 1.2s infinite', animationDelay: '0.2s' }} />
-                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#aaa', display: 'inline-block', animation: 'bounce 1.2s infinite', animationDelay: '0.4s' }} />
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#bbb', display: 'inline-block', animation: 'bounce 1.4s infinite', animationDelay: '0s' }} />
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#bbb', display: 'inline-block', animation: 'bounce 1.4s infinite', animationDelay: '0.25s' }} />
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#bbb', display: 'inline-block', animation: 'bounce 1.4s infinite', animationDelay: '0.5s' }} />
                 </div>
               </div>
             )}
@@ -95,8 +98,8 @@ export default function RaeganChat() {
           </div>
           <style>{`
             @keyframes bounce {
-              0%, 60%, 100% { transform: translateY(0); }
-              30% { transform: translateY(-6px); }
+              0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+              30% { transform: translateY(-6px); opacity: 1; }
             }
           `}</style>
           <div style={{ padding: '12px 16px', borderTop: '1px solid #f0f0f0', background: '#fff', display: 'flex', gap: '8px', alignItems: 'center', flexShrink: 0 }}>
