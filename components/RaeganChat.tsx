@@ -6,21 +6,30 @@ type Message = {
   content: string;
 };
 
+function getTypingDelay(text: string): number {
+  const words = text.split(' ').length;
+  if (words < 10) return 1000;
+  if (words < 25) return 2000;
+  if (words < 50) return 3000;
+  return 4000;
+}
+
 export default function RaeganChat() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi, I'm Raegan! I'm here to help you begin your bespoke jewelry journey with Jonathan. What brings you in today?",
+      content: "Hi, I'm Raegan. How can I help you today?",
     },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, loading]);
+  }, [messages, isTyping]);
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
@@ -29,6 +38,7 @@ export default function RaeganChat() {
     setMessages(updated);
     setInput('');
     setLoading(true);
+
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
@@ -36,11 +46,20 @@ export default function RaeganChat() {
         body: JSON.stringify({ messages: updated }),
       });
       const data = await res.json();
-      setMessages([...updated, { role: 'assistant', content: data.message || 'Sorry, something went wrong.' }]);
-    } catch {
-      setMessages([...updated, { role: 'assistant', content: "I'm having trouble connecting right now. Please try again." }]);
-    } finally {
+      const replyText = data.message || 'Sorry, something went wrong.';
+      const delay = getTypingDelay(replyText);
+
       setLoading(false);
+      setIsTyping(true);
+
+      await new Promise(resolve => setTimeout(resolve, delay));
+
+      setIsTyping(false);
+      setMessages([...updated, { role: 'assistant', content: replyText }]);
+    } catch {
+      setLoading(false);
+      setIsTyping(false);
+      setMessages([...updated, { role: 'assistant', content: "I'm having trouble connecting right now. Please try again." }]);
     }
   };
 
@@ -63,13 +82,23 @@ export default function RaeganChat() {
                 </div>
               </div>
             ))}
-            {loading && (
+            {(loading || isTyping) && (
               <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-                <div style={{ fontSize: '13px', padding: '10px 14px', borderRadius: '18px', background: '#fff', color: '#999', border: '1px solid #e5e5e5', fontStyle: 'italic' }}>Raegan is typing...</div>
+                <div style={{ fontSize: '13px', padding: '10px 14px', borderRadius: '18px', background: '#fff', border: '1px solid #e5e5e5', display: 'flex', gap: '4px', alignItems: 'center' }}>
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#aaa', display: 'inline-block', animation: 'bounce 1.2s infinite', animationDelay: '0s' }} />
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#aaa', display: 'inline-block', animation: 'bounce 1.2s infinite', animationDelay: '0.2s' }} />
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#aaa', display: 'inline-block', animation: 'bounce 1.2s infinite', animationDelay: '0.4s' }} />
+                </div>
               </div>
             )}
             <div ref={bottomRef} />
           </div>
+          <style>{`
+            @keyframes bounce {
+              0%, 60%, 100% { transform: translateY(0); }
+              30% { transform: translateY(-6px); }
+            }
+          `}</style>
           <div style={{ padding: '12px 16px', borderTop: '1px solid #f0f0f0', background: '#fff', display: 'flex', gap: '8px', alignItems: 'center', flexShrink: 0 }}>
             <input
               style={{ flex: 1, fontSize: '13px', border: '1px solid #e0e0e0', borderRadius: '12px', padding: '10px 14px', outline: 'none', fontFamily: 'sans-serif' }}
@@ -77,12 +106,12 @@ export default function RaeganChat() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-              disabled={loading}
+              disabled={loading || isTyping}
             />
             <button
               onClick={sendMessage}
-              disabled={loading || !input.trim()}
-              style={{ background: input.trim() && !loading ? '#111' : '#ddd', color: input.trim() && !loading ? '#fff' : '#999', border: 'none', borderRadius: '12px', padding: '10px 18px', fontSize: '13px', fontWeight: 500, cursor: input.trim() && !loading ? 'pointer' : 'not-allowed', fontFamily: 'sans-serif' }}
+              disabled={loading || isTyping || !input.trim()}
+              style={{ background: input.trim() && !loading && !isTyping ? '#111' : '#ddd', color: input.trim() && !loading && !isTyping ? '#fff' : '#999', border: 'none', borderRadius: '12px', padding: '10px 18px', fontSize: '13px', fontWeight: 500, cursor: input.trim() && !loading && !isTyping ? 'pointer' : 'not-allowed', fontFamily: 'sans-serif' }}
             >
               Send
             </button>
