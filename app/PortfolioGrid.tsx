@@ -22,11 +22,11 @@ const pieces = [
   { ref: '252734', file: 'converted_252734.mp4' },
   { ref: '241120', file: 'converted_JA 241120 .mp4' },
   { ref: '241126', file: 'converted_JA 241126.mp4' },
-  { ref: 'Stewart · Plat', file: 'converted_Stewart Plat.mp4' },
-  { ref: 'Stewart · TT', file: 'converted_Stewart TT.mp4' },
+  { ref: 'Stewart · Plat', file: 'converted_Stewart Plat.mp4', thumbTime: 2 },
+  { ref: 'Stewart · TT', file: 'converted_Stewart TT.mp4', thumbTime: 2 },
 ]
 
-function VideoCard({ piece, featured }: { piece: typeof pieces[0], featured?: boolean }) {
+function VideoCard({ piece, featured }: { piece: { ref: string, file: string, thumbTime?: number }, featured?: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const handleMouseEnter = () => {
@@ -37,7 +37,7 @@ function VideoCard({ piece, featured }: { piece: typeof pieces[0], featured?: bo
     const v = videoRef.current
     if (v) {
       v.pause()
-      v.currentTime = 0
+      v.currentTime = piece.thumbTime ?? 0
     }
   }
 
@@ -55,6 +55,7 @@ function VideoCard({ piece, featured }: { piece: typeof pieces[0], featured?: bo
         playsInline
         loop
         preload="metadata"
+        onLoadedMetadata={(e) => { (e.target as HTMLVideoElement).currentTime = piece.thumbTime ?? 0 }}
       />
       <div className={styles.overlay}>
         <span className={styles.refLabel}>#{piece.ref}</span>
