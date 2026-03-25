@@ -1,6 +1,6 @@
 'use client'
-import { useRef, useEffect, useState } from 'react'
-import styles from './PortfolioGrid.module.css'
+import { useRef } from 'react'
+import styles from './PortfolioFull.module.css'
 
 const allPieces = [
   { ref: '252856', file: 'converted_#252856.mp4', thumbTime: 0 },
@@ -26,9 +26,7 @@ const allPieces = [
   { ref: 'Stewart · TT', file: 'converted_Stewart TT.mp4', thumbTime: 2 },
 ]
 
-type Piece = typeof allPieces[0]
-
-function VideoCard({ piece, featured }: { piece: Piece, featured?: boolean }) {
+function VideoCard({ piece }: { piece: typeof allPieces[0] }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const handleMouseEnter = () => videoRef.current?.play()
@@ -38,11 +36,7 @@ function VideoCard({ piece, featured }: { piece: Piece, featured?: boolean }) {
   }
 
   return (
-    <div
-      className={`${styles.card} ${featured ? styles.featured : ''}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div className={styles.card} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <video
         ref={videoRef}
         className={styles.video}
@@ -62,21 +56,12 @@ function VideoCard({ piece, featured }: { piece: Piece, featured?: boolean }) {
   )
 }
 
-export default function PortfolioGrid() {
-  const [picks, setPicks] = useState<Piece[]>([])
-
-  useEffect(() => {
-    const shuffled = [...allPieces].sort(() => Math.random() - 0.5)
-    setPicks(shuffled.slice(0, 3))
-  }, [])
-
-  if (picks.length === 0) return null
-
+export default function PortfolioFull() {
   return (
     <div className={styles.grid}>
-      <VideoCard piece={picks[0]} featured />
-      <VideoCard piece={picks[1]} />
-      <VideoCard piece={picks[2]} />
+      {allPieces.map((piece) => (
+        <VideoCard key={piece.ref} piece={piece} />
+      ))}
     </div>
   )
 }
