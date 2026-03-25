@@ -1,6 +1,6 @@
 /* ─── BASE ─── */
 .eyebrow {
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--bronze);
@@ -51,7 +51,7 @@
   background: var(--espresso);
   color: var(--cream);
   padding: 0.9rem 2.25rem;
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   transition: background 0.2s;
@@ -115,7 +115,7 @@
 }
 .marqueeInner {
   display: inline-block;
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   animation: scroll 30s linear infinite;
@@ -179,7 +179,7 @@
   padding: 1.5rem;
 }
 .aboutImageLabel {
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--bark);
@@ -259,7 +259,7 @@
   margin: 0 auto 1.5rem;
 }
 .quoteAttr {
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--bronze);
@@ -287,7 +287,7 @@
 .workCell:nth-child(4) { background: var(--sand); }
 .workCell:nth-child(5) { background: #c4b49b; }
 .workLabel {
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--espresso);
@@ -366,7 +366,7 @@
 .formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .formGroup { display: flex; flex-direction: column; gap: 0.6rem; }
 .formGroup label {
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--bark);
@@ -506,7 +506,7 @@
 }
 
 .pieceLabel {
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--bark);
@@ -586,7 +586,7 @@
 }
 
 .pieceLabel {
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--bark);
@@ -653,7 +653,7 @@
 }
 
 .uploadHint {
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--tan);
@@ -722,7 +722,7 @@
 }
 
 .credentialLabel {
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--bark);

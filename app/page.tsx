@@ -42,7 +42,12 @@ export default function Home() {
       {/* ─── MARQUEE ─── */}
       <div className={styles.marquee}>
         <div className={styles.marqueeInner}>
-          {['Engagement Rings', 'Custom Pendants', 'Anniversary Pieces', 'Heirloom Redesigns', 'Wedding Bands', 'Bespoke Commissions', 'Engagement Rings', 'Custom Pendants', 'Anniversary Pieces', 'Heirloom Redesigns', 'Wedding Bands', 'Bespoke Commissions'].map((item, i) => (
+          {['Engagement Rings', 'Custom Pendants', 'Anniversary Pieces', 'Heirloom Redesigns', 'Wedding Bands', 'Bespoke Commissions', 'Engagement Rings', 'Custom Pendants', 'Anniversary Pieces', 'Heirloom Redesigns', 'Wedding Bands', 'Bespoke Commissions', 'Engagement Rings', 'Custom Pendants', 'Anniversary Pieces', 'Heirloom Redesigns', 'Wedding Bands', 'Bespoke Commissions', 'Engagement Rings', 'Custom Pendants', 'Anniversary Pieces', 'Heirloom Redesigns', 'Wedding Bands', 'Bespoke Commissions'].map((item, i) => (
+            <span key={i}>{item} &nbsp;·&nbsp; </span>
+          ))}
+        </div>
+        <div className={styles.marqueeInner} aria-hidden="true">
+          {['Engagement Rings', 'Custom Pendants', 'Anniversary Pieces', 'Heirloom Redesigns', 'Wedding Bands', 'Bespoke Commissions', 'Engagement Rings', 'Custom Pendants', 'Anniversary Pieces', 'Heirloom Redesigns', 'Wedding Bands', 'Bespoke Commissions', 'Engagement Rings', 'Custom Pendants', 'Anniversary Pieces', 'Heirloom Redesigns', 'Wedding Bands', 'Bespoke Commissions', 'Engagement Rings', 'Custom Pendants', 'Anniversary Pieces', 'Heirloom Redesigns', 'Wedding Bands', 'Bespoke Commissions'].map((item, i) => (
             <span key={i}>{item} &nbsp;·&nbsp; </span>
           ))}
         </div>
