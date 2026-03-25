@@ -45,48 +45,55 @@ export default function RaeganChat() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans">
+    <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 9999, fontFamily: 'sans-serif' }}>
       {open ? (
-        <div className="flex flex-col shadow-2xl rounded-2xl overflow-hidden border border-gray-200" style={{ width: '360px', height: '520px', background: '#fff' }}>
-          <div style={{ background: '#111', color: '#fff' }} className="px-5 py-4 flex items-center justify-between">
+        <div style={{ width: '360px', height: '520px', background: '#fff', borderRadius: '16px', boxShadow: '0 8px 40px rgba(0,0,0,0.18)', border: '1px solid #e5e5e5', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          <div style={{ background: '#111', color: '#fff', padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div>
-              <p className="font-semibold tracking-widest text-xs uppercase">Chat with Raegan</p>
-              <p className="text-xs mt-0.5" style={{ color: '#aaa' }}>Jonathan Alistair Fine Jewelry</p>
+              <p style={{ fontWeight: 600, letterSpacing: '0.1em', fontSize: '11px', textTransform: 'uppercase', margin: 0 }}>Chat with Raegan</p>
+              <p style={{ fontSize: '11px', color: '#aaa', margin: '2px 0 0' }}>Jonathan Alistair Fine Jewelry</p>
             </div>
-            <button onClick={() => setOpen(false)} className="text-white text-2xl leading-none hover:opacity-60 transition">x</button>
+            <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: '#fff', fontSize: '22px', cursor: 'pointer', lineHeight: 1, padding: 0 }}>×</button>
           </div>
-          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3" style={{ background: '#fafaf9' }}>
+          <div style={{ flex: 1, overflowY: 'auto', padding: '16px', background: '#fafaf9', display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {messages.map((m, i) => (
-              <div key={i} className={"flex " + (m.role === 'user' ? 'justify-end' : 'justify-start')}>
-                <div className="text-sm leading-relaxed px-4 py-2 rounded-2xl max-w-xs" style={m.role === 'user' ? { background: '#111', color: '#fff' } : { background: '#fff', color: '#222', border: '1px solid #e5e5e5' }}>
+              <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
+                <div style={{ fontSize: '13px', lineHeight: '1.5', padding: '10px 14px', borderRadius: '18px', maxWidth: '85%', background: m.role === 'user' ? '#111' : '#fff', color: m.role === 'user' ? '#fff' : '#222', border: m.role === 'user' ? 'none' : '1px solid #e5e5e5' }}>
                   {m.content}
                 </div>
               </div>
             ))}
             {loading && (
-              <div className="flex justify-start">
-                <div className="text-sm px-4 py-2 rounded-2xl italic text-gray-400" style={{ background: '#fff', border: '1px solid #e5e5e5' }}>Raegan is typing...</div>
+              <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                <div style={{ fontSize: '13px', padding: '10px 14px', borderRadius: '18px', background: '#fff', color: '#999', border: '1px solid #e5e5e5', fontStyle: 'italic' }}>Raegan is typing...</div>
               </div>
             )}
             <div ref={bottomRef} />
           </div>
-          <div className="px-4 py-3 border-t border-gray-100 flex gap-2 items-center" style={{ background: '#fff' }}>
+          <div style={{ padding: '12px 16px', borderTop: '1px solid #f0f0f0', background: '#fff', display: 'flex', gap: '8px', alignItems: 'center' }}>
             <input
-              className="flex-1 text-sm outline-none border border-gray-200 rounded-xl px-3 py-2 focus:border-gray-400 transition"
+              style={{ flex: 1, fontSize: '13px', border: '1px solid #e0e0e0', borderRadius: '12px', padding: '10px 14px', outline: 'none', fontFamily: 'sans-serif' }}
               placeholder="Type a message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
               disabled={loading}
             />
-            <button onClick={sendMessage} disabled={loading || !input.trim()} className="rounded-xl px-4 py-2 text-sm font-medium transition" style={{ background: input.trim() && !loading ? '#111' : '#ddd', color: input.trim() && !loading ? '#fff' : '#999' }}>
+            <button
+              onClick={sendMessage}
+              disabled={loading || !input.trim()}
+              style={{ background: input.trim() && !loading ? '#111' : '#ddd', color: input.trim() && !loading ? '#fff' : '#999', border: 'none', borderRadius: '12px', padding: '10px 18px', fontSize: '13px', fontWeight: 500, cursor: input.trim() && !loading ? 'pointer' : 'not-allowed', fontFamily: 'sans-serif' }}
+            >
               Send
             </button>
           </div>
         </div>
       ) : (
-        <button onClick={() => setOpen(true)} className="flex items-center gap-2 px-5 py-3 rounded-full shadow-lg text-sm font-medium transition hover:opacity-80" style={{ background: '#111', color: '#fff' }}>
-          <span>Chat with Raegan</span>
+        <button
+          onClick={() => setOpen(true)}
+          style={{ background: '#111', color: '#fff', border: 'none', borderRadius: '50px', padding: '14px 22px', fontSize: '13px', fontWeight: 500, cursor: 'pointer', boxShadow: '0 4px 20px rgba(0,0,0,0.2)', fontFamily: 'sans-serif', display: 'flex', alignItems: 'center', gap: '8px' }}
+        >
+          💎 Chat with Raegan
         </button>
       )}
     </div>
