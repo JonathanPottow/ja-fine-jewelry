@@ -19,38 +19,36 @@ export default function RaeganChat() {
   const [hasJoined, setHasJoined] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [isReading, setIsReading] = useState(false);
+  const [isBusy, setIsBusy] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [waitingForFirst, setWaitingForFirst] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping, isReading, hasJoined]);
+  }, [messages, isTyping, hasJoined]);
 
   const sendMessage = async () => {
-    if (!input.trim() || loading || isTyping || isReading) return;
+    if (!input.trim() || isBusy || isTyping) return;
     const userMessage: Message = { role: 'user', content: input };
     const updated = [...messages, userMessage];
     setMessages(updated);
     setInput('');
-    setLoading(true);
+    setIsBusy(true);
 
-    // First message flow — Raegan joins before responding
     if (waitingForFirst) {
       setWaitingForFirst(false);
 
-      // Step 1 — 2 second pause, nothing happens
+      // 2 second silent pause — no dots, nothing
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      // Step 2 — Raegan joins
+      // Raegan joins
       setHasJoined(true);
 
-      // Step 3 — 1.5 second pause after joining
+      // 1.5 second pause after joining — still no dots
       await new Promise(resolve => setTimeout(resolve, 1500));
 
-      // Step 4 — fetch response in background, then show typing
+      // Fetch response
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -60,16 +58,18 @@ export default function RaeganChat() {
       const replyText = data.message || 'Sorry, something went wrong.';
       const typingDelay = getTypingDelay(replyText);
 
-      setLoading(false);
+      // NOW show typing dots
       setIsTyping(true);
       await new Promise(resolve => setTimeout(resolve, typingDelay));
       setIsTyping(false);
+      setIsBusy(false);
       setMessages([...updated, { role: 'assistant', content: replyText }]);
       return;
     }
 
-    // All subsequent messages — reading pause then typing
+    // Subsequent messages
     try {
+      // Fetch in background silently — no dots yet
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -79,20 +79,18 @@ export default function RaeganChat() {
       const replyText = data.message || 'Sorry, something went wrong.';
       const typingDelay = getTypingDelay(replyText);
 
-      setLoading(false);
-      setIsReading(true);
+      // Silent reading pause — no dots
       const readingPause = 2000 + Math.random() * 1000;
       await new Promise(resolve => setTimeout(resolve, readingPause));
 
-      setIsReading(false);
+      // NOW show typing dots
       setIsTyping(true);
       await new Promise(resolve => setTimeout(resolve, typingDelay));
-
       setIsTyping(false);
+      setIsBusy(false);
       setMessages([...updated, { role: 'assistant', content: replyText }]);
     } catch {
-      setLoading(false);
-      setIsReading(false);
+      setIsBusy(false);
       setIsTyping(false);
       setMessages([...updated, { role: 'assistant', content: "I'm having trouble connecting right now. Please try again." }]);
     }
@@ -115,7 +113,7 @@ export default function RaeganChat() {
           {/* Messages */}
           <div style={{ flex: 1, overflowY: 'auto', padding: '16px', background: '#fafaf9', display: 'flex', flexDirection: 'column', gap: '10px' }}>
 
-            {/* Static welcome — always visible before first message */}
+            {/* Static welcome */}
             {waitingForFirst && !hasJoined && (
               <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
                 <p style={{ fontSize: '15px', color: '#8a6e4b', textAlign: 'center', fontStyle: 'italic', letterSpacing: '0.02em', lineHeight: 1.6 }}>
@@ -124,7 +122,7 @@ export default function RaeganChat() {
               </div>
             )}
 
-            {/* Raegan joined indicator */}
+            {/* Raegan joined */}
             {hasJoined && (
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <span style={{ fontSize: '10px', color: '#bbb', letterSpacing: '0.08em', textTransform: 'uppercase', background: '#f0ede8', padding: '4px 12px', borderRadius: '20px' }}>
@@ -142,8 +140,8 @@ export default function RaeganChat() {
               </div>
             ))}
 
-            {/* Typing dots */}
-            {(isTyping || (loading && hasJoined)) && (
+            {/* Typing dots — ONLY shown during isTyping, never during reading/loading */}
+            {isTyping && (
               <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                 <div style={{ padding: '10px 14px', borderRadius: '18px', background: '#fff', border: '1px solid #e5e5e5', display: 'flex', gap: '4px', alignItems: 'center' }}>
                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#bbb', display: 'inline-block', animation: 'bounce 1.4s infinite', animationDelay: '0s' }} />
@@ -171,12 +169,12 @@ export default function RaeganChat() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-              disabled={loading || isTyping || isReading}
+              disabled={isBusy || isTyping}
             />
             <button
               onClick={sendMessage}
-              disabled={loading || isTyping || isReading || !input.trim()}
-              style={{ background: input.trim() && !loading && !isTyping && !isReading ? '#111' : '#ddd', color: input.trim() && !loading && !isTyping && !isReading ? '#fff' : '#999', border: 'none', borderRadius: '12px', padding: '10px 18px', fontSize: '13px', fontWeight: 500, cursor: input.trim() && !loading && !isTyping && !isReading ? 'pointer' : 'not-allowed', fontFamily: 'sans-serif' }}
+              disabled={isBusy || isTyping || !input.trim()}
+              style={{ background: input.trim() && !isBusy && !isTyping ? '#111' : '#ddd', color: input.trim() && !isBusy && !isTyping ? '#fff' : '#999', border: 'none', borderRadius: '12px', padding: '10px 18px', fontSize: '13px', fontWeight: 500, cursor: input.trim() && !isBusy && !isTyping ? 'pointer' : 'not-allowed', fontFamily: 'sans-serif' }}
             >
               Send
             </button>
