@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import RaeganChat from '@/components/RaeganChat'
+import Animations from '@/components/Animations'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import Animations from '@/components/Animations'
 
 export const metadata: Metadata = {
   title: 'Jonathan Alistair Fine Jewelry | Bespoke Fine Jewelry Charlotte NC',
