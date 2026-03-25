@@ -411,7 +411,7 @@
 @media (max-width: 1024px) {
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .heroText { padding: 5rem 2rem 3rem; }
-  .heroVisual { min-height: 65vw; }
+  .heroVisual { min-height: 70vw; }
   .aboutGrid { grid-template-columns: 1fr; gap: 2.5rem; }
   .aboutImagePlaceholder { min-height: 60vw; }
   .processGrid { grid-template-columns: repeat(2, 1fr); }
@@ -437,17 +437,8 @@
   .sectionHeader { flex-wrap: wrap; }
   .heroText { padding: 4rem 1.5rem 2.5rem; }
   .ctaRow { gap: 1.5rem; }
-  .heroVisual { min-height: 75vw; }
-  .heroTag {
-    bottom: auto;
-    top: auto;
-    position: relative;
-    left: auto;
-    margin: 0;
-    border-left: 2px solid var(--bronze);
-    background: var(--cream);
-    padding: 0.75rem 1.25rem;
-  }
+  .heroVisual { min-height: 80vw; }
+  .heroTag { display: none; }
 }
 
 /* Form success & error states */

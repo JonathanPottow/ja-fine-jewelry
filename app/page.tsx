@@ -37,6 +37,10 @@ export default function Home() {
             <span className={styles.tagValue}>New commissions</span>
           </div>
         </div>
+        <div className={styles.heroTagMobile}>
+          <span className={styles.tagLabel}>Currently accepting</span>
+          <span className={styles.tagValue}>New commissions</span>
+        </div>
             </section>
 
       {/* ─── MARQUEE ─── */}
