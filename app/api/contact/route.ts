@@ -1,78 +1,61 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { Resend } from 'resend'
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
+  const resend = new Resend(process.env.RESEND_API_KEY)
   try {
-    const formData = await request.formData()
-    const rawData = formData.get('data')
-    const { name, email, phone, piece, story, timeline } = JSON.parse(rawData as string)
+    const formData = await req.formData()
+    const data = JSON.parse(formData.get('data') as string)
+    const { name, email, phone, piece, story, timeline } = data
 
-    // Split name into first/last
-    const nameParts = (name || '').trim().split(' ')
-    const firstName = nameParts[0] || ''
-    const lastName = nameParts.slice(1).join(' ') || ''
+    await resend.emails.send({
+      from: 'Jonathan Alistair Website <onboarding@resend.dev>',
+      to: process.env.CONTACT_EMAIL!,
+      replyTo: email,
+      subject: `New Commission Inquiry — ${piece || 'General'} from ${name}`,
+      html: `
+        <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #2c2416;">
+          <h1 style="font-size: 28px; font-weight: 400; margin-bottom: 8px;">New Commission Inquiry</h1>
+          <p style="color: #8a6e4b; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 40px;">Jonathan Alistair Fine Jewelry</p>
+          
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr style="border-bottom: 1px solid #e8ddd0;">
+              <td style="padding: 16px 0; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #8a6e4b; width: 140px;">Name</td>
+              <td style="padding: 16px 0; font-size: 16px;">${name}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #e8ddd0;">
+              <td style="padding: 16px 0; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #8a6e4b;">Email</td>
+              <td style="padding: 16px 0; font-size: 16px;"><a href="mailto:${email}" style="color: #8a6e4b;">${email}</a></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #e8ddd0;">
+              <td style="padding: 16px 0; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #8a6e4b;">Phone</td>
+              <td style="padding: 16px 0; font-size: 16px;">${phone || '—'}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #e8ddd0;">
+              <td style="padding: 16px 0; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #8a6e4b;">Piece Type</td>
+              <td style="padding: 16px 0; font-size: 16px;">${piece || '—'}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #e8ddd0;">
+              <td style="padding: 16px 0; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #8a6e4b;">Timeline</td>
+              <td style="padding: 16px 0; font-size: 16px;">${timeline || '—'}</td>
+            </tr>
+          </table>
 
-    // Handle uploaded files — convert to base64 URLs for the note
-    const files = formData.getAll('files') as File[]
-    const fileNames = files.map(f => f.name).filter(Boolean)
+          <div style="margin-top: 32px; padding: 24px; background: #f7f2eb; border-left: 3px solid #8a6e4b;">
+            <p style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #8a6e4b; margin-bottom: 12px;">Their Story</p>
+            <p style="font-size: 16px; line-height: 1.8; margin: 0;">${story || '—'}</p>
+          </div>
 
-    // Build note content
-    const noteLines = [
-      `INQUIRY FROM WEBSITE`,
-      `---`,
-      piece ? `Piece: ${piece}` : null,
-      timeline ? `Timeline: ${timeline}` : null,
-      story ? `\nClient's Story:\n${story}` : null,
-      fileNames.length > 0 ? `\nAttachments submitted: ${fileNames.join(', ')}` : null,
-    ].filter(Boolean).join('\n')
-
-    // Create contact in Wix CRM
-    const contactRes = await fetch('https://www.wixapis.com/contacts/v4/contacts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.WIX_API_KEY}`,
-        'wix-site-id': process.env.WIX_SITE_ID || '',
-      },
-      body: JSON.stringify({
-        allowDuplicates: false,
-        info: {
-          name: { first: firstName, last: lastName },
-          emails: { items: [{ tag: 'MAIN', email }] },
-          ...(phone ? { phones: { items: [{ tag: 'MOBILE', phone }] } } : {}),
-          extendedFields: {
-            items: {
-              'custom.inquiryType': piece || 'General Inquiry',
-              'custom.inquiryMessage': story || '',
-              'custom.timeline': timeline || '',
-              'custom.source': 'Website Contact Form',
-            }
-          },
-          labelKeys: { items: ['custom.website-inquiry'] }
-        }
-      })
+          <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #e8ddd0; text-align: center;">
+            <a href="mailto:${email}" style="display: inline-block; background: #2c2416; color: #f7f2eb; padding: 14px 32px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;">Reply to ${name}</a>
+          </div>
+        </div>
+      `,
     })
-
-    const contactData = await contactRes.json()
-    const contactId = contactData?.contact?.id
-
-    // Add note with full inquiry + file names
-    if (contactId) {
-      await fetch('https://www.wixapis.com/crm/notes/v2/notes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.WIX_API_KEY}`,
-          'wix-site-id': process.env.WIX_SITE_ID || '',
-        },
-        body: JSON.stringify({
-          note: { contactId, content: noteLines }
-        })
-      })
-    }
 
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Contact form error:', error)
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ error: 'Failed to send' }, { status: 500 })
   }
 }
