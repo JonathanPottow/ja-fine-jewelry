@@ -3,27 +3,27 @@ import { useRef } from 'react'
 import styles from './PortfolioGrid.module.css'
 
 const pieces = [
-  { ref: '252856', file: '252856.mp4' },
-  { ref: '252862', file: '252862.mp4' },
-  { ref: '251880', file: '#251880.mp4' },
-  { ref: '251941', file: '#251941.mp4' },
-  { ref: '252224', file: '#252224.mp4' },
-  { ref: '252421', file: '#252421.mp4' },
-  { ref: '252470', file: '#252470.mp4' },
-  { ref: '252489', file: '#252489.mp4' },
-  { ref: '252722', file: '#252722.mp4' },
-  { ref: '252844', file: '#252844.mp4' },
-  { ref: '252896', file: '#252896.mp4' },
-  { ref: '241070', file: '241070.mp4' },
-  { ref: '241554 & 241555', file: '241554 & 241555.mp4' },
-  { ref: '241587', file: '241587.mp4' },
-  { ref: '241606', file: '241606.mp4' },
-  { ref: '252025', file: '252025.mp4' },
-  { ref: '252734', file: '252734.mp4' },
-  { ref: '241120', file: 'JA 241120 .mp4' },
-  { ref: '241126', file: 'JA 241126.mp4' },
-  { ref: 'Stewart · Plat', file: 'Stewart Plat.MOV' },
-  { ref: 'Stewart · TT', file: 'Stewart TT.MOV' },
+  { ref: '252856', file: 'converted_252856.mp4' },
+  { ref: '252862', file: 'converted_252862.mp4' },
+  { ref: '251880', file: 'converted_#251880.mp4' },
+  { ref: '251941', file: 'converted_#251941.mp4' },
+  { ref: '252224', file: 'converted_#252224.mp4' },
+  { ref: '252421', file: 'converted_#252421.mp4' },
+  { ref: '252470', file: 'converted_#252470.mp4' },
+  { ref: '252489', file: 'converted_#252489.mp4' },
+  { ref: '252722', file: 'converted_#252722.mp4' },
+  { ref: '252844', file: 'converted_#252844.mp4' },
+  { ref: '252896', file: 'converted_#252896.mp4' },
+  { ref: '241070', file: 'converted_241070.mp4' },
+  { ref: '241554 & 241555', file: 'converted_241554 & 241555.mp4' },
+  { ref: '241587', file: 'converted_241587.mp4' },
+  { ref: '241606', file: 'converted_241606.mp4' },
+  { ref: '252025', file: 'converted_252025.mp4' },
+  { ref: '252734', file: 'converted_252734.mp4' },
+  { ref: '241120', file: 'converted_JA 241120 .mp4' },
+  { ref: '241126', file: 'converted_JA 241126.mp4' },
+  { ref: 'Stewart · Plat', file: 'converted_Stewart Plat.mp4' },
+  { ref: 'Stewart · TT', file: 'converted_Stewart TT.mp4' },
 ]
 
 function VideoCard({ piece, featured }: { piece: typeof pieces[0], featured?: boolean }) {
@@ -50,7 +50,7 @@ function VideoCard({ piece, featured }: { piece: typeof pieces[0], featured?: bo
       <video
         ref={videoRef}
         className={styles.video}
-        src={`/portfolio/${piece.file}`}
+        src={`/portfolio/${encodeURIComponent(piece.file)}`}
         muted
         playsInline
         loop
