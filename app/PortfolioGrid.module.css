@@ -22,12 +22,11 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: transform 0.4s ease;
 }
 
 .card:hover .video {
-  opacity: 1;
+  transform: scale(1.03);
 }
 
 .overlay {
@@ -36,12 +35,7 @@
   display: flex;
   align-items: flex-end;
   padding: 1rem 1.25rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 50%);
-  transition: background 0.3s ease;
-}
-
-.card:hover .overlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
+  background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 50%);
 }
 
 .refLabel {
