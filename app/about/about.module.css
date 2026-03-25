@@ -1,5 +1,5 @@
 .page { font-family: var(--font-sans); }
-.eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bronze); margin-bottom: 1rem; }
+.eyebrow { font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bronze); margin-bottom: 1rem; }
 
 /* HERO */
 .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 85vh; }
@@ -30,7 +30,7 @@
 .timelineYear { font-family: var(--font-serif); font-size: 2.5rem; color: var(--bronze); font-weight: 400; line-height: 1; }
 .timelineDot { width: 8px; height: 8px; border-radius: 50%; background: var(--bronze); opacity: 0.5; }
 .timelineRight { }
-.timelineTitle2 { font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream); margin: 0 0 1rem; font-weight: 500; }
+.timelineTitle2 { font-family: var(--font-sans); font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream); margin: 0 0 1rem; font-weight: 500; }
 .timelineDesc { color: rgba(255,255,255,0.65); line-height: 1.8; font-size: 0.95rem; margin: 0; }
 
 /* PHILOSOPHY */
@@ -42,7 +42,7 @@
 .philosophyStats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.1); }
 .statCard { background: var(--cream); padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
 .statNum { font-family: var(--font-serif); font-size: 2.2rem; color: var(--espresso); font-weight: 400; line-height: 1; }
-.statLabel { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; line-height: 1.4; }
+.statLabel { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; line-height: 1.4; }
 
 /* CHARLOTTE */
 .charlotteSection { background: var(--sand); padding: 6rem 4rem; }
@@ -56,7 +56,7 @@
 .ctaSection .eyebrow { color: var(--bronze); }
 .ctaTitle { font-family: var(--font-serif); font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 400; color: var(--cream); margin: 0 0 3rem; line-height: 1.2; }
 .ctaTitle em { font-style: italic; color: var(--bronze); }
-.ctaBtn { display: inline-block; background: var(--bronze); color: var(--cream); padding: 1rem 3rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: opacity 0.2s; }
+.ctaBtn { display: inline-block; background: var(--bronze); color: var(--cream); padding: 1rem 3rem; font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: opacity 0.2s; }
 .ctaBtn:hover { opacity: 0.85; }
 
 /* RESPONSIVE */

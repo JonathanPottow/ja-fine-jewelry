@@ -35,7 +35,7 @@
 }
 
 .link {
-  font-size: 10px;
+  font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--bark);
@@ -47,7 +47,7 @@
   background: var(--espresso);
   color: var(--cream);
   padding: 0.6rem 1.35rem;
-  font-size: 10px;
+  font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   transition: background 0.2s;
@@ -93,7 +93,7 @@
   background: var(--espresso);
   color: var(--cream);
   padding: 0.85rem 2rem;
-  font-size: 10px;
+  font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   text-align: center;
