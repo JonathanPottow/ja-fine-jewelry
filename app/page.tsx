@@ -25,29 +25,19 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.heroVisual}>
-          <div className={styles.heroImage}>
-            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" className={styles.ringIllustration}>
-              <circle cx="160" cy="160" r="148" fill="none" stroke="#c9b99a" strokeWidth="0.5"/>
-              <circle cx="160" cy="160" r="82" fill="none" stroke="#8a6e4b" strokeWidth="1"/>
-              <circle cx="160" cy="160" r="77" fill="none" stroke="#c9b99a" strokeWidth="0.5"/>
-              <ellipse cx="160" cy="78" rx="20" ry="25" fill="#e8ddd0" stroke="#8a6e4b" strokeWidth="1"/>
-              <ellipse cx="160" cy="78" rx="11" ry="14" fill="none" stroke="#c9b99a" strokeWidth="0.5"/>
-              <line x1="144" y1="82" x2="126" y2="94" stroke="#c9b99a" strokeWidth="0.5"/>
-              <line x1="176" y1="82" x2="194" y2="94" stroke="#c9b99a" strokeWidth="0.5"/>
-              <path d="M126 94 A82 82 0 0 0 194 94" fill="none" stroke="#8a6e4b" strokeWidth="1"/>
-              <path d="M194 94 A82 82 0 1 0 126 94" fill="none" stroke="#8a6e4b" strokeWidth="1"/>
-              <circle cx="160" cy="78" r="5" fill="#8a6e4b" opacity="0.4"/>
-              <circle cx="140" cy="90" r="3" fill="#c9b99a" opacity="0.6"/>
-              <circle cx="180" cy="90" r="3" fill="#c9b99a" opacity="0.6"/>
-              <text x="160" y="178" textAnchor="middle" fontFamily="Cormorant Garamond, serif" fontSize="11" fill="#8a6e4b" letterSpacing="5">JA</text>
-            </svg>
+          <div className={styles.heroImage} style={{overflow: 'hidden'}}>
+            <img
+              src="/hero-rings.jpg"
+              alt="Bespoke fine jewelry by Jonathan Alistair"
+              style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block'}}
+            />
           </div>
           <div className={styles.heroTag}>
             <span className={styles.tagLabel}>Currently accepting</span>
             <span className={styles.tagValue}>New commissions</span>
           </div>
         </div>
-      </section>
+            </section>
 
       {/* ─── MARQUEE ─── */}
       <div className={styles.marquee}>
