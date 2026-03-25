@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, backgroundColor: '#f7f2eb', color: '#2c2416', WebkitFontSmoothing: 'antialiased' }}>
         {children}
         <RaeganChat />
       </body>
