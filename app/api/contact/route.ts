@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': process.env.WIX_API_KEY!,
-        'wix-site-id': 'a88b9a01-4d81-43a0-8a35-69be29ae56ea',
+        'wix-site-id': '35200a65-a6be-48d2-82dd-36f6a34d1923',
       },
       body: JSON.stringify({
         info: {
