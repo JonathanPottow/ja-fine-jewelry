@@ -46,3 +46,9 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.videoPlaceholder {
+  position: absolute;
+  inset: 0;
+  background: var(--sand);
+}

@@ -26,13 +26,16 @@ const allPieces = [
   { ref: 'Stewart · TT', file: 'converted_Stewart TT.mp4', thumbTime: 2 },
 ]
 
-function VideoCard({ piece, priority }: { piece: typeof allPieces[0], priority: boolean }) {
+function VideoCard({ piece, index }: { piece: typeof allPieces[0], index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const [shouldLoad, setShouldLoad] = useState(priority)
+  // First 9 (3 rows) load immediately, rest lazy load
+  const [shouldLoad, setShouldLoad] = useState(index < 9)
 
   useEffect(() => {
-    if (priority) return // already loading
+    if (index < 9) return
+    const el = containerRef.current
+    if (!el) return
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -40,11 +43,11 @@ function VideoCard({ piece, priority }: { piece: typeof allPieces[0], priority: 
           observer.disconnect()
         }
       },
-      { rootMargin: '200px' } // start loading 200px before it enters view
+      { rootMargin: '600px' } // load well before they come into view
     )
-    if (containerRef.current) observer.observe(containerRef.current)
+    observer.observe(el)
     return () => observer.disconnect()
-  }, [priority])
+  }, [index])
 
   const handleMouseEnter = () => videoRef.current?.play()
   const handleMouseLeave = () => {
@@ -59,7 +62,7 @@ function VideoCard({ piece, priority }: { piece: typeof allPieces[0], priority: 
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {shouldLoad && (
+      {shouldLoad ? (
         <video
           ref={videoRef}
           className={styles.video}
@@ -67,11 +70,13 @@ function VideoCard({ piece, priority }: { piece: typeof allPieces[0], priority: 
           muted
           playsInline
           loop
-          preload={priority ? 'metadata' : 'none'}
+          preload="metadata"
           onLoadedMetadata={(e) => {
             (e.target as HTMLVideoElement).currentTime = piece.thumbTime
           }}
         />
+      ) : (
+        <div className={styles.videoPlaceholder} />
       )}
       <div className={styles.overlay}>
         <span className={styles.refLabel}>#{piece.ref}</span>
@@ -84,7 +89,7 @@ export default function PortfolioFull() {
   return (
     <div className={styles.grid}>
       {allPieces.map((piece, i) => (
-        <VideoCard key={piece.ref} piece={piece} priority={i < 6} />
+        <VideoCard key={piece.ref} piece={piece} index={i} />
       ))}
     </div>
   )
