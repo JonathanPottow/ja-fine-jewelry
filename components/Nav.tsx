@@ -22,7 +22,7 @@ export default function Nav() {
           <Link href="/experience" className={styles.link} onClick={() => setMenuOpen(false)}>Experience</Link>
           <Link href="/portfolio" className={styles.link} onClick={() => setMenuOpen(false)}>Full Portfolio</Link>
           <a href={isHome ? '#contact' : '/#contact'} className={styles.cta} onClick={() => setMenuOpen(false)}>
-            Begin Your Journey
+            Let's Talk
           </a>
         </div>
 
@@ -45,7 +45,7 @@ export default function Nav() {
           <Link href="/experience" className={styles.link} onClick={() => setMenuOpen(false)}>Experience</Link>
           <Link href="/portfolio" className={styles.link} onClick={() => setMenuOpen(false)}>Full Portfolio</Link>
           <a href={isHome ? '#contact' : '/#contact'} className={styles.mobileCta} onClick={() => setMenuOpen(false)}>
-            Begin Your Journey
+            Let's Talk
           </a>
         </div>
       )}

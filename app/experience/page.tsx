@@ -128,7 +128,7 @@ export default function Experience() {
             not the other way around.
           </p>
           <Link href="/#contact" className={styles.heroCta}>
-            Begin Your Journey
+            Let's Talk
           </Link>
         </div>
       </section>
@@ -248,7 +248,7 @@ export default function Experience() {
             Jonathan responds personally to every inquiry within 48 hours.
           </p>
           <Link href="/#contact" className={styles.ctaBtn}>
-            Begin Your Journey
+            Let's Talk
           </Link>
         </div>
       </section>
