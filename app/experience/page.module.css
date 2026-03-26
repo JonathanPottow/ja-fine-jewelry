@@ -83,7 +83,7 @@
 .introText p {
   font-size: var(--text-body);
   line-height: var(--line-height-body);
-  color: var(--bark);
+  color: var(--ink);
   margin-bottom: 1.25rem;
 }
 
@@ -145,7 +145,7 @@
 .stepBody {
   font-size: var(--text-body);
   line-height: var(--line-height-body);
-  color: var(--bark);
+  color: var(--ink);
   max-width: 480px;
   margin-top: 0.5rem;
 }
@@ -232,7 +232,7 @@
 .faqA {
   font-size: var(--text-body-sm);
   line-height: var(--line-height-body);
-  color: var(--bark);
+  color: var(--ink);
   padding-left: 1rem;
 }
 

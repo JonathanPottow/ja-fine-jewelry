@@ -35,7 +35,7 @@
 .pageIntro {
   font-size: var(--text-body);
   line-height: var(--line-height-body);
-  color: var(--bark);
+  color: var(--ink);
 }
 
 .formWrap {
@@ -63,7 +63,7 @@
   font-size: var(--text-eyebrow);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--bark);
+  color: var(--ink);
 }
 
 .formGroup input,
@@ -126,7 +126,7 @@
 .expectList li {
   font-size: 13px;
   line-height: 1.7;
-  color: var(--bark);
+  color: var(--ink);
   padding-left: 1.25rem;
   position: relative;
 }
@@ -182,7 +182,7 @@
 .thankYouText {
   font-size: 15px;
   line-height: 1.9;
-  color: var(--bark);
+  color: var(--ink);
   max-width: 440px;
 }
 
@@ -225,7 +225,7 @@
 .faqA {
   font-size: var(--text-body-sm);
   line-height: var(--line-height-body);
-  color: var(--bark);
+  color: var(--ink);
   padding-left: 1rem;
 }
 @media (max-width: 768px) {
@@ -239,5 +239,5 @@
 .faqGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem 4rem; margin-bottom: 3rem; }
 .faqItem { display: flex; flex-direction: column; gap: 0.6rem; }
 .faqQ { font-size: 14px; font-weight: 400; color: var(--ink); border-left: 2px solid var(--bronze); padding-left: 1rem; }
-.faqA { font-size: 13px; line-height: 1.9; color: var(--bark); padding-left: 1rem; }
+.faqA { font-size: 13px; line-height: 1.9; color: var(--ink); padding-left: 1rem; }
 @media (max-width: 768px) { .faqGrid { grid-template-columns: 1fr; gap: 2rem; } .faqSection { padding: 3rem 1.5rem 1rem; } }

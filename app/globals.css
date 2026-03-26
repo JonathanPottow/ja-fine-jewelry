@@ -35,7 +35,7 @@ html {
 
 body {
   font-family: var(--font-sans);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 16px;
   line-height: 1.8;
   background-color: var(--cream);
@@ -46,6 +46,8 @@ body {
 p {
   font-size: var(--text-body);
   line-height: var(--line-height-body);
+  font-weight: 400;
+  color: var(--ink);
 }
 
 label {
