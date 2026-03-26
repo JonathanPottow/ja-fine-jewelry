@@ -5,7 +5,7 @@
 }
 
 .eyebrow {
-  font-size: 10px;
+  font-size: var(--text-eyebrow);
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--bronze);
@@ -33,8 +33,8 @@
 }
 
 .pageIntro {
-  font-size: 14px;
-  line-height: 1.9;
+  font-size: var(--text-body);
+  line-height: var(--line-height-body);
   color: var(--bark);
 }
 
@@ -60,7 +60,7 @@
 }
 
 .formGroup label {
-  font-size: 10px;
+  font-size: var(--text-eyebrow);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--bark);
@@ -153,7 +153,7 @@
 }
 
 .sidebarQuote cite {
-  font-size: 10px;
+  font-size: var(--text-eyebrow);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--bronze);
@@ -223,8 +223,8 @@
   padding-left: 1rem;
 }
 .faqA {
-  font-size: 13px;
-  line-height: 1.9;
+  font-size: var(--text-body-sm);
+  line-height: var(--line-height-body);
   color: var(--bark);
   padding-left: 1rem;
 }

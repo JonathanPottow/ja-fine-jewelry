@@ -10,6 +10,16 @@
   --ink: #1e1710;
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Jost', sans-serif;
+
+  /* ─── TYPE SCALE ─── */
+  --text-eyebrow: 12px;        /* "BESPOKE FINE JEWELRY" labels */
+  --text-body: 15px;           /* all body paragraphs */
+  --text-body-sm: 14px;        /* secondary body, FAQ answers */
+  --text-label: 13px;          /* form labels, captions */
+  --text-ui: 11px;             /* nav links, buttons, tags */
+  --text-tag-value: 17px;      /* "New commissions" tag */
+  --line-height-body: 1.9;
+  --line-height-relaxed: 2.0;
 }
 
 * {
@@ -34,12 +44,12 @@ body {
 }
 
 p {
-  font-size: 15px;
-  line-height: 1.9;
+  font-size: var(--text-body);
+  line-height: var(--line-height-body);
 }
 
 label {
-  font-size: 13px;
+  font-size: var(--text-label);
   letter-spacing: 0.12em;
 }
 
@@ -56,7 +66,7 @@ img {
 /* Typography utilities */
 .serif { font-family: var(--font-serif); }
 .eyebrow {
-  font-size: 12px;
+  font-size: var(--text-eyebrow);
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--bronze);
