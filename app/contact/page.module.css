@@ -194,3 +194,50 @@
 @media (max-width: 640px) {
   .formRow { grid-template-columns: 1fr; }
 }
+
+/* ─── FAQ SECTION ─── */
+.faqSection {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem 2rem;
+}
+.faqTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 2.5rem;
+}
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem 4rem;
+  margin-bottom: 3rem;
+}
+.faqItem { display: flex; flex-direction: column; gap: 0.6rem; }
+.faqQ {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  border-left: 2px solid var(--bronze);
+  padding-left: 1rem;
+}
+.faqA {
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--bark);
+  padding-left: 1rem;
+}
+@media (max-width: 768px) {
+  .faqGrid { grid-template-columns: 1fr; gap: 2rem; }
+  .faqSection { padding: 3rem 1.5rem 1rem; }
+}
+
+/* FAQ */
+.faqSection { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 2rem; }
+.faqTitle { font-family: var(--font-serif); font-size: clamp(24px, 3vw, 36px); font-weight: 300; color: var(--ink); margin-bottom: 2.5rem; }
+.faqGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem 4rem; margin-bottom: 3rem; }
+.faqItem { display: flex; flex-direction: column; gap: 0.6rem; }
+.faqQ { font-size: 14px; font-weight: 400; color: var(--ink); border-left: 2px solid var(--bronze); padding-left: 1rem; }
+.faqA { font-size: 13px; line-height: 1.9; color: var(--bark); padding-left: 1rem; }
+@media (max-width: 768px) { .faqGrid { grid-template-columns: 1fr; gap: 2rem; } .faqSection { padding: 3rem 1.5rem 1rem; } }

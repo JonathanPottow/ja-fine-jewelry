@@ -88,6 +88,29 @@ const steps = [
   },
 ]
 
+const faqs = [
+  {
+    q: 'What is the investment for a custom piece?',
+    a: 'Every commission is different — a bespoke engagement ring with a rare stone is a very different project from a refined anniversary band or a reimagined heirloom. As a guide, most custom commissions begin from $6,500, though the right number depends entirely on your vision, materials, and level of detail. What you will never experience is pressure, hidden costs, or a recommendation that is not genuinely in your best interest. Have a budget in mind? Share it when you reach out — Jonathan will always be honest about what is possible.',
+  },
+  {
+    q: 'Do I need to know exactly what I want before reaching out?',
+    a: 'Not at all — and most clients do not. Some arrive with a clear vision. Others come with a feeling, an occasion, or a photograph saved on their phone. A few come with nothing more than a sense that they want something truly one of a kind. All of it is a perfectly fine place to start. Jonathan\'s first job is to listen — to understand you, the person you are creating this for, and what this piece needs to mean.',
+  },
+  {
+    q: 'How long does the process take?',
+    a: 'Most commissions move from first conversation to finished piece in four to eight weeks. More intricate designs or rare stone sourcing may take a little longer — Jonathan will give you a clear and honest timeline upfront so there are no surprises. If you are working toward a specific date — a proposal, an anniversary, a birthday — mention it when you reach out.',
+  },
+  {
+    q: 'What does the design process look like?',
+    a: 'Once Jonathan understands your vision, he creates detailed CAD renderings — precise, three-dimensional representations of your piece — so you can see exactly what it will look like before a single stone is set or a gram of metal is touched. Nothing moves forward until you love what you see. Revisions are welcomed, not rationed.',
+  },
+  {
+    q: 'Is a deposit required to begin?',
+    a: 'Yes. To begin the design and production process, Jonathan requires a 50% deposit, with the remaining balance due upon completion before delivery. This protects your commission and allows Jonathan to source your materials and allocate the time your piece deserves. All deposits and pricing are discussed openly before any commitment is made.',
+  },
+]
+
 export default function Experience() {
   return (
     <div className={styles.page}>
@@ -202,12 +225,7 @@ export default function Experience() {
           <p className={styles.eyebrow}>Common questions</p>
           <h2 className={styles.faqTitle}>Everything you need to know</h2>
           <div className={styles.faqGrid}>
-            {[
-              { q: 'How long does the process take?', a: 'Most commissions take 4 to 8 weeks from design approval to delivery. Timelines vary based on complexity — Jonathan will give you a clear estimate upfront.' },
-              { q: 'What is the investment?', a: 'Every piece is priced based on your specifications. Jonathan works across a range of budgets and will be transparent about costs from your very first conversation.' },
-              { q: 'Do I need to know exactly what I want?', a: 'Not at all. Many clients come with just a feeling or an occasion. Jonathan is skilled at helping you find the right direction through conversation.' },
-              { q: 'Can I work with existing stones or jewelry?', a: 'Absolutely. Heirloom redesigns are one of the most meaningful commissions Jonathan takes on — honoring the past while creating something new.' },
-            ].map((item, i) => (
+            {faqs.map((item, i) => (
               <div key={i} className={styles.faqItem}>
                 <h3 className={styles.faqQ}>{item.q}</h3>
                 <p className={styles.faqA}>{item.a}</p>
