@@ -34,7 +34,7 @@
 .heroSubtext {
   font-size: 14px;
   line-height: 1.8;
-  color: var(--tan);
+  color: rgba(247,242,235,0.8);
   max-width: 460px;
 }
 .heroCta {
@@ -183,7 +183,7 @@
 .differenceCard p {
   font-size: 13px;
   line-height: 1.9;
-  color: #a08d76;
+  color: rgba(247,242,235,0.75);
 }
 
 /* Testimonial */
