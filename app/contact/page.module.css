@@ -23,7 +23,7 @@
   font-size: clamp(42px, 5vw, 64px);
   font-weight: 300;
   line-height: 1.1;
-  color: var(--ink);
+  color: #0f2240;
   margin-bottom: 1.5rem;
 }
 
@@ -35,7 +35,7 @@
 .pageIntro {
   font-size: var(--text-body);
   line-height: var(--line-height-body);
-  color: var(--ink);
+  color: #0f2240;
 }
 
 .formWrap {
@@ -63,7 +63,7 @@
   font-size: var(--text-eyebrow);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: #0f2240;
 }
 
 .formGroup input,
@@ -126,7 +126,7 @@
 .expectList li {
   font-size: 13px;
   line-height: 1.7;
-  color: var(--ink);
+  color: #0f2240;
   padding-left: 1.25rem;
   position: relative;
 }
@@ -148,7 +148,7 @@
   font-size: 18px;
   font-style: italic;
   line-height: 1.6;
-  color: var(--ink);
+  color: #0f2240;
   margin-bottom: 0.75rem;
 }
 
@@ -175,14 +175,14 @@
   font-family: var(--font-serif);
   font-size: 54px;
   font-weight: 300;
-  color: var(--ink);
+  color: #0f2240;
   margin: 1rem 0;
 }
 
 .thankYouText {
   font-size: 15px;
   line-height: 1.9;
-  color: var(--ink);
+  color: #0f2240;
   max-width: 440px;
 }
 
@@ -205,7 +205,7 @@
   font-family: var(--font-serif);
   font-size: clamp(24px, 3vw, 36px);
   font-weight: 300;
-  color: var(--ink);
+  color: #0f2240;
   margin-bottom: 2.5rem;
 }
 .faqGrid {
@@ -218,14 +218,14 @@
 .faqQ {
   font-size: 14px;
   font-weight: 400;
-  color: var(--ink);
+  color: #0f2240;
   border-left: 2px solid var(--bronze);
   padding-left: 1rem;
 }
 .faqA {
   font-size: var(--text-body-sm);
   line-height: var(--line-height-body);
-  color: var(--ink);
+  color: #0f2240;
   padding-left: 1rem;
 }
 @media (max-width: 768px) {
@@ -235,9 +235,9 @@
 
 /* FAQ */
 .faqSection { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 2rem; }
-.faqTitle { font-family: var(--font-serif); font-size: clamp(24px, 3vw, 36px); font-weight: 300; color: var(--ink); margin-bottom: 2.5rem; }
+.faqTitle { font-family: var(--font-serif); font-size: clamp(24px, 3vw, 36px); font-weight: 300; color: #0f2240; margin-bottom: 2.5rem; }
 .faqGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem 4rem; margin-bottom: 3rem; }
 .faqItem { display: flex; flex-direction: column; gap: 0.6rem; }
-.faqQ { font-size: 14px; font-weight: 400; color: var(--ink); border-left: 2px solid var(--bronze); padding-left: 1rem; }
-.faqA { font-size: 13px; line-height: 1.9; color: var(--ink); padding-left: 1rem; }
+.faqQ { font-size: 14px; font-weight: 400; color: #0f2240; border-left: 2px solid var(--bronze); padding-left: 1rem; }
+.faqA { font-size: 13px; line-height: 1.9; color: #0f2240; padding-left: 1rem; }
 @media (max-width: 768px) { .faqGrid { grid-template-columns: 1fr; gap: 2rem; } .faqSection { padding: 3rem 1.5rem 1rem; } }

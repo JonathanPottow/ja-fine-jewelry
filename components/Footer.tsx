@@ -12,7 +12,7 @@ export default function Footer() {
         <div className={styles.links}>
           <Link href="/about">About</Link>
           <Link href="/portfolio">Portfolio</Link>
-          <Link href="/contact">Begin Your Journey</Link>
+          <Link href='/contact'>Let's Talk</Link>
         </div>
         <div className={styles.copy}>
           <p>© {new Date().getFullYear()} Jonathan Alistair Fine Jewelry. All rights reserved.</p>
