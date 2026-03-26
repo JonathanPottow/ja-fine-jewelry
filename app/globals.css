@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap');
 
 :root {
-  --cream: #f7f2eb;
-  --sand: #e8ddd0;
-  --tan: #c9b99a;
-  --bronze: #8a6e4b;
-  --bark: #5c4a36;
-  --espresso: #2c2416;
-  --ink: #1e1710;
+  --cream: #f5f0e8;
+  --sand: #e8e0d0;
+  --tan: #c8a84b;
+  --bronze: #a08030;
+  --bark: #1e3a5f;
+  --espresso: #0f2240;
+  --ink: #081628;
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Jost', sans-serif;
 
