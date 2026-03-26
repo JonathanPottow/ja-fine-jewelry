@@ -211,6 +211,7 @@ export default function Home() {
             </div>
             <a href="/contact" className={styles.ctaPrimary} style={{display:'inline-block', marginTop:'2rem'}}>Let's Talk</a>
           </div>
+          <ContactForm />
         </div>
       </section>
     </>
