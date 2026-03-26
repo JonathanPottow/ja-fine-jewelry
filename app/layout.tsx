@@ -7,6 +7,27 @@ import Animations from '@/components/Animations'
 export const metadata: Metadata = {
   title: 'Jonathan Alistair Fine Jewelry | Bespoke Fine Jewelry Charlotte NC',
   description: 'Jonathan Pottow creates heirloom-quality bespoke fine jewelry in Charlotte, NC.',
+  openGraph: {
+    title: 'Jonathan Alistair Fine Jewelry',
+    description: 'Bespoke fine jewelry. Private commissions. Charlotte, NC.',
+    url: 'https://www.jafinejewelry.com',
+    siteName: 'Jonathan Alistair Fine Jewelry',
+    images: [
+      {
+        url: 'https://www.jafinejewelry.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Jonathan Alistair Fine Jewelry — Bespoke Fine Jewelry Charlotte NC',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Jonathan Alistair Fine Jewelry',
+    description: 'Bespoke fine jewelry. Private commissions. Charlotte, NC.',
+    images: ['https://www.jafinejewelry.com/og-image.jpg'],
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
