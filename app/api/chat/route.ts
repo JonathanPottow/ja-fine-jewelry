@@ -11,7 +11,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 function extractLeadInfo(messages: {role: string, content: string}[]) {
   const fullConversation = messages.map(m => m.content).join(' ');
   
-  const emailMatch = fullConversation.match(/[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}/);
+  // Case insensitive email match
+  const emailMatch = fullConversation.match(/[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}/i);
   const phoneMatch = fullConversation.match(/(\+?1?\s?)?(\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4})/);
   
   const namePatterns = [
@@ -20,6 +21,7 @@ function extractLeadInfo(messages: {role: string, content: string}[]) {
     /this is ([A-Z][a-z]+ ?[A-Z]?[a-z]*)/i,
     /([A-Z][a-z]+ [A-Z][a-z]+) here/i,
     /name['']?s? ([A-Z][a-z]+ ?[A-Z]?[a-z]*)/i,
+    /name is ([a-zA-Z]+ ?[a-zA-Z]*)/i,
   ];
   
   let name = null;
@@ -29,7 +31,7 @@ function extractLeadInfo(messages: {role: string, content: string}[]) {
   }
 
   return {
-    email: emailMatch ? emailMatch[0] : null,
+    email: emailMatch ? emailMatch[0].toLowerCase() : null,
     phone: phoneMatch ? phoneMatch[0] : null,
     name: name,
   };
@@ -40,9 +42,9 @@ async function sendLeadEmail(messages: {role: string, content: string}[], leadIn
     .map(m => `${m.role === 'user' ? 'Client' : 'Raegan'}: ${m.content}`)
     .join('\n\n');
 
-  await resend.emails.send({
+  const result = await resend.emails.send({
     from: 'Raegan at JA Fine Jewelry <onboarding@resend.dev>',
-    to: process.env.CONTACT_EMAIL!,
+    to: 'jonathan@jafinejewelry.com',
     subject: `New Lead — ${leadInfo.name || 'New Client'} | JA Fine Jewelry`,
     html: `
       <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #2c2416;">
@@ -55,7 +57,7 @@ async function sendLeadEmail(messages: {role: string, content: string}[], leadIn
           <h3 style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a6e4b; margin: 0 0 16px;">Client Details</h3>
           <p style="margin: 0 0 8px; font-size: 15px;"><strong>Name:</strong> ${leadInfo.name || 'Not captured'}</p>
           <p style="margin: 0 0 8px; font-size: 15px;"><strong>Email:</strong> ${leadInfo.email ? `<a href="mailto:${leadInfo.email}" style="color: #8a6e4b;">${leadInfo.email}</a>` : 'Not captured'}</p>
-          <p style="margin: 0; font-size: 15px;"><strong>Phone:</strong> ${leadInfo.phone ? `<a href="tel:${leadInfo.phone}" style="color: #8a6e4b;">${leadInfo.phone}</a>` : 'Not captured'}</p>
+          <p style="margin: 0; font-size: 15px;"><strong>Phone:</strong> ${leadInfo.phone || 'Not captured'}</p>
         </div>
 
         <div style="margin-bottom: 32px;">
@@ -71,6 +73,9 @@ ${conversation}
       </div>
     `,
   });
+
+  console.log('Resend result:', JSON.stringify(result));
+  return result;
 }
 
 const RAEGAN_SYSTEM_PROMPT = `You are Raegan, the concierge for Jonathan Alistair Fine Jewelry. Jonathan is a bespoke jeweler based in Charlotte, NC.
@@ -157,12 +162,18 @@ export async function POST(req: Request) {
     const allMessages = [...messages, { role: 'assistant', content: replyText }];
     const leadInfo = extractLeadInfo(allMessages);
 
+    console.log('Lead info detected:', JSON.stringify(leadInfo));
+
     if (leadInfo.email || leadInfo.phone) {
+      console.log('Sending email...');
       try {
-        await sendLeadEmail(allMessages, leadInfo);
+        const emailResult = await sendLeadEmail(allMessages, leadInfo);
+        console.log('Email sent:', JSON.stringify(emailResult));
       } catch (emailError) {
-        console.error('Email send error:', emailError);
+        console.error('Email error:', emailError);
       }
+    } else {
+      console.log('No contact info found yet');
     }
 
     return NextResponse.json({ message: replyText });
