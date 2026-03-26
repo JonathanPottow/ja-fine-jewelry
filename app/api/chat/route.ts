@@ -1,79 +1,9 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-function extractLeadInfo(messages: {role: string, content: string}[]) {
-  const fullConversation = messages.map(m => m.content).join(' ');
-  const emailMatch = fullConversation.match(/[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}/i);
-  const phoneMatch = fullConversation.match(/(\+?1?\s?)?(\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4})/);
-  const namePatterns = [
-    /my name is ([a-zA-Z]+ ?[a-zA-Z]*)/i,
-    /i['']?m ([A-Z][a-z]+ ?[A-Z]?[a-z]*)/i,
-    /this is ([A-Z][a-z]+ ?[A-Z]?[a-z]*)/i,
-    /([A-Z][a-z]+ [A-Z][a-z]+) here/i,
-    /name['']?s? ([a-zA-Z]+ ?[a-zA-Z]*)/i,
-  ];
-  let name = null;
-  for (const pattern of namePatterns) {
-    const match = fullConversation.match(pattern);
-    if (match) { name = match[1]; break; }
-  }
-  return {
-    email: emailMatch ? emailMatch[0].toLowerCase() : null,
-    phone: phoneMatch ? phoneMatch[0] : null,
-    name: name,
-  };
-}
-
-function hasContactInfoInPreviousMessages(messages: {role: string, content: string}[]) {
-  const previousMessages = messages.slice(0, -1);
-  const previousConversation = previousMessages.map(m => m.content).join(' ');
-  const hadEmail = /[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}/i.test(previousConversation);
-  const hadPhone = /(\+?1?\s?)?(\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4})/.test(previousConversation);
-  return hadEmail || hadPhone;
-}
-
-async function sendLeadEmail(messages: {role: string, content: string}[], leadInfo: {name: string|null, email: string|null, phone: string|null}) {
-  const conversation = messages
-    .map(m => `${m.role === 'user' ? 'Client' : 'Raegan'}: ${m.content}`)
-    .join('\n\n');
-  const result = await resend.emails.send({
-    from: 'Raegan at JA Fine Jewelry <onboarding@resend.dev>',
-    to: 'jonathan@jafinejewelry.com',
-    subject: `New Lead — ${leadInfo.name || 'New Client'} | JA Fine Jewelry`,
-    html: `
-      <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #2c2416;">
-        <div style="border-bottom: 2px solid #8a6e4b; padding-bottom: 20px; margin-bottom: 32px;">
-          <p style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #8a6e4b; margin: 0 0 8px;">Jonathan Alistair Fine Jewelry</p>
-          <h2 style="font-size: 24px; font-weight: normal; margin: 0;">New Lead from Raegan</h2>
-        </div>
-        <div style="background: #f7f2eb; padding: 24px; border-radius: 8px; margin-bottom: 32px;">
-          <h3 style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a6e4b; margin: 0 0 16px;">Client Details</h3>
-          <p style="margin: 0 0 8px; font-size: 15px;"><strong>Name:</strong> ${leadInfo.name || 'Not captured'}</p>
-          <p style="margin: 0 0 8px; font-size: 15px;"><strong>Email:</strong> ${leadInfo.email ? `<a href="mailto:${leadInfo.email}" style="color: #8a6e4b;">${leadInfo.email}</a>` : 'Not captured'}</p>
-          <p style="margin: 0; font-size: 15px;"><strong>Phone:</strong> ${leadInfo.phone || 'Not captured'}</p>
-        </div>
-        <div style="margin-bottom: 32px;">
-          <h3 style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a6e4b; margin: 0 0 16px;">Full Conversation</h3>
-          <div style="background: #fff; border: 1px solid #e8ddd0; border-radius: 8px; padding: 24px; white-space: pre-wrap; font-size: 14px; line-height: 1.8; color: #2c2416;">
-${conversation}
-          </div>
-        </div>
-        <p style="font-size: 11px; color: #bbb; border-top: 1px solid #e8ddd0; padding-top: 16px; margin: 0;">
-          Sent automatically by Raegan — JA Fine Jewelry Concierge
-        </p>
-      </div>
-    `,
-  });
-  console.log('Resend result:', JSON.stringify(result));
-  return result;
-}
 
 const RAEGAN_SYSTEM_PROMPT = `You are Raegan, the concierge for Jonathan Alistair Fine Jewelry. Jonathan is a bespoke jeweler based in Charlotte, NC.
 
@@ -154,17 +84,6 @@ export async function POST(req: Request) {
       messages,
     });
     const replyText = response.content[0].type === 'text' ? response.content[0].text : '';
-    const allMessages = [...messages, { role: 'assistant', content: replyText }];
-    const leadInfo = extractLeadInfo(allMessages);
-    const alreadyHadContact = hasContactInfoInPreviousMessages(messages);
-    if (!alreadyHadContact && (leadInfo.email || leadInfo.phone)) {
-      try {
-        await sendLeadEmail(allMessages, leadInfo);
-        console.log('Lead email sent successfully');
-      } catch (emailError) {
-        console.error('Email error:', emailError);
-      }
-    }
     return NextResponse.json({ message: replyText });
   } catch (error) {
     console.error('Raegan API error:', error);
