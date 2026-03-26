@@ -20,7 +20,7 @@ export default function Home() {
             personal process — from first conversation to final setting.
           </p>
           <div className={`${styles.ctaRow} hero-word`} style={{animationDelay: "1.2s"}}>
-            <a href="#contact" className={styles.ctaPrimary}>Let's Talk</a>
+            <a href="/contact" className={styles.ctaPrimary}>Let's Talk</a>
             <a href="#portfolio" className={styles.ctaSecondary}>View Portfolio</a>
           </div>
         </div>
@@ -209,8 +209,8 @@ export default function Home() {
               <span>Charlotte, North Carolina</span>
               <span>By appointment only</span>
             </div>
+            <a href="/contact" className={styles.ctaPrimary} style={{display:'inline-block', marginTop:'2rem'}}>Let's Talk</a>
           </div>
-          <ContactForm />
         </div>
       </section>
     </>

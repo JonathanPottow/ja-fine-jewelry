@@ -90,7 +90,7 @@ export default function ShopClient({ products }: { products: Product[] }) {
       )}
       <div className={styles.bespoke}>
         <p className={styles.bespokeText}>Looking for something made just for you?</p>
-        <Link href="/#contact" className={styles.bespokeBtn}>Begin a Bespoke Commission</Link>
+        <Link href="/contact" className={styles.bespokeBtn}>Begin a Bespoke Commission</Link>
       </div>
     </div>
   )

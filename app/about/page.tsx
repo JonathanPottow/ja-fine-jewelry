@@ -184,7 +184,7 @@ export default function AboutPage() {
       <section className={styles.ctaSection}>
         <p className={styles.eyebrow}>Ready to begin?</p>
         <h2 className={styles.ctaTitle}>Every great piece starts<br /><em>with a conversation.</em></h2>
-        <Link href="/contact" className={styles.ctaBtn}>Book a Consultation</Link>
+        <Link href='/contact' className={styles.ctaBtn}>Let's Talk</Link>
       </section>
 
     </div>

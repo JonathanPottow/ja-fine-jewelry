@@ -127,7 +127,7 @@ export default function Experience() {
             A private, white-glove process designed around you —
             not the other way around.
           </p>
-          <Link href="/#contact" className={styles.heroCta}>
+          <Link href="/contact" className={styles.heroCta}>
             Let's Talk
           </Link>
         </div>
@@ -247,7 +247,7 @@ export default function Experience() {
             Whether you have a clear vision or just a feeling — reach out.
             Jonathan responds personally to every inquiry within 48 hours.
           </p>
-          <Link href="/#contact" className={styles.ctaBtn}>
+          <Link href="/contact" className={styles.ctaBtn}>
             Let's Talk
           </Link>
         </div>
