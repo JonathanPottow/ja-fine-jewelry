@@ -11,15 +11,22 @@ export default function AboutPage() {
 
       {/* HERO */}
       <section className={styles.hero}>
-        <div className={styles.heroText}>
-          <p className={styles.eyebrow}>The Story Behind the Craft</p>
-          <h1 className={styles.heroTitle}>
-            Born from <em>heritage.</em><br />
-            Built on <em>trust.</em>
-          </h1>
-        </div>
-        <div className={styles.heroImage}>
-          <img src="/jonathan-about.jpg" alt="Jonathan Pottow" className={styles.heroPhoto} />
+        <div className={styles.heroInner}>
+          <div className={styles.heroText}>
+            <p className={styles.eyebrow}>The Story Behind the Craft</p>
+            <h1 className={styles.heroTitle}>
+              Born from <em>heritage.</em><br />
+              Built on <em>trust.</em>
+            </h1>
+            <p style={{fontSize:'16px', lineHeight:'1.9', color:'#1e3a5f', maxWidth:'560px'}}>
+              Jonathan Pottow is a private jeweler based in Charlotte, NC — creating bespoke fine jewelry
+              through a deeply personal process. Every commission begins with a conversation and ends with
+              a piece that means something.
+            </p>
+          </div>
+          <div className={styles.heroImage}>
+            <img src="/jonathan-about.jpg" alt="Jonathan Pottow" className={styles.heroPhoto} />
+          </div>
         </div>
       </section>
 
