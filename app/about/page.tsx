@@ -19,7 +19,7 @@ export default function AboutPage() {
           </h1>
         </div>
         <div className={styles.heroImage}>
-          <img src="/jonathan-about.jpg" alt="Jonathan Pottow" className={styles.heroPhoto} />
+          <img src="/jonathan-about.jpg" style={{width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top", position:"absolute", inset:0}} alt="Jonathan Pottow" className={styles.heroPhoto} />
         </div>
       </section>
 

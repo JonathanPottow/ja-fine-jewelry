@@ -14,7 +14,9 @@
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 70vh;
+  min-height: auto;
+  max-height: 600px;
+  overflow: hidden;
 }
 
 .heroContent {
@@ -47,6 +49,8 @@
   padding: 2.5rem;
   position: relative;
   min-height: 500px;
+  max-height: 600px;
+  overflow: hidden;
 }
 
 .photoLabel {
