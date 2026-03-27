@@ -2,20 +2,18 @@
 .eyebrow { font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bronze); margin-bottom: 1rem; }
 
 /* HERO */
-.hero { display: grid; grid-template-columns: 1fr 400px; min-height: auto; max-height: 500px; overflow: hidden; }
-.heroText { display: flex; flex-direction: column; justify-content: center; padding: 4rem; background: var(--cream); }
+.hero { background: var(--espresso); padding: 6rem 4rem; }
+.heroInner { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+.heroText { display: flex; flex-direction: column; gap: 1.5rem; }
 .heroTitle { font-family: var(--font-serif); font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.1; color: var(--cream); margin: 0; }
 .heroTitle em { font-style: italic; color: var(--tan); }
-.heroSubtext { font-size: 17px; line-height: 1.9; color: rgba(245,240,232,0.8); max-width: 560px; }
-
-.heroPhoto { width: 100%; height: 500px; object-fit: cover; object-position: center 15%; display: block; }
+.heroSubtext { font-size: 17px; line-height: 1.9; color: rgba(245,240,232,0.8); max-width: 580px; }
 
 /* INTRO */
 .introSection { padding: 6rem 4rem; max-width: 1200px; margin: 0 auto; }
 .introInner { display: grid; grid-template-columns: 200px 1fr; gap: 4rem; }
 .introLabel { display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem; padding-top: 0.25rem; }
 .verticalLine { width: 1px; flex: 1; background: var(--bronze); opacity: 0.4; min-height: 60px; }
-.introContent { }
 .pullQuote { font-family: var(--font-serif); font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-style: italic; color: var(--espresso); line-height: 1.5; margin: 0 0 2rem; padding: 0; border: none; }
 .introContent p { line-height: 1.8; opacity: 0.8; margin-bottom: 1.25rem; font-size: 1rem; }
 
@@ -25,8 +23,7 @@
 .timelineTitle { font-family: var(--font-serif); font-size: clamp(2rem, 3vw, 3rem); font-weight: 400; color: var(--cream); margin: 0; white-space: nowrap; }
 .sectionLine { flex: 1; height: 1px; background: var(--cream); opacity: 0.2; }
 .timeline { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
-.timelineItem { display: grid; grid-template-columns: 160px 1fr; gap: 3rem; padding: 3rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-.timelineItem:last-child { border-bottom: none; }
+.timelineItem { display: grid; grid-template-columns: 140px 1fr; gap: 3rem; padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.08); }
 .timelineLeft { display: flex; flex-direction: column; align-items: flex-end; gap: 1rem; padding-top: 0.25rem; }
 .timelineYear { font-family: var(--font-serif); font-size: 2.5rem; color: var(--bronze); font-weight: 400; line-height: 1; }
 .timelineDot { width: 8px; height: 8px; border-radius: 50%; background: var(--bronze); opacity: 0.5; }
@@ -35,47 +32,44 @@
 .timelineDesc { color: rgba(255,255,255,0.65); line-height: 1.8; font-size: 0.95rem; margin: 0; }
 
 /* PHILOSOPHY */
-.philosophySection { padding: 6rem 4rem; background: var(--cream); }
-.philosophyInner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 340px; gap: 6rem; align-items: start; }
+.philosophySection { padding: 7rem 4rem; background: var(--cream); }
+.philosophyInner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 280px; gap: 6rem; align-items: start; }
 .philosophyTitle { font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 400; line-height: 1.15; margin: 0 0 2rem; }
 .philosophyTitle em { font-style: italic; color: var(--bronze); }
 .philosophyText p { line-height: 1.8; opacity: 0.8; margin-bottom: 1.25rem; font-size: 1rem; }
-.philosophyStats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.1); }
-.statCard { background: var(--cream); padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.philosophyStats { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding-top: 1rem; }
+.statCard { display: flex; flex-direction: column; gap: 0.5rem; }
 .statNum { font-family: var(--font-serif); font-size: 2.2rem; color: var(--espresso); font-weight: 400; line-height: 1; }
 .statLabel { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; line-height: 1.4; }
 
 /* CHARLOTTE */
 .charlotteSection { background: var(--sand); padding: 6rem 4rem; }
-.charlotteInner { max-width: 720px; margin: 0 auto; }
+.charlotteInner { max-width: 760px; margin: 0 auto; }
 .charlotteTitle { font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; line-height: 1.2; margin: 0 0 2rem; }
 .charlotteTitle em { font-style: italic; color: var(--bronze); }
 .charlotteInner p { line-height: 1.8; opacity: 0.8; margin-bottom: 1.25rem; font-size: 1rem; }
 
 /* CTA */
-.ctaSection { background: var(--espresso); padding: 7rem 4rem; text-align: center; }
-.ctaSection .eyebrow { color: var(--bronze); }
+.ctaSection { background: var(--espresso); padding: 6rem 4rem; text-align: center; }
 .ctaTitle { font-family: var(--font-serif); font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 400; color: var(--cream); margin: 0 0 3rem; line-height: 1.2; }
-.ctaTitle em { font-style: italic; color: var(--bronze); }
+.ctaTitle em { font-style: italic; color: var(--tan); }
 .ctaBtn { display: inline-block; background: var(--bronze); color: var(--cream); padding: 1rem 3rem; font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: opacity 0.2s; }
 .ctaBtn:hover { opacity: 0.85; }
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
-  .hero { grid-template-columns: 1fr; min-height: auto; }
-  .heroText { padding: 8rem 2rem 3rem; }
-  .heroImage { min-height: 50vw; }
-  .introInner { grid-template-columns: 1fr; gap: 2rem; }
-  .introLabel { flex-direction: row; align-items: center; }
-  .verticalLine { width: 60px; height: 1px; min-height: auto; }
-  .philosophyInner { grid-template-columns: 1fr; }
+  .philosophyInner { grid-template-columns: 1fr; gap: 3rem; }
   .philosophyStats { grid-template-columns: repeat(4, 1fr); }
+  .introInner { grid-template-columns: 1fr; gap: 2rem; }
 }
-
 @media (max-width: 768px) {
-  .introSection, .philosophySection, .charlotteSection, .ctaSection { padding: 4rem 1.5rem; }
+  .hero { padding: 4rem 1.5rem; }
+  .introSection { padding: 4rem 1.5rem; }
   .timelineSection { padding: 4rem 1.5rem; }
-  .timelineItem { grid-template-columns: 1fr; gap: 0.75rem; }
-  .timelineLeft { flex-direction: row; align-items: center; gap: 1rem; }
+  .timelineItem { grid-template-columns: 80px 1fr; gap: 1.5rem; }
+  .timelineYear { font-size: 1.8rem; }
+  .philosophySection { padding: 4rem 1.5rem; }
   .philosophyStats { grid-template-columns: 1fr 1fr; }
+  .charlotteSection { padding: 4rem 1.5rem; }
+  .ctaSection { padding: 4rem 1.5rem; }
 }
