@@ -71,7 +71,7 @@ export default function ContactPageClient() {
         </form>
       </div>
 
-      <div className={styles.faqSection}>
+      <div id="faq" className={styles.faqSection}>
         <p className={styles.eyebrow}>Common questions</p>
         <h2 className={styles.faqTitle}>Everything you need to know</h2>
         <div className={styles.faqGrid}>

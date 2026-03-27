@@ -12,6 +12,8 @@ export default function Footer() {
         <div className={styles.links}>
           <Link href="/about">About</Link>
           <Link href="/portfolio">Portfolio</Link>
+          <Link href="/experience">Experience</Link>
+          <Link href="/contact#faq">FAQ</Link>
           <Link href='/contact'>Let's Talk</Link>
         </div>
         <div className={styles.copy}>
