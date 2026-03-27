@@ -123,7 +123,7 @@ export default function Home() {
           <div className={styles.processGrid}>
             {[
               { num: '01', title: 'Discovery', delay: 'delay-1', desc: 'A private conversation to understand your vision, story, and the person who will wear this piece for a lifetime.' },
-              { num: '02', title: 'Design', delay: 'delay-2', desc: 'Hand-sketched concepts and detailed renderings crafted specifically for you — refined until every detail is exactly right.' },
+              { num: '02', title: 'Design', delay: 'delay-2', desc: 'Detailed CAD renderings crafted specifically for you — precise, three-dimensional representations of your piece so you can see exactly what it will look like before anything is made. Refined until every detail is exactly right.' },
               { num: '03', title: 'Creation', delay: 'delay-3', desc: 'Handcrafted using ethically sourced materials. Every stone selected, every setting placed with intention and precision.' },
               { num: '04', title: 'Delivery', delay: 'delay-4', desc: 'A moment as special as the piece itself. Your commission is presented personally, with the full story of its making.' },
             ].map((step: {num: string, title: string, desc: string, delay: string}) => (
