@@ -11,20 +11,17 @@ export default function AboutPage() {
 
       {/* HERO */}
       <section className={styles.hero}>
-        <div className={styles.heroText}>
+        <div className={styles.heroInner}>
           <p className={styles.eyebrow}>The Story Behind the Craft</p>
           <h1 className={styles.heroTitle}>
             Born from <em>heritage.</em><br />
             Built on <em>trust.</em>
           </h1>
-          <p style={{fontSize:'16px', lineHeight:'1.9', color:'#1e3a5f', maxWidth:'480px'}}>
+          <p className={styles.heroSubtext}>
             Jonathan Pottow is a private jeweler based in Charlotte, NC — creating bespoke fine jewelry
             through a deeply personal process. Every commission begins with a conversation and ends with
             a piece that means something.
           </p>
-        </div>
-        <div className={styles.heroImage}>
-          <img src="/jonathan-about.jpg" alt="Jonathan Pottow" className={styles.heroPhoto} />
         </div>
       </section>
 
@@ -40,20 +37,20 @@ export default function AboutPage() {
               "My grandfather did not just collect beautiful things — he taught me how to see them."
             </blockquote>
             <p>
-              Jonathan Pottow grew up in South Africa watching his grandfather — a lifelong collector of fine goods — 
-              handle objects with a reverence that had nothing to do with price. It was about craftsmanship. 
+              Jonathan Pottow grew up in South Africa watching his grandfather — a lifelong collector of fine goods —
+              handle objects with a reverence that had nothing to do with price. It was about craftsmanship.
               Intention. The idea that something made well, made with purpose, carries meaning that outlasts its maker.
             </p>
             <p>
-              That early education shaped everything. Not just an appreciation for quality, but a deep belief that 
-              the things we choose to wear and give say something real about who we are and who we love. It became 
-              the quiet foundation of everything Jonathan would later build — a standard he has never lowered, 
+              That early education shaped everything. Not just an appreciation for quality, but a deep belief that
+              the things we choose to wear and give say something real about who we are and who we love. It became
+              the quiet foundation of everything Jonathan would later build — a standard he has never lowered,
               regardless of budget, occasion, or timeline.
             </p>
             <p>
-              When he entered the jewelry industry in 2013, he wasn't chasing a career — he was following 
-              something he had understood since childhood. That fine jewelry, done right, is one of the most 
-              personal things in the world. And that most people never get to experience what it truly feels like 
+              When he entered the jewelry industry in 2013, he wasn't chasing a career — he was following
+              something he had understood since childhood. That fine jewelry, done right, is one of the most
+              personal things in the world. And that most people never get to experience what it truly feels like
               to have something made just for them.
             </p>
           </div>
@@ -117,27 +114,23 @@ export default function AboutPage() {
               Your jeweler.<br /><em>For life.</em>
             </h2>
             <p>
-              Jonathan's approach has never been about volume. It has always been about depth. Every client who 
-              comes to Jonathan Alistair Fine Jewelry gets his full attention — not a sales associate, not a 
-              catalog, not a commission-driven recommendation. Just Jonathan, with over a decade of expertise 
-              and direct access to some of the finest diamonds and materials available, focused entirely on 
+              Jonathan's approach has never been about volume. It has always been about depth. Every client who
+              comes to Jonathan Alistair Fine Jewelry gets his full attention — not a sales associate, not a
+              catalog, not a commission-driven recommendation. Just Jonathan, with over a decade of expertise
+              and direct access to some of the finest diamonds and materials available, focused entirely on
               what you need and what your budget allows.
             </p>
             <p>
-              That industry access matters more than most people realize. Jonathan works directly with diamond 
-              dealers and stone cutters, which means his clients see options and quality levels that simply 
-              aren't available on a retail sales floor. You get a jeweler who is genuinely on your side — 
+              That industry access matters more than most people realize. Jonathan works directly with diamond
+              dealers and stone cutters, which means his clients see options and quality levels that simply
+              aren't available on a retail sales floor. You get a jeweler who is genuinely on your side —
               helping you make the most informed, confident decision possible, with full transparency at every step.
             </p>
             <p>
-              The goal has always been simple: to be the last jeweler you ever need. The person you call when 
-              you get engaged, when you celebrate an anniversary, when you want to redesign an heirloom, when 
-              you simply want something beautiful and meaningful that no one else has. A relationship built 
+              The goal has always been simple: to be the last jeweler you ever need. The person you call when
+              you get engaged, when you celebrate an anniversary, when you want to redesign an heirloom, when
+              you simply want something beautiful and meaningful that no one else has. A relationship built
               over years, not a transaction completed in an afternoon.
-            </p>
-            <p>
-              That is what Jonathan Alistair Fine Jewelry was built for. And it is what every single 
-              commission is designed to deliver.
             </p>
           </div>
           <div className={styles.philosophyStats}>
@@ -167,20 +160,15 @@ export default function AboutPage() {
           <p className={styles.eyebrow}>Rooted in Charlotte</p>
           <h2 className={styles.charlotteTitle}>More than a business.<br /><em>A community.</em></h2>
           <p>
-            Charlotte is not just where Jonathan works — it is where he is raising his family, coaching his 
-            sons, investing his time, and building something that lasts. As a founding board member of 
-            Charlotte ETA and a six-year member of CYPG, he shows up for this city the same way he shows 
+            Charlotte is not just where Jonathan works — it is where he is raising his family, coaching his
+            sons, investing his time, and building something that lasts. As a founding board member of
+            Charlotte ETA and a six-year member of CYPG, he shows up for this city the same way he shows
             up for every client: with intention, consistency, and genuine care.
           </p>
           <p>
-            Jonathan believes the best businesses are extensions of the communities they serve. Every 
-            referral he receives, every relationship he builds, every piece he creates — it all stays 
+            Jonathan believes the best businesses are extensions of the communities they serve. Every
+            referral he receives, every relationship he builds, every piece he creates — it all stays
             here. It all comes back to Charlotte. And that is exactly how he wants it.
-          </p>
-          <p>
-            When you work with Jonathan Alistair Fine Jewelry, you are not just working with a jeweler. 
-            You are working with a neighbor, a father, a community member — someone who has chosen this 
-            city and the people in it, and who takes that responsibility seriously in everything he does.
           </p>
         </div>
       </section>
