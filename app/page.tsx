@@ -63,7 +63,7 @@ export default function Home() {
         </div>
         <div className={styles.aboutGrid}>
           <div className={`${styles.aboutImagePlaceholder} fade-up`} style={{padding: 0, overflow: 'hidden'}}>
-            <img src="/jonathan-sitting.jpg" alt="Jonathan Pottow" style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block'}} />
+            <img src="/jonathan-homepage.jpg" alt="Jonathan Pottow" style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block'}} />
           </div>
           <div className={`${styles.aboutContent} fade-up delay-2`}>
             <p className={styles.eyebrow}>South African born. Charlotte rooted. Built on trust.</p>
