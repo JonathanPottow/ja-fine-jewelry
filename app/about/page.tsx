@@ -19,7 +19,7 @@ export default function AboutPage() {
           </h1>
         </div>
         <div className={styles.heroImage}>
-          <img src="/Jonathan.jpeg" alt="Jonathan Pottow" className={styles.heroPhoto} />
+          <img src="/jonathan-about.jpg" alt="Jonathan Pottow" className={styles.heroPhoto} />
         </div>
       </section>
 
