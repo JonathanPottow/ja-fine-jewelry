@@ -219,22 +219,6 @@ export default function Experience() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className={styles.faqSection}>
-        <div className={styles.faqInner}>
-          <p className={styles.eyebrow}>Common questions</p>
-          <h2 className={styles.faqTitle}>Everything you need to know</h2>
-          <div className={styles.faqGrid}>
-            {faqs.map((item, i) => (
-              <div key={i} className={styles.faqItem}>
-                <h3 className={styles.faqQ}>{item.q}</h3>
-                <p className={styles.faqA}>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className={styles.ctaSection}>
         <div className={styles.ctaInner}>

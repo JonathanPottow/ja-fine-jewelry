@@ -209,7 +209,6 @@ export default function Home() {
               <span>Charlotte, North Carolina</span>
               <span>By appointment only</span>
             </div>
-            <a href="/contact" className={styles.ctaPrimary} style={{display:'inline-block', marginTop:'2rem'}}>Let's Talk</a>
           </div>
           <ContactForm />
         </div>
