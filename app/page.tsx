@@ -86,8 +86,7 @@ export default function Home() {
             <p>
               In 2020, during the uncertainty of the pandemic, Jonathan saw an opportunity: to create
               something that didn't exist in the market. A safe, deeply personal, entirely bespoke
-              experience for clients who deserved better than the generic jewelry store. JA Fine
-              Jewelry was born from that belief.
+              experience for clients who deserved better than the generic jewelry store. Jonathan Alistair Fine Jewelry was born from that belief.
             </p>
             <p>
               Today Jonathan is a founding board member of Charlotte ETA and a six-year member of
