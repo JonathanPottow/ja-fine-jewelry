@@ -65,7 +65,7 @@ Yes, Jonathan is currently accepting new commissions and can typically get a new
 ABOUT JONATHAN:
 - 10+ years in fine jewelry
 - Started at a premier luxury jewelry group in Raleigh in 2013
-- Founded JA Fine Jewelry in Charlotte in 2020
+- Founded Jonathan Alistair Fine Jewelry in Charlotte in 2020
 - Works by private appointment only, no storefront, no sales floor
 - Every client works directly with Jonathan, no sales associates
 - Founding board member of Charlotte ETA, six-year CYPG member

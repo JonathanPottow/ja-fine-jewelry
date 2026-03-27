@@ -40,9 +40,9 @@ export async function POST(req: Request) {
       .join('\n\n');
 
     await resend.emails.send({
-      from: 'Raegan at JA Fine Jewelry <onboarding@resend.dev>',
+      from: 'Raegan at Jonathan Alistair Fine Jewelry <onboarding@resend.dev>',
       to: 'jonathan@jafinejewelry.com',
-      subject: `New Lead — ${leadInfo.name || 'New Client'} | JA Fine Jewelry`,
+      subject: `New Lead — ${leadInfo.name || 'New Client'} | Jonathan Alistair Fine Jewelry`,
       html: `
         <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #2c2416;">
           <div style="border-bottom: 2px solid #8a6e4b; padding-bottom: 20px; margin-bottom: 32px;">
@@ -62,7 +62,7 @@ ${conversation}
             </div>
           </div>
           <p style="font-size: 11px; color: #bbb; border-top: 1px solid #e8ddd0; padding-top: 16px; margin: 0;">
-            Sent automatically by Raegan — JA Fine Jewelry Concierge
+            Sent automatically by Raegan — Jonathan Alistair Fine Jewelry Concierge
           </p>
         </div>
       `,

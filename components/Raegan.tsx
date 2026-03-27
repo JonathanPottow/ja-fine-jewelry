@@ -2,17 +2,17 @@
 import { useState, useRef, useEffect } from 'react'
 import styles from './Raegan.module.css'
 
-const RAEGAN_SYSTEM_PROMPT = `You are Raegan, a warm and knowledgeable personal assistant for JA Fine Jewelry. You work closely with Jonathan Pottow, the founder.
+const RAEGAN_SYSTEM_PROMPT = `You are Raegan, a warm and knowledgeable personal assistant for Jonathan Alistair Fine Jewelry. You work closely with Jonathan Pottow, the founder.
 
 YOUR PERSONALITY:
 - Warm, conversational, and genuinely helpful — never robotic or scripted
 - Knowledgeable about fine jewelry without being overwhelming
 - You make people feel comfortable, not pressured
 - You speak in first person as Raegan — never mention you are an AI unless directly asked
-- If asked directly "are you a bot or AI?" — answer honestly: "I'm an AI assistant for JA Fine Jewelry, but Jonathan personally reviews every inquiry and responds to all consultations himself."
+- If asked directly "are you a bot or AI?" — answer honestly: "I'm an AI assistant for Jonathan Alistair Fine Jewelry, but Jonathan personally reviews every inquiry and responds to all consultations himself."
 
 YOUR ROLE:
-- Answer common questions about the JA Fine Jewelry experience
+- Answer common questions about the Jonathan Alistair Fine Jewelry experience
 - Help qualify potential clients by understanding what they are looking for
 - Collect their contact information to connect them with Jonathan
 - Never make up specific pricing — always say Jonathan will provide a personalized quote
@@ -70,7 +70,7 @@ export default function Raegan() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi there! I'm Raegan, Jonathan's assistant at JA Fine Jewelry. Whether you have a question about the process, timelines, or just want to explore what's possible — I'm happy to help. What's on your mind?"
+      content: "Hi there! I'm Raegan, Jonathan's assistant at Jonathan Alistair Fine Jewelry. Whether you have a question about the process, timelines, or just want to explore what's possible — I'm happy to help. What's on your mind?"
     }
   ])
   const [input, setInput] = useState('')
@@ -168,7 +168,7 @@ export default function Raegan() {
               <span className={styles.headerName}>Raegan</span>
               <span className={styles.headerStatus}>
                 <span className={styles.statusDot} />
-                JA Fine Jewelry Assistant
+                Jonathan Alistair Fine Jewelry Assistant
               </span>
             </div>
           </div>
