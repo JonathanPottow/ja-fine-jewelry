@@ -53,8 +53,11 @@
 .copy {
   text-align: right;
   font-size: 0.8rem;
-  color: rgba(245,240,232,0.85);
+  color: rgba(245,240,232,0.9);
   align-self: end;
+}
+.copy p {
+  color: rgba(245,240,232,0.9);
 }
 
 @media (max-width: 768px) {
