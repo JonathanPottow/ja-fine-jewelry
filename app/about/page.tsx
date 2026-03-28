@@ -143,8 +143,8 @@ export default function AboutPage() {
               <span className={styles.statLabel}>Started in fine jewelry</span>
             </div>
             <div className={styles.statCard}>
-              <span className={styles.statNum}>2020</span>
-              <span className={styles.statLabel}>Founded Jonathan Alistair</span>
+              <span className={styles.statNum}>By Appt</span>
+              <span className={styles.statLabel}>Fully private experience</span>
             </div>
             <div className={styles.statCard}>
               <span className={styles.statNum}>82</span>
