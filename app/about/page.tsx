@@ -139,8 +139,8 @@ export default function AboutPage() {
               <span className={styles.statLabel}>Years in luxury jewelry</span>
             </div>
             <div className={styles.statCard}>
-              <span className={styles.statNum}>2013</span>
-              <span className={styles.statLabel}>Started in fine jewelry</span>
+              <span className={styles.statNum}>250+</span>
+              <span className={styles.statLabel}>Custom commissions completed</span>
             </div>
             <div className={styles.statCard}>
               <span className={styles.statNum}>By Appt</span>
