@@ -135,8 +135,8 @@ export default function AboutPage() {
           </div>
           <div className={styles.philosophyStats}>
             <div className={styles.statCard}>
-              <span className={styles.statNum}>10+</span>
-              <span className={styles.statLabel}>Years in the industry</span>
+              <span className={styles.statNum}>13+</span>
+              <span className={styles.statLabel}>Years in luxury jewelry</span>
             </div>
             <div className={styles.statCard}>
               <span className={styles.statNum}>2013</span>
@@ -147,8 +147,8 @@ export default function AboutPage() {
               <span className={styles.statLabel}>Founded Jonathan Alistair</span>
             </div>
             <div className={styles.statCard}>
-              <span className={styles.statNum}>100%</span>
-              <span className={styles.statLabel}>Word of mouth growth</span>
+              <span className={styles.statNum}>82</span>
+              <span className={styles.statLabel}>Five-star reviews</span>
             </div>
           </div>
         </div>
