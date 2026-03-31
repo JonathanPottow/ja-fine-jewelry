@@ -7,6 +7,11 @@ import Animations from '@/components/Animations'
 export const metadata: Metadata = {
   title: 'Jonathan Alistair Fine Jewelry | Bespoke Fine Jewelry Charlotte NC',
   description: 'Jonathan Pottow creates heirloom-quality bespoke fine jewelry in Charlotte, NC.',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
   openGraph: {
     title: 'Jonathan Alistair Fine Jewelry',
     description: 'Bespoke fine jewelry. Private commissions. Charlotte, NC.',
