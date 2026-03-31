@@ -39,11 +39,12 @@ export async function POST(req: NextRequest) {
 
     // Step 2: Add message as a note on the contact
     if (contactId && message) {
-      await fetch(`https://www.wixapis.com/contacts/v4/contacts/${contactId}/notes`, {
+      await fetch(`https://www.wixapis.com/crm/notes/v2/notes`, {
         method: 'POST',
         headers: wixHeaders,
         body: JSON.stringify({
-          info: { content: `Commission Inquiry:\n\n${message}` }
+          contactId: contactId,
+          content: `Commission Inquiry:\n\n${message}`
         })
       }).catch(() => {})
     }
