@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
         'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'Jonathan Alistair Fine Jewelry <onboarding@resend.dev>',
+        from: 'Jonathan Alistair Fine Jewelry <hello@jafinejewelry.com>',
         to: 'jonathan@jafinejewelry.com',
         subject: `New Commission Inquiry — ${name}`,
         html: `
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
         'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'Jonathan Alistair Fine Jewelry <onboarding@resend.dev>',
+        from: 'Jonathan Alistair Fine Jewelry <hello@jafinejewelry.com>',
         to: email,
         reply_to: 'jonathan@jafinejewelry.com',
         subject: `Thank you, ${firstName} — Jonathan will be in touch shortly.`,
