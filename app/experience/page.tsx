@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -166,7 +167,7 @@ export default function Experience() {
           {steps.map((step, i) => (
             <div key={step.num} className={`${styles.step} ${i % 2 === 0 ? styles.stepEven : styles.stepOdd}`}>
               <div className={styles.stepVisual}>
-                <div className={styles.stepSvg}>{step.svg}</div>
+                <div className={styles.stepImg}><Image src={`/experience-${['reach-out','consultation','design','creation','delivery'][i]}.jpg`} alt={step.title} fill style={{objectFit:'cover',objectPosition:'center'}} /></div>
                 <div className={styles.stepNumBig}>{step.num}</div>
               </div>
               <div className={styles.stepContent}>

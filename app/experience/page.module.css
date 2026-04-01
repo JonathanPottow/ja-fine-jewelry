@@ -288,3 +288,21 @@
   .stepContent { padding: 2.5rem 1.5rem; }
   .stepVisual { padding: 3rem 1.5rem; }
 }
+
+.stepImg {
+  position: relative;
+  width: 340px;
+  height: 260px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.stepImg {
+  position: relative;
+  width: 340px;
+  height: 260px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
