@@ -107,8 +107,9 @@
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  padding: 4rem 3rem;
+  padding: 0;
   position: relative;
+  overflow: hidden;
 }
 .stepSvg { opacity: 0.9; }
 .stepNumBig {
@@ -289,20 +290,13 @@
   .stepVisual { padding: 3rem 1.5rem; }
 }
 
-.stepImg {
-  position: relative;
-  width: 340px;
-  height: 260px;
-  border-radius: 2px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
+
+
+
 
 .stepImg {
-  position: relative;
-  width: 340px;
-  height: 260px;
-  border-radius: 2px;
-  overflow: hidden;
-  flex-shrink: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
