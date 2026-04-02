@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
         'Accept': 'application/json',
         'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
       },
-      body: JSON.stringify({ email, status: 'active', groups: [{ id: '183658075179189259' }] })
+      body: JSON.stringify({ email, status: 'active', groups: ['183658075179189259'] })
     })
 
     if (!res.ok) {
