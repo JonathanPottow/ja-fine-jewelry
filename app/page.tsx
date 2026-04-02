@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styles from './page.module.css'
 import ContactForm from './ContactForm'
+import SubscribeForm from '@/components/SubscribeForm'
 import PortfolioGrid from './PortfolioGrid'
 
 export default function Home() {
@@ -192,25 +193,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── CONTACT ─── */}
-      <section id="contact" className={styles.contactSection}>
-        <div className={styles.contactInner}>
-          <div className={`${styles.contactText} fade-up`}>
-            <p className={styles.eyebrow}>Get in Touch</p>
-            <h2 className={styles.contactTitle}>
-              Begin your<br /><em>bespoke journey.</em>
-            </h2>
-            <p className={styles.contactSubtext}>
-              Every commission starts with a conversation. Tell Jonathan your vision
-              and he'll be in touch personally within 48 hours.
-            </p>
-            <div className={styles.contactDetails}>
-              <span>Charlotte, North Carolina</span>
-              <span>By appointment only</span>
-            </div>
-          </div>
-          <ContactForm />
-        </div>
+
+      {/* ─── SUBSCRIBE ─── */}
+      <section id="subscribe" className={styles.subscribeSection}>
+        <SubscribeForm />
       </section>
     </>
   )
