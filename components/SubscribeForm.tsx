@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import styles from './SubscribeForm.module.css'
+import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
 
 export default function SubscribeForm() {
   const [email, setEmail] = useState('')
@@ -15,7 +16,12 @@ export default function SubscribeForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
       })
-      if (res.ok) { setStatus('sent') } else { setStatus('error') }
+      if (res.ok) {
+        setStatus('sent')
+        trackEvent(ANALYTICS_EVENTS.EMAIL_SUBSCRIBE, { location: 'homepage_footer' })
+      } else {
+        setStatus('error')
+      }
     } catch { setStatus('error') }
   }
 

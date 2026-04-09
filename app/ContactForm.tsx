@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import styles from './page.module.css'
+import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
@@ -13,7 +14,12 @@ export default function ContactForm() {
       const formData = new FormData()
       formData.append('data', JSON.stringify(form))
       const res = await fetch('/api/contact', { method: 'POST', body: formData })
-      if (res.ok) { setStatus('sent') } else { setStatus('error') }
+      if (res.ok) {
+        setStatus('sent')
+        trackEvent(ANALYTICS_EVENTS.LEAD_FORM_SUBMIT, { location: 'homepage' })
+      } else {
+        setStatus('error')
+      }
     } catch { setStatus('error') }
   }
 

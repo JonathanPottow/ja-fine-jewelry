@@ -3,11 +3,63 @@ import styles from './about.module.css'
 
 export const metadata = {
   title: 'About Jonathan Pottow | Bespoke Jeweler Charlotte NC | Jonathan Alistair Fine Jewelry',
+  description:
+    'Meet Jonathan Pottow — a Charlotte, NC private jeweler with 13+ years of luxury jewelry experience. Bespoke engagement rings, custom commissions, and heirloom redesigns built on trust.',
+  alternates: { canonical: '/about' },
+}
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://www.jafinejewelry.com/about#jonathan-pottow',
+  name: 'Jonathan Pottow',
+  jobTitle: 'Founder & Private Jeweler',
+  description:
+    'Jonathan Pottow is a Charlotte, NC based private jeweler and the founder of Jonathan Alistair Fine Jewelry. He creates bespoke fine jewelry through a deeply personal, white-glove process.',
+  url: 'https://www.jafinejewelry.com/about',
+  image: 'https://www.jafinejewelry.com/jonathan-homepage.jpg',
+  worksFor: {
+    '@type': 'Organization',
+    '@id': 'https://www.jafinejewelry.com/#business',
+    name: 'Jonathan Alistair Fine Jewelry',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Charlotte',
+    addressRegion: 'NC',
+    addressCountry: 'US',
+  },
+  knowsAbout: [
+    'Bespoke Fine Jewelry',
+    'Custom Engagement Rings',
+    'Diamond Sourcing',
+    'Heirloom Redesign',
+    'Wedding Bands',
+    'Jewelry Appraisal',
+  ],
+}
+
+const aboutBreadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.jafinejewelry.com' },
+    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://www.jafinejewelry.com/about' },
+  ],
 }
 
 export default function AboutPage() {
   return (
     <div className={styles.page}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutBreadcrumbJsonLd) }}
+      />
+
 
       {/* HERO */}
       <section className={styles.hero}>
@@ -147,8 +199,8 @@ export default function AboutPage() {
               <span className={styles.statLabel}>Fully private experience</span>
             </div>
             <div className={styles.statCard}>
-              <span className={styles.statNum}>82</span>
-              <span className={styles.statLabel}>Five-star reviews</span>
+              <span className={styles.statNum}>49</span>
+              <span className={styles.statLabel}>Five-star Google reviews</span>
             </div>
           </div>
         </div>

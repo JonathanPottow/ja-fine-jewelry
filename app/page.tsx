@@ -4,9 +4,60 @@ import ContactForm from './ContactForm'
 import SubscribeForm from '@/components/SubscribeForm'
 import PortfolioGrid from './PortfolioGrid'
 
+const localBusinessJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'JewelryStore',
+  '@id': 'https://www.jafinejewelry.com/#business',
+  name: 'Jonathan Alistair Fine Jewelry',
+  alternateName: 'JA Fine Jewelry',
+  description:
+    'Bespoke fine jewelry and private commissions by Jonathan Pottow. Custom engagement rings, wedding bands, anniversary pieces, and heirloom redesigns in Charlotte, NC.',
+  url: 'https://www.jafinejewelry.com',
+  image: 'https://www.jafinejewelry.com/og-image.jpg',
+  logo: 'https://www.jafinejewelry.com/favicon.svg',
+  founder: {
+    '@type': 'Person',
+    name: 'Jonathan Pottow',
+  },
+  foundingDate: '2020',
+  priceRange: '$$$$',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Charlotte',
+    addressRegion: 'NC',
+    addressCountry: 'US',
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Charlotte' },
+    { '@type': 'State', name: 'North Carolina' },
+    { '@type': 'Country', name: 'United States' },
+  ],
+  makesOffer: [
+    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Custom Engagement Rings' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Wedding Bands' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Anniversary Pieces' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Heirloom Redesigns' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Custom Pendants' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Jewelry Appraisals' } },
+  ],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5.0',
+    reviewCount: '49',
+    bestRating: '5',
+    worstRating: '1',
+  },
+  availableLanguage: 'English',
+  paymentAccepted: 'Cash, Credit Card, Wire Transfer',
+}
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+      />
       {/* ─── HERO ─── */}
       <section id="home" className={styles.hero}>
         <div className={styles.heroText}>

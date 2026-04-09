@@ -112,9 +112,45 @@ const faqs = [
   },
 ]
 
+const experienceBreadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.jafinejewelry.com' },
+    { '@type': 'ListItem', position: 2, name: 'Experience', item: 'https://www.jafinejewelry.com/experience' },
+  ],
+}
+
+const experienceServiceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Bespoke Fine Jewelry Commission',
+  provider: {
+    '@type': 'JewelryStore',
+    '@id': 'https://www.jafinejewelry.com/#business',
+    name: 'Jonathan Alistair Fine Jewelry',
+  },
+  areaServed: {
+    '@type': 'Country',
+    name: 'United States',
+  },
+  serviceType: 'Custom Jewelry Design',
+  description:
+    'A private, white-glove bespoke jewelry experience — from first conversation to final delivery. Custom engagement rings, wedding bands, anniversary pieces, and heirloom redesigns.',
+  url: 'https://www.jafinejewelry.com/experience',
+}
+
 export default function Experience() {
   return (
     <div className={styles.page}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(experienceBreadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(experienceServiceJsonLd) }}
+      />
 
       {/* Hero */}
       <section className={styles.hero}>

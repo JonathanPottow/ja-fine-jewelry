@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import styles from './page.module.css'
+import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
 
 const faqs = [
   { q: 'What is the investment for a custom piece?', a: 'Every commission is different — a bespoke engagement ring with a rare stone is a very different project from a refined anniversary band or a reimagined heirloom. As a guide, most custom commissions begin from $4,000, though the right number depends entirely on your vision, materials, and level of detail. What you will never experience is pressure, hidden costs, or a recommendation that is not genuinely in your best interest. Have a budget in mind? Share it when you reach out — Jonathan will always be honest about what is possible.' },
@@ -26,7 +27,15 @@ export default function ContactPageClient() {
       const formData = new FormData()
       formData.append('data', JSON.stringify(form))
       const res = await fetch('/api/contact', { method: 'POST', body: formData })
-      if (res.ok) { setStatus('sent') } else { setStatus('error') }
+      if (res.ok) {
+        setStatus('sent')
+        trackEvent(ANALYTICS_EVENTS.LEAD_FORM_SUBMIT, {
+          location: 'contact_page',
+          has_phone: form.phone ? 'yes' : 'no',
+        })
+      } else {
+        setStatus('error')
+      }
     } catch { setStatus('error') }
   }
 
