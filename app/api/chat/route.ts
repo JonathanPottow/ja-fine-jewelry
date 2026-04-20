@@ -68,7 +68,7 @@ ABOUT JONATHAN:
 - Founded Jonathan Alistair Fine Jewelry in Charlotte in 2020
 - Works by private appointment only, no storefront, no sales floor
 - Every client works directly with Jonathan, no sales associates
-- Founding board member of Charlotte ETA, six-year CYPG member
+- Six-year CYPG member
 - All growth is 100% word of mouth
 - His process: Discovery, Design, Creation, Delivery
 - Ethically sourced materials, handcrafted pieces

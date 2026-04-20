@@ -2,9 +2,9 @@ import Link from 'next/link'
 import styles from './about.module.css'
 
 export const metadata = {
-  title: 'About Jonathan Pottow | Bespoke Jeweler Charlotte NC | Jonathan Alistair Fine Jewelry',
+  title: 'About Jonathan Pottow | Private Jeweler & Luxury Broker | Charlotte NC',
   description:
-    'Meet Jonathan Pottow — a Charlotte, NC private jeweler with 13+ years of luxury jewelry experience. Bespoke engagement rings, custom commissions, and heirloom redesigns built on trust.',
+    'Meet Jonathan Pottow — South African-born, Charlotte-based private jeweler, luxury broker, and fine watch dealer. 13+ years in the industry. Bespoke commissions, luxury pieces, and fine timepieces.',
   alternates: { canonical: '/about' },
 }
 
@@ -13,9 +13,9 @@ const personJsonLd = {
   '@type': 'Person',
   '@id': 'https://www.jafinejewelry.com/about#jonathan-pottow',
   name: 'Jonathan Pottow',
-  jobTitle: 'Founder & Private Jeweler',
+  jobTitle: 'Founder, Private Jeweler & Luxury Broker',
   description:
-    'Jonathan Pottow is a Charlotte, NC based private jeweler and the founder of Jonathan Alistair Fine Jewelry. He creates bespoke fine jewelry through a deeply personal, white-glove process.',
+    'Jonathan Pottow is a Charlotte, NC based private jeweler, luxury broker, and fine watch dealer. Founder of Jonathan Alistair Fine Jewelry — bespoke commissions, luxury pieces, and fine timepieces through a private, one-on-one process.',
   url: 'https://www.jafinejewelry.com/about',
   image: 'https://www.jafinejewelry.com/jonathan-homepage.jpg',
   worksFor: {
@@ -36,6 +36,8 @@ const personJsonLd = {
     'Heirloom Redesign',
     'Wedding Bands',
     'Jewelry Appraisal',
+    'Luxury Watch Dealing',
+    'Fine Jewelry Brokerage',
   ],
 }
 
@@ -70,9 +72,9 @@ export default function AboutPage() {
             Built on <em>trust.</em>
           </h1>
           <p className={styles.heroSubtext}>
-            Jonathan Pottow is a private jeweler based in Charlotte, NC — creating bespoke fine jewelry
-            through a deeply personal process. Every commission begins with a conversation and ends with
-            a piece that means something.
+            Jonathan Pottow is a private jeweler, luxury broker, and fine watch dealer based in Charlotte,
+            North Carolina — creating bespoke fine jewelry, sourcing luxury pieces, and dealing in fine
+            timepieces through a deeply personal, one-on-one process.
           </p>
         </div>
       </section>
@@ -85,25 +87,36 @@ export default function AboutPage() {
             <div className={styles.verticalLine} />
           </div>
           <div className={styles.introContent}>
-            <blockquote className={styles.pullQuote}>
-              "My grandfather did not just collect beautiful things — he taught me how to see them."
-            </blockquote>
             <p>
-              Jonathan Pottow grew up in South Africa watching his grandfather — a lifelong collector of fine goods —
-              handle objects with a reverence that had nothing to do with price. It was about craftsmanship.
-              Intention. The idea that something made well, made with purpose, carries meaning that outlasts its maker.
+              Jonathan Pottow grew up surrounded by gemstones and craftsmanship in South Africa. His
+              grandfather — a lifelong collector of fine goods — had a deep appreciation for exceptional
+              craftsmanship that shaped the way Jonathan sees the world. It was never about price. It was
+              about intention — the idea that something made well, made with purpose, carries meaning that
+              outlasts its maker.
             </p>
             <p>
-              That early education shaped everything. Not just an appreciation for quality, but a deep belief that
-              the things we choose to wear and give say something real about who we are and who we love. It became
-              the quiet foundation of everything Jonathan would later build — a standard he has never lowered,
-              regardless of budget, occasion, or timeline.
+              That early education became the foundation of everything Jonathan would later build. Not just
+              an eye for quality, but a belief that the things we choose to wear and give say something real
+              about who we are and who we love — a standard he has never lowered, regardless of budget,
+              occasion, or timeline.
             </p>
             <p>
-              When he entered the jewelry industry in 2013, he wasn't chasing a career — he was following
-              something he had understood since childhood. That fine jewelry, done right, is one of the most
-              personal things in the world. And that most people never get to experience what it truly feels like
-              to have something made just for them.
+              Jonathan entered the jewelry industry in 2013 at a premier luxury jewelry group in Raleigh,
+              working his way from the front desk to diamond consultant, then to General Manager of a new
+              St. Louis location by 2017. In 2019, with his wife expecting their first son Deacan, he
+              returned home to Charlotte — a city he loves deeply and has no intention of leaving.
+            </p>
+            <p>
+              In 2020, during the uncertainty of the pandemic, Jonathan saw an opportunity: to create
+              something that didn't exist in the market. A safe, deeply personal, entirely bespoke
+              experience for clients who deserved better than the generic jewelry store. Jonathan Alistair
+              Fine Jewelry was born from that belief — and has since grown from bespoke commissions into a
+              full private practice spanning custom jewelry, luxury brokerage, and fine watches.
+            </p>
+            <p>
+              Today Jonathan is a six-year member of CYPG — investing in his community as genuinely as he
+              invests in every client. His role is simple: to be your guide, your expert, and your
+              advocate — sitting on your side of the table from the first conversation to the final piece.
             </p>
           </div>
         </div>
@@ -139,8 +152,8 @@ export default function AboutPage() {
             },
             {
               year: 'Today',
-              title: 'Charlotte, Community & Growth',
-              desc: 'Jonathan and his wife are raising two sons — Deacan and Finnley — in Charlotte. He is a founding board member of Charlotte ETA and a six-year member of CYPG, investing in his community as genuinely as he invests in every client. His practice continues to grow entirely through word of mouth — built on the only currency that has ever mattered to him: the trust of the people he serves.',
+              title: 'Jewelry, Luxury Brokerage & Fine Watches',
+              desc: 'What started as bespoke jewelry commissions has grown into a full private practice. Jonathan now creates custom pieces, brokers luxury jewelry, and deals in fine watches — all through the same one-on-one process his clients have come to trust. He and his wife are raising two sons — Deacan and Finnley — in Charlotte, and his practice continues to grow entirely through word of mouth, built on the only currency that has ever mattered to him: the trust of the people he serves.',
             },
           ].map((item, i) => (
             <div key={i} className={styles.timelineItem}>
@@ -174,15 +187,15 @@ export default function AboutPage() {
             </p>
             <p>
               That industry access matters more than most people realize. Jonathan works directly with diamond
-              dealers and stone cutters, which means his clients see options and quality levels that simply
+              dealers, stone cutters, and watchmakers, which means his clients see options and quality levels that simply
               aren't available on a retail sales floor. You get a jeweler who is genuinely on your side —
               helping you make the most informed, confident decision possible, with full transparency at every step.
             </p>
             <p>
               The goal has always been simple: to be the last jeweler you ever need. The person you call when
               you get engaged, when you celebrate an anniversary, when you want to redesign an heirloom, when
-              you simply want something beautiful and meaningful that no one else has. A relationship built
-              over years, not a transaction completed in an afternoon.
+              you need the right timepiece, or when you simply want something beautiful and meaningful that no one
+              else has. A relationship built over years, not a transaction completed in an afternoon.
             </p>
           </div>
           <div className={styles.philosophyStats}>
@@ -213,9 +226,9 @@ export default function AboutPage() {
           <h2 className={styles.charlotteTitle}>More than a business.<br /><em>A community.</em></h2>
           <p>
             Charlotte is not just where Jonathan works — it is where he is raising his family, coaching his
-            sons, investing his time, and building something that lasts. As a founding board member of
-            Charlotte ETA and a six-year member of CYPG, he shows up for this city the same way he shows
-            up for every client: with intention, consistency, and genuine care.
+            sons, investing his time, and building something that lasts. As a six-year member of CYPG, he
+            shows up for this city the same way he shows up for every client: with intention, consistency,
+            and genuine care.
           </p>
           <p>
             Jonathan believes the best businesses are extensions of the communities they serve. Every
