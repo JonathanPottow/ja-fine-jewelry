@@ -1,5 +1,6 @@
 'use client'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
+import Turnstile, { Honeypot } from '@/app/Turnstile'
 import styles from './page.module.css'
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
 
@@ -7,18 +8,26 @@ export default function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState<'idle'|'sending'|'sent'|'error'>('idle')
 
+  const [startedAt] = useState(() => Date.now())
+  const [website, setWebsite] = useState('')
+  const [turnstileToken, setTurnstileToken] = useState('')
+  const [captchaKey, setCaptchaKey] = useState(0)
+  const onToken = useCallback((t: string) => setTurnstileToken(t), [])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('sending')
     try {
       const formData = new FormData()
-      formData.append('data', JSON.stringify(form))
+      formData.append('data', JSON.stringify({ ...form, website, startedAt, turnstileToken }))
       const res = await fetch('/api/contact', { method: 'POST', body: formData })
       if (res.ok) {
         setStatus('sent')
         trackEvent(ANALYTICS_EVENTS.LEAD_FORM_SUBMIT, { location: 'homepage' })
       } else {
         setStatus('error')
+        setTurnstileToken('')
+        setCaptchaKey(k => k + 1)
       }
     } catch { setStatus('error') }
   }
@@ -62,6 +71,8 @@ export default function ContactForm() {
           onChange={e => setForm({...form, message: e.target.value})}
         />
       </div>
+      <Honeypot value={website} onChange={setWebsite} />
+      <Turnstile key={captchaKey} onToken={onToken} />
       {status === 'error' && <p className={styles.formError}>Something went wrong. Please try again.</p>}
       <button type="submit" className={styles.submitBtn} disabled={status === 'sending'}>
         {status === 'sending' ? 'Sending...' : 'Send My Inquiry'}

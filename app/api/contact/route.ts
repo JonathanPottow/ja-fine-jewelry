@@ -1,10 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { checkSpam } from '@/lib/spamGuard'
 
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData()
     const data = JSON.parse(formData.get('data') as string)
     const { name, email, phone, message } = data
+
+    // Spam protection: bots get a fake "success" and nothing is sent
+    const spam = await checkSpam(req, data)
+    if (spam) {
+      console.warn('Contact form blocked:', spam.reason)
+      if (spam.silent) return NextResponse.json({ success: true })
+      return NextResponse.json({ error: 'Verification failed' }, { status: 400 })
+    }
     const nameParts = (name || '').trim().split(' ')
     const firstName = nameParts[0] || ''
     const lastName = nameParts.slice(1).join(' ') || ''
