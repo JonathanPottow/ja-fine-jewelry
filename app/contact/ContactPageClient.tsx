@@ -1,6 +1,7 @@
 'use client'
 import { useState, useCallback } from 'react'
 import Turnstile, { Honeypot } from '@/app/Turnstile'
+import InspirationUpload from '@/app/InspirationUpload'
 import styles from './page.module.css'
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
 
@@ -25,6 +26,7 @@ export default function ContactPageClient() {
   const [website, setWebsite] = useState('')
   const [turnstileToken, setTurnstileToken] = useState('')
   const [captchaKey, setCaptchaKey] = useState(0)
+  const [images, setImages] = useState<File[]>([])
   const onToken = useCallback((t: string) => setTurnstileToken(t), [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,6 +35,7 @@ export default function ContactPageClient() {
     try {
       const formData = new FormData()
       formData.append('data', JSON.stringify({ ...form, website, startedAt, turnstileToken }))
+      images.forEach(img => formData.append('images', img))
       const res = await fetch('/api/contact', { method: 'POST', body: formData })
       if (res.ok) {
         setStatus('sent')
@@ -81,6 +84,10 @@ export default function ContactPageClient() {
           <div className={styles.formGroup}>
             <label>Tell me a little about what you have in mind</label>
             <textarea rows={5} placeholder="A vision, a feeling, a story — whatever comes to mind." value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Inspiration images <span style={{ textTransform: 'none', letterSpacing: 0, opacity: 0.7 }}>(optional, up to 3)</span></label>
+            <InspirationUpload files={images} onChange={setImages} />
           </div>
           <Honeypot value={website} onChange={setWebsite} />
           <Turnstile key={captchaKey} onToken={onToken} />

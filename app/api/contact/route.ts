@@ -14,6 +14,20 @@ export async function POST(req: NextRequest) {
       if (spam.silent) return NextResponse.json({ success: true })
       return NextResponse.json({ error: 'Verification failed' }, { status: 400 })
     }
+    // Inspiration images (optional): up to 3, max 3 MB each, 4 MB total
+    const attachments: { filename: string; content: string }[] = []
+    let skippedImages = 0
+    let totalBytes = 0
+    for (const item of formData.getAll('images').slice(0, 3)) {
+      if (typeof item === 'string') continue
+      const file = item as File
+      const okType = (file.type || '').startsWith('image/') || /\.(jpe?g|png|gif|webp|heic|heif)$/i.test(file.name || '')
+      if (!okType || file.size > 3 * 1024 * 1024 || totalBytes + file.size > 4 * 1024 * 1024) { skippedImages++; continue }
+      totalBytes += file.size
+      const safeName = (file.name || `inspiration-${attachments.length + 1}.jpg`).replace(/[^\w.\- ]+/g, '_').slice(0, 80)
+      attachments.push({ filename: safeName, content: Buffer.from(await file.arrayBuffer()).toString('base64') })
+    }
+
     const nameParts = (name || '').trim().split(' ')
     const firstName = nameParts[0] || ''
     const lastName = nameParts.slice(1).join(' ') || ''
@@ -68,7 +82,8 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         from: 'Jonathan Alistair Fine Jewelry <hello@jafinejewelry.com>',
         to: 'jonathan@jafinejewelry.com',
-        subject: `New Commission Inquiry — ${name}`,
+        subject: `New Commission Inquiry — ${name}${attachments.length ? ` — ${attachments.length} image${attachments.length > 1 ? 's' : ''}` : ''}`,
+        ...(attachments.length ? { attachments } : {}),
         html: `
           <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #0f2240;">
             <h2 style="font-size: 24px; font-weight: 400; margin-bottom: 8px;">New Commission Inquiry</h2>
@@ -79,6 +94,8 @@ export async function POST(req: NextRequest) {
             <p style="margin-top: 24px;"><strong>Message:</strong></p>
             <p style="background: #f5f0e8; padding: 16px; border-left: 3px solid #c8a84b; line-height: 1.7;">${message || 'No message provided'}</p>
             <hr style="border: none; border-top: 1px solid #e8e0d0; margin-top: 32px;" />
+            ${attachments.length ? `<p><strong>Inspiration images:</strong> ${attachments.length} attached</p>` : ''}
+            ${skippedImages ? `<p style="color:#a03020;"><strong>Note:</strong> ${skippedImages} image(s) were too large to attach — ask the client to text or email them.</p>` : ''}
             <p style="font-size: 12px; color: #888;">Jonathan Alistair Fine Jewelry &mdash; jafinejewelry.com</p>
           </div>
         `
