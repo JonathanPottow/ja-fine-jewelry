@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import styles from './page.module.css'
 import ContactForm from './ContactForm'
-import SubscribeForm from '@/components/SubscribeForm'
 import PortfolioGrid from './PortfolioGrid'
 
 const localBusinessJsonLd = {
@@ -245,9 +244,23 @@ export default function Home() {
       </section>
 
 
-      {/* ─── SUBSCRIBE ─── */}
-      <section id="subscribe" className={styles.subscribeSection}>
-        <SubscribeForm />
+      {/* ─── INQUIRY ─── */}
+      <section id="inquire" className={styles.contactSection}>
+        <div className={styles.contactInner}>
+          <div>
+            <p className={styles.eyebrow}>Private Commissions</p>
+            <h2 className={styles.contactTitle}>Begin your<br /><em>journey.</em></h2>
+            <p className={styles.contactSubtext}>
+              Every piece starts with a conversation. Share a few words about what you have in mind,
+              and Jonathan will reach out personally within 48 hours.
+            </p>
+            <div className={styles.contactDetails}>
+              <span>By appointment only</span>
+              <span>Charlotte, North Carolina</span>
+            </div>
+          </div>
+          <ContactForm />
+        </div>
       </section>
     </>
   )
