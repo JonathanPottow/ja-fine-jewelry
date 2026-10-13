@@ -34,6 +34,34 @@
   color: rgba(245,240,232,0.85);
 }
 
+
+.social {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  margin-top: 1.4rem;
+}
+
+.social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: rgba(245,240,232,0.85);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.social a:hover { color: var(--tan); }
+
+.social svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
 .links {
   display: flex;
   flex-direction: column;

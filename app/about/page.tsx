@@ -212,7 +212,7 @@ export default function AboutPage() {
               <span className={styles.statLabel}>Fully private experience</span>
             </div>
             <div className={styles.statCard}>
-              <span className={styles.statNum}>49</span>
+              <span className={styles.statNum}>63</span>
               <span className={styles.statLabel}>Five-star Google reviews</span>
             </div>
           </div>
