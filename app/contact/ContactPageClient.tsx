@@ -4,8 +4,8 @@ import Turnstile, { Honeypot } from '@/app/Turnstile'
 import InspirationUpload from '@/app/InspirationUpload'
 import styles from './page.module.css'
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
-import { getPieceBySlug } from '@/lib/portfolio-pieces'
-import { METAL_OPTIONS, isMetalKey, isValidLabCarat, LAB_INQUIRE_CARAT } from '@/lib/pricing'
+import { getPieceBySlug, pieceStill, type PortfolioPiece } from '@/lib/portfolio-pieces'
+import { METAL_OPTIONS, isMetalKey, isValidLabCarat, LAB_INQUIRE_CARAT, settingPrice, labDiamondPrice, formatUSD } from '@/lib/pricing'
 
 const faqs = [
   { q: 'What is the investment for a custom piece?', a: 'Most custom engagement rings begin around $2,500–$3,000 for the setting, plus the diamond. Complete rings typically start from about $4,000 with a lab grown center stone, and from about $6,500 with a natural diamond. There are no consultation fees. The right number depends on your vision, stone, and level of detail. Share your budget when you reach out and Jonathan will always be honest about what\'s possible.' },
@@ -30,6 +30,7 @@ export default function ContactPageClient() {
   const [captchaKey, setCaptchaKey] = useState(0)
   const [images, setImages] = useState<File[]>([])
   const [designRef, setDesignRef] = useState<{ slug: string; metal?: string; lab?: number } | null>(null)
+  const [designPiece, setDesignPiece] = useState<PortfolioPiece | null>(null)
   const onToken = useCallback((t: string) => setTurnstileToken(t), [])
 
   // Arriving from a portfolio piece page: start the message with what they were looking at.
@@ -56,6 +57,7 @@ export default function ContactPageClient() {
         metal: isMetalKey(metalParam) ? metalParam : undefined,
         lab: isValidLabCarat(lab) ? lab : undefined,
       })
+      setDesignPiece(piece)
     } catch {
       /* prefill is a convenience only */
     }
@@ -101,6 +103,40 @@ export default function ContactPageClient() {
         <h1 className={styles.pageTitle}>Begin Your<br /><em>Journey</em></h1>
         <p className={styles.pageIntro}>Every commission starts with a conversation. Tell Jonathan a little about what you have in mind.</p>
       </div>
+
+      {designPiece && (
+        <div className={styles.designCard}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className={styles.designCardImg} src={pieceStill(designPiece)} alt={designPiece.alt} width={96} height={96} />
+          <div className={styles.designCardBody}>
+            <p className={styles.designCardEyebrow}>You&rsquo;re inquiring about</p>
+            <p className={styles.designCardName}>{designPiece.name}</p>
+            <p className={styles.designCardDetail}>
+              {designRef?.metal
+                ? METAL_OPTIONS.find((m) => m.key === designRef.metal)?.label
+                : 'Metal not yet chosen'}
+              {designRef?.lab
+                ? ` · ${designRef.lab}${designRef.lab === LAB_INQUIRE_CARAT ? '+' : ''} ct lab grown center`
+                : ''}
+              {designPiece.base14k !== null && designRef?.metal && isMetalKey(designRef.metal)
+                ? ` · From ${formatUSD(
+                    settingPrice(designPiece.base14k, designRef.metal) +
+                      (designRef.lab && designRef.lab !== LAB_INQUIRE_CARAT ? labDiamondPrice(designRef.lab) : 0)
+                  )}`
+                : ''}
+            </p>
+            <p className={styles.designCardNote}>This will be sent to Jonathan along with your message below.</p>
+          </div>
+          <button
+            type="button"
+            className={styles.designCardClear}
+            onClick={() => { setDesignPiece(null); setDesignRef(null) }}
+            aria-label="Remove this design and send a general inquiry instead"
+          >
+            Remove
+          </button>
+        </div>
+      )}
 
       <div className={styles.formWrap}>
         <form onSubmit={handleSubmit} className={styles.form}>
