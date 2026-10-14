@@ -37,3 +37,14 @@
   .grid { grid-template-columns: repeat(2, 1fr); }
   .filters { gap: 0.4rem 1.25rem; }
 }
+
+.chipSaved { color: var(--bronze); opacity: 0.85; }
+.chipSaved:hover { opacity: 1; }
+
+.emptySaved {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  opacity: 0.65;
+  padding: 3rem 0;
+  text-align: center;
+}

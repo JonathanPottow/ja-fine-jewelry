@@ -72,7 +72,7 @@ export default function Home() {
           </p>
           <div className={`${styles.ctaRow} hero-word`} style={{animationDelay: "1.2s"}}>
             <a href="/contact" className={styles.ctaPrimary}>Let's Talk</a>
-            <a href="#portfolio" className={styles.ctaSecondary}>View Portfolio</a>
+            <Link href="/portfolio" className={styles.ctaSecondary}>View Portfolio</Link>
           </div>
         </div>
         <div className={styles.heroVisual}>

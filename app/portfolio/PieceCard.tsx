@@ -2,6 +2,7 @@ import Link from 'next/link'
 import styles from './PieceCard.module.css'
 import { pieceStill, type PortfolioPiece } from '@/lib/portfolio-pieces'
 import { settingPrice, formatUSD } from '@/lib/pricing'
+import FavoriteButton from './FavoriteButton'
 
 /**
  * One portfolio tile: a lightweight still image (no video), name and starting price.
@@ -25,6 +26,7 @@ export default function PieceCard({
       aria-label={`${piece.name}, view details`}
     >
       <div className={styles.frame}>
+        <FavoriteButton slug={piece.slug} name={piece.name} variant="tile" />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className={styles.media}

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import styles from './piece.module.css'
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
@@ -35,10 +35,23 @@ export default function PieceConfigurator({
   const [metal, setMetal] = useState<MetalKey>(defaultMetal)
   const [lab, setLab] = useState(0)
   const [diamondType, setDiamondType] = useState<'unset' | 'lab' | 'natural'>('unset')
+  const [stickyVisible, setStickyVisible] = useState(false)
+  const ctaRowRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     trackEvent(ANALYTICS_EVENTS.PORTFOLIO_PIECE_VIEW, { piece: slug, piece_name: name, category })
   }, [slug, name, category])
+
+  useEffect(() => {
+    const el = ctaRowRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    const observer = new IntersectionObserver(
+      ([entry]) => setStickyVisible(!entry.isIntersecting),
+      { rootMargin: '0px 0px -10% 0px' },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const setting = base14k === null ? null : settingPrice(base14k, metal)
   const total = setting === null ? null : setting + labDiamondPrice(lab)
@@ -183,12 +196,18 @@ export default function PieceConfigurator({
         design details, metal, and stones, and is always agreed with you before anything begins.
       </p>
 
-      <div className={styles.ctaRow}>
+      <div className={styles.ctaRow} ref={ctaRowRef}>
         <Link href={`/contact?${params.toString()}`} className={styles.ctaPrimary}>
           Begin a Conversation About This Design
         </Link>
         <Link href="/portfolio" className={styles.ctaSecondary}>
           ← Back to Portfolio
+        </Link>
+      </div>
+
+      <div className={`${styles.stickyCta} ${stickyVisible ? styles.stickyCtaVisible : ''}`}>
+        <Link href={`/contact?${params.toString()}`} className={styles.stickyCtaBtn}>
+          Begin a Conversation
         </Link>
       </div>
     </div>

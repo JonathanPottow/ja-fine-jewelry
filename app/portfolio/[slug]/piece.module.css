@@ -138,6 +138,16 @@
 
 .details { padding-top: 0.5rem; }
 
+.titleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+.titleRow .title { margin-bottom: 0; }
+.titleRow > div { flex: 1; min-width: 0; }
+
 .eyebrow {
   font-family: var(--font-sans);
   font-size: var(--text-eyebrow);
@@ -387,4 +397,44 @@
   .ctaRow { flex-direction: column; align-items: stretch; }
   .ctaPrimary { text-align: center; }
   .ctaSecondary { text-align: center; }
+}
+
+.stickyCta {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .stickyCta {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+    background: rgba(250, 248, 244, 0.96);
+    border-top: 1px solid var(--tan);
+    box-shadow: 0 -4px 18px rgba(15, 34, 64, 0.1);
+    transform: translateY(100%);
+    transition: transform 0.25s ease;
+    pointer-events: none;
+  }
+  .stickyCtaVisible {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .stickyCtaBtn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: var(--espresso);
+    color: var(--cream);
+    padding: 0.95rem 1rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-ui);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border: 1px solid var(--espresso);
+  }
+  .stickyCtaBtn:hover { background: var(--bark); border-color: var(--bark); }
 }

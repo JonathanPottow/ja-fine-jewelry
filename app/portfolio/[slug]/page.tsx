@@ -10,6 +10,7 @@ import {
 import PieceVideo from './PieceVideo'
 import PieceConfigurator from './PieceConfigurator'
 import PieceCard from '../PieceCard'
+import FavoriteButton from '../FavoriteButton'
 import styles from './piece.module.css'
 
 interface PageProps {
@@ -98,10 +99,15 @@ export default function PiecePage({ params }: PageProps) {
         </div>
 
         <div className={styles.details}>
-          <p className={styles.eyebrow}>
-            {piece.category === 'Uncategorized' ? 'Bespoke Commission' : piece.category}
-          </p>
-          <h1 className={styles.title}>{piece.name}</h1>
+          <div className={styles.titleRow}>
+            <div>
+              <p className={styles.eyebrow}>
+                {piece.category === 'Uncategorized' ? 'Bespoke Commission' : piece.category}
+              </p>
+              <h1 className={styles.title}>{piece.name}</h1>
+            </div>
+            <FavoriteButton slug={piece.slug} name={piece.name} variant="detail" />
+          </div>
           <div className={styles.divider} />
 
           <p className={styles.story}>
