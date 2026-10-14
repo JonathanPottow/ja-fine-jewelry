@@ -34,6 +34,7 @@ export default function PieceConfigurator({
 }: Props) {
   const [metal, setMetal] = useState<MetalKey>(defaultMetal)
   const [lab, setLab] = useState(0)
+  const [diamondType, setDiamondType] = useState<'unset' | 'lab' | 'natural'>('unset')
 
   useEffect(() => {
     trackEvent(ANALYTICS_EVENTS.PORTFOLIO_PIECE_VIEW, { piece: slug, piece_name: name, category })
@@ -44,7 +45,10 @@ export default function PieceConfigurator({
   const metalLabel = METAL_OPTIONS.find((m) => m.key === metal)?.label ?? ''
 
   const params = new URLSearchParams({ piece: slug, metal })
-  if (lab) params.set('lab', String(lab))
+  if (diamondType === 'lab' && lab) params.set('lab', String(lab))
+  if (diamondType === 'natural') params.set('diamond', 'natural')
+
+  const naturalParams = new URLSearchParams({ piece: slug, metal, diamond: 'natural' })
 
   return (
     <div className={styles.config}>
@@ -89,29 +93,55 @@ export default function PieceConfigurator({
       {offersCenterStone && setting !== null && (
         <>
           <div className={styles.field}>
-            <label htmlFor="lab" className={styles.fieldLabel}>Add a lab grown center diamond</label>
-            <div className={styles.selectWrap}>
-              <select
-                id="lab"
-                className={styles.select}
-                value={lab}
-                onChange={(e) => setLab(Number(e.target.value))}
+            <span className={styles.fieldLabel}>Center diamond</span>
+            <div className={styles.diamondChoice}>
+              <button
+                type="button"
+                className={`${styles.diamondOption} ${diamondType === 'lab' ? styles.diamondOptionActive : ''}`}
+                onClick={() => setDiamondType('lab')}
+                aria-pressed={diamondType === 'lab'}
               >
-                <option value={0}>No center diamond (setting only)</option>
-                {LAB_DIAMOND_PRICES.map((d) => (
-                  <option key={d.carat} value={d.carat}>
-                    {d.carat} ct · {formatUSD(d.price)}
-                  </option>
-                ))}
-                <option value={LAB_INQUIRE_CARAT}>{LAB_INQUIRE_CARAT} ct and up · inquire</option>
-              </select>
+                <span className={styles.diamondOptionTitle}>Lab Grown</span>
+                <span className={styles.diamondOptionSub}>Priced instantly, 1&ndash;5 ct below</span>
+              </button>
+              <button
+                type="button"
+                className={`${styles.diamondOption} ${diamondType === 'natural' ? styles.diamondOptionActive : ''}`}
+                onClick={() => setDiamondType('natural')}
+                aria-pressed={diamondType === 'natural'}
+              >
+                <span className={styles.diamondOptionTitle}>Natural</span>
+                <span className={styles.diamondOptionSub}>Sourced personally for you</span>
+              </button>
             </div>
-            <p className={styles.fieldHint}>
-              Any shape · E–F color · VVS1–VVS2 clarity · IGI certified
-            </p>
           </div>
 
-          {lab === LAB_INQUIRE_CARAT && (
+          {diamondType === 'lab' && (
+            <div className={styles.field}>
+              <label htmlFor="lab" className={styles.fieldLabel}>Carat weight</label>
+              <div className={styles.selectWrap}>
+                <select
+                  id="lab"
+                  className={styles.select}
+                  value={lab}
+                  onChange={(e) => setLab(Number(e.target.value))}
+                >
+                  <option value={0}>Setting only &mdash; choose a size</option>
+                  {LAB_DIAMOND_PRICES.map((d) => (
+                    <option key={d.carat} value={d.carat}>
+                      {d.carat} ct · {formatUSD(d.price)}
+                    </option>
+                  ))}
+                  <option value={LAB_INQUIRE_CARAT}>{LAB_INQUIRE_CARAT} ct and up · inquire</option>
+                </select>
+              </div>
+              <p className={styles.fieldHint}>
+                Any shape · E–F color · VVS1–VVS2 clarity · IGI certified
+              </p>
+            </div>
+          )}
+
+          {diamondType === 'lab' && lab === LAB_INQUIRE_CARAT && (
             <div className={styles.totalBlock} aria-live="polite">
               <p className={styles.priceLabel}>Complete ring</p>
               <p className={styles.priceText}>Inquire for pricing</p>
@@ -121,7 +151,7 @@ export default function PieceConfigurator({
             </div>
           )}
 
-          {lab > 0 && lab !== LAB_INQUIRE_CARAT && total !== null && (
+          {diamondType === 'lab' && lab > 0 && lab !== LAB_INQUIRE_CARAT && total !== null && (
             <div className={styles.totalBlock} aria-live="polite">
               <p className={styles.priceLabel}>Complete ring from</p>
               <p className={styles.totalPrice}>{formatUSD(total)}</p>
@@ -131,15 +161,20 @@ export default function PieceConfigurator({
             </div>
           )}
 
-          <div className={styles.naturalNote}>
-            <p className={styles.naturalTitle}>Prefer a natural diamond?</p>
-            <p className={styles.naturalBody}>
-              Natural diamonds vary enormously in size, quality, and value, so we do not
-              publish natural diamond pricing online. Choosing one is a private, personal
-              conversation: Jonathan sources options to your vision and budget and walks
-              you through every choice.
-            </p>
-          </div>
+          {diamondType === 'natural' && (
+            <div className={styles.naturalNote}>
+              <p className={styles.naturalTitle}>A diamond chosen just for you</p>
+              <p className={styles.naturalBody}>
+                Every natural diamond is one of a kind, which is exactly why it is never priced
+                from a dropdown. Jonathan hand-sources a short list of natural stones that fit
+                your vision, your size, and your budget, and walks you through each one in
+                person &mdash; nothing is chosen until you have seen and compared your options.
+              </p>
+              <Link href={`/contact?${naturalParams.toString()}`} className={styles.naturalCta}>
+                Start a Natural Diamond Consultation
+              </Link>
+            </div>
+          )}
         </>
       )}
 

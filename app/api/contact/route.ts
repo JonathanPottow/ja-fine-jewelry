@@ -38,13 +38,15 @@ export async function POST(req: NextRequest) {
     const designPiece = d && typeof d.slug === 'string' ? getPieceBySlug(d.slug) : undefined
     if (designPiece && designPiece.published) {
       const metalLabel = isMetalKey(d.metal) ? METAL_OPTIONS.find((m) => m.key === d.metal)?.label : undefined
+      const natural = d.natural === true
       const labCt = typeof d.lab === 'number' && isValidLabCarat(d.lab) ? d.lab : 0
       const est =
-        designPiece.base14k !== null && isMetalKey(d.metal) && labCt !== LAB_INQUIRE_CARAT
+        !natural && designPiece.base14k !== null && isMetalKey(d.metal) && labCt !== LAB_INQUIRE_CARAT
           ? formatUSD(settingPrice(designPiece.base14k, d.metal) + labDiamondPrice(labCt))
           : ''
       designTag = designPiece.name
-      designLine = `Design of interest: ${designPiece.name} (${/^\d/.test(designPiece.ref) ? 'CAD #' + designPiece.ref : designPiece.ref})${metalLabel ? ` — ${metalLabel}` : ''}${labCt ? ` — ${labCt}${labCt === LAB_INQUIRE_CARAT ? '+' : ''} ct lab grown center` : ''}${est ? ` — from ${est}` : ''}\nhttps://www.jafinejewelry.com/portfolio/${designPiece.slug}`
+      const centerLine = natural ? ' — NATURAL diamond (private sourcing — reach out personally)' : labCt ? ` — ${labCt}${labCt === LAB_INQUIRE_CARAT ? '+' : ''} ct lab grown center` : ''
+      designLine = `Design of interest: ${designPiece.name} (${/^\d/.test(designPiece.ref) ? 'CAD #' + designPiece.ref : designPiece.ref})${metalLabel ? ` — ${metalLabel}` : ''}${centerLine}${est ? ` — from ${est}` : ''}\nhttps://www.jafinejewelry.com/portfolio/${designPiece.slug}`
       const pageUrl = `https://www.jafinejewelry.com/portfolio/${designPiece.slug}`
       const imgUrl = `https://www.jafinejewelry.com${pieceStill(designPiece)}`
       const cad = /^\d/.test(designPiece.ref) ? 'CAD #' + designPiece.ref : designPiece.ref
@@ -60,8 +62,8 @@ export async function POST(req: NextRequest) {
             ${row('Reference', cad)}
             ${row('Category', designPiece.category)}
             ${row('Metal chosen', metalLabel || 'Not chosen')}
-            ${row('Lab center', labCt ? `${labCt}${labCt === LAB_INQUIRE_CARAT ? '+' : ''} ct lab grown` : 'None selected')}
-            ${row('Shown price', est || (designPiece.base14k === null ? 'Quoted individually' : labCt === LAB_INQUIRE_CARAT ? 'Inquire (6 ct+)' : '—'))}
+            ${row('Center diamond', natural ? '<strong style="color:#a03020;">NATURAL — private sourcing</strong>' : labCt ? `${labCt}${labCt === LAB_INQUIRE_CARAT ? '+' : ''} ct lab grown` : 'Not yet chosen')}
+            ${row('Shown price', natural ? 'Not priced online — natural stone' : est || (designPiece.base14k === null ? 'Quoted individually' : labCt === LAB_INQUIRE_CARAT ? 'Inquire (6 ct+)' : '—'))}
           </table>
           <a href="${pageUrl}" style="display:inline-block;background:#0f2240;color:#ffffff;text-decoration:none;padding:10px 18px;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;">View the design &amp; video</a>
         </div>`

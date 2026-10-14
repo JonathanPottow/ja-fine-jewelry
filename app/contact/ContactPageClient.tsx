@@ -29,7 +29,7 @@ export default function ContactPageClient() {
   const [turnstileToken, setTurnstileToken] = useState('')
   const [captchaKey, setCaptchaKey] = useState(0)
   const [images, setImages] = useState<File[]>([])
-  const [designRef, setDesignRef] = useState<{ slug: string; metal?: string; lab?: number } | null>(null)
+  const [designRef, setDesignRef] = useState<{ slug: string; metal?: string; lab?: number; natural?: boolean } | null>(null)
   const [designPiece, setDesignPiece] = useState<PortfolioPiece | null>(null)
   const onToken = useCallback((t: string) => setTurnstileToken(t), [])
 
@@ -44,8 +44,11 @@ export default function ContactPageClient() {
       const metalLabel = isMetalKey(metalParam)
         ? METAL_OPTIONS.find((m) => m.key === metalParam)?.label
         : undefined
+      const natural = params.get('diamond') === 'natural'
       const lab = Number(params.get('lab'))
-      const labText = isValidLabCarat(lab)
+      const labText = natural
+        ? ', with a natural center diamond'
+        : isValidLabCarat(lab)
         ? lab === LAB_INQUIRE_CARAT
           ? `, with a ${lab} ct or larger lab grown center diamond`
           : `, with a ${lab} ct lab grown center diamond`
@@ -55,7 +58,8 @@ export default function ContactPageClient() {
       setDesignRef({
         slug: piece.slug,
         metal: isMetalKey(metalParam) ? metalParam : undefined,
-        lab: isValidLabCarat(lab) ? lab : undefined,
+        lab: natural ? undefined : isValidLabCarat(lab) ? lab : undefined,
+        natural: natural || undefined,
       })
       setDesignPiece(piece)
     } catch {
@@ -79,6 +83,7 @@ export default function ContactPageClient() {
           piece: designRef?.slug,
           metal: designRef?.metal,
           lab_ct: designRef?.lab,
+          diamond_type: designRef?.natural ? 'natural' : designRef?.lab ? 'lab_grown' : undefined,
         })
       } else {
         setStatus('error')
@@ -115,10 +120,11 @@ export default function ContactPageClient() {
               {designRef?.metal
                 ? METAL_OPTIONS.find((m) => m.key === designRef.metal)?.label
                 : 'Metal not yet chosen'}
+              {designRef?.natural ? ' · Natural center diamond (private sourcing)' : ''}
               {designRef?.lab
                 ? ` · ${designRef.lab}${designRef.lab === LAB_INQUIRE_CARAT ? '+' : ''} ct lab grown center`
                 : ''}
-              {designPiece.base14k !== null && designRef?.metal && isMetalKey(designRef.metal)
+              {!designRef?.natural && designPiece.base14k !== null && designRef?.metal && isMetalKey(designRef.metal)
                 ? ` · From ${formatUSD(
                     settingPrice(designPiece.base14k, designRef.metal) +
                       (designRef.lab && designRef.lab !== LAB_INQUIRE_CARAT ? labDiamondPrice(designRef.lab) : 0)
