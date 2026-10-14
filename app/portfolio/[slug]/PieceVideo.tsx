@@ -124,8 +124,14 @@ export default function PieceVideo({ src, poster, alt }: { src: string; poster: 
     drag.current = null
     setDragging(false)
     if (g.mode === 'stage' && !g.moved) {
+      // A plain tap (no drag): toggle play / pause.
       if (videoRef.current?.paused) play()
       else pause()
+      return
+    }
+    if (g.moved) {
+      // Finished dragging (stage or bar): resume the normal rotation from here.
+      play()
     }
   }
 
