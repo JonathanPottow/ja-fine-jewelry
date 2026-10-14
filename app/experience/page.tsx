@@ -92,7 +92,7 @@ const steps = [
 const faqs = [
   {
     q: 'What is the investment for a custom piece?',
-    a: 'Every commission is different — a bespoke engagement ring with a rare stone is a very different project from a refined anniversary band or a reimagined heirloom. As a guide, most custom commissions begin from $4,000, though the right number depends entirely on your vision, materials, and level of detail. What you will never experience is pressure, hidden costs, or a recommendation that is not genuinely in your best interest. Have a budget in mind? Share it when you reach out — Jonathan will always be honest about what is possible.',
+    a: 'Most custom engagement rings begin around $2,500–$3,000 for the setting, plus the diamond. Complete rings typically start from about $4,000 with a lab grown center stone, and from about $6,500 with a natural diamond. There are no consultation fees. The right number depends on your vision, stone, and level of detail. Share your budget when you reach out and Jonathan will always be honest about what\'s possible.',
   },
   {
     q: 'Do I need to know exactly what I want before reaching out?',
