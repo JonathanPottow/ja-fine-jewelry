@@ -79,6 +79,10 @@ export default function PiecePage({ params }: PageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
+      <div className={styles.topBar}>
+        <Link href="/portfolio" className={styles.backLink} aria-label="Back to the full portfolio">
+          <span aria-hidden="true" className={styles.backArrow}>&#8592;</span> Back
+        </Link>
       <nav aria-label="Breadcrumb" className={styles.crumbs}>
         <Link href="/">Home</Link>
         <span aria-hidden="true"> / </span>
@@ -86,10 +90,11 @@ export default function PiecePage({ params }: PageProps) {
         <span aria-hidden="true"> / </span>
         <span className={styles.crumbCurrent}>{piece.name}</span>
       </nav>
+      </div>
 
       <article className={styles.layout}>
         <div className={styles.media}>
-          <PieceVideo file={piece.file} poster={pieceStill(piece)} alt={piece.alt} />
+          <PieceVideo src={`/portfolio/turntable/${piece.slug}.mp4`} poster={pieceStill(piece)} alt={piece.alt} />
         </div>
 
         <div className={styles.details}>

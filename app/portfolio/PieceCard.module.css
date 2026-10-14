@@ -17,7 +17,6 @@
   transition: transform 0.4s ease;
 }
 .card:hover .media { transform: scale(1.03); }
-.video { position: absolute; inset: 0; }
 .card:focus-visible { outline: 2px solid var(--bronze); outline-offset: 2px; }
 .overlay {
   display: flex;

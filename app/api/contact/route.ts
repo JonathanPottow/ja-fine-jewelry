@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { checkSpam } from '@/lib/spamGuard'
-import { getPieceBySlug } from '@/lib/portfolio-pieces'
+import { getPieceBySlug, pieceStill } from '@/lib/portfolio-pieces'
 import { METAL_OPTIONS, LAB_INQUIRE_CARAT, isValidLabCarat, isMetalKey, settingPrice, labDiamondPrice, formatUSD } from '@/lib/pricing'
 
 export async function POST(req: NextRequest) {
@@ -45,7 +45,26 @@ export async function POST(req: NextRequest) {
           : ''
       designTag = designPiece.name
       designLine = `Design of interest: ${designPiece.name} (${/^\d/.test(designPiece.ref) ? 'CAD #' + designPiece.ref : designPiece.ref})${metalLabel ? ` — ${metalLabel}` : ''}${labCt ? ` — ${labCt}${labCt === LAB_INQUIRE_CARAT ? '+' : ''} ct lab grown center` : ''}${est ? ` — from ${est}` : ''}\nhttps://www.jafinejewelry.com/portfolio/${designPiece.slug}`
-      designHtml = `<p style="background:#f5f0e8;padding:12px 16px;border-left:3px solid #1e3a5f;line-height:1.7;"><strong>Design of interest:</strong> ${designPiece.name} <span style="color:#888;">(${/^\d/.test(designPiece.ref) ? 'CAD #' + designPiece.ref : designPiece.ref})</span>${metalLabel ? `<br/>Metal: ${metalLabel}` : ''}${labCt ? `<br/>Lab grown center: ${labCt}${labCt === LAB_INQUIRE_CARAT ? '+' : ''} ct` : ''}${est ? `<br/>Approx. starting point: ${est}` : ''}<br/><a href="https://www.jafinejewelry.com/portfolio/${designPiece.slug}">View the design page</a></p>`
+      const pageUrl = `https://www.jafinejewelry.com/portfolio/${designPiece.slug}`
+      const imgUrl = `https://www.jafinejewelry.com${pieceStill(designPiece)}`
+      const cad = /^\d/.test(designPiece.ref) ? 'CAD #' + designPiece.ref : designPiece.ref
+      const row = (k: string, v: string) =>
+        `<tr><td style="padding:4px 14px 4px 0;color:#8a7a5a;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;vertical-align:top;">${k}</td><td style="padding:4px 0;font-size:15px;">${v}</td></tr>`
+      designHtml = `
+        <div style="border:1px solid #c8a84b;background:#f5f0e8;padding:20px;margin:24px 0;">
+          <p style="margin:0 0 4px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#c8a84b;">Design inquiry from the portfolio</p>
+          <p style="margin:0 0 14px;font-size:24px;">${designPiece.name}</p>
+          <a href="${pageUrl}"><img src="${imgUrl}" width="260" height="260" alt="${designPiece.name}" style="display:block;width:260px;height:260px;object-fit:cover;border:0;margin-bottom:14px;" /></a>
+          <table style="border-collapse:collapse;margin-bottom:16px;">
+            ${row('Design', designPiece.name)}
+            ${row('Reference', cad)}
+            ${row('Category', designPiece.category)}
+            ${row('Metal chosen', metalLabel || 'Not chosen')}
+            ${row('Lab center', labCt ? `${labCt}${labCt === LAB_INQUIRE_CARAT ? '+' : ''} ct lab grown` : 'None selected')}
+            ${row('Shown price', est || (designPiece.base14k === null ? 'Quoted individually' : labCt === LAB_INQUIRE_CARAT ? 'Inquire (6 ct+)' : '—'))}
+          </table>
+          <a href="${pageUrl}" style="display:inline-block;background:#0f2240;color:#ffffff;text-decoration:none;padding:10px 18px;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;">View the design &amp; video</a>
+        </div>`
     }
 
     const nameParts = (name || '').trim().split(' ')
@@ -87,7 +106,7 @@ export async function POST(req: NextRequest) {
         headers: wixHeaders,
         body: JSON.stringify({
           contactId: contactId,
-          content: `Commission Inquiry:\n\n${designLine ? designLine + '\n\n' : ''}${message}`
+          content: `${designTag ? 'Design Inquiry' : 'Commission Inquiry'}:\n\n${designLine ? designLine + '\n\n' : ''}${message}`
         })
       }).catch(() => {})
     }
@@ -102,11 +121,11 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         from: 'Jonathan Alistair Fine Jewelry <hello@jafinejewelry.com>',
         to: 'jonathan@jafinejewelry.com',
-        subject: `New Commission Inquiry — ${name}${designTag ? ` — ${designTag}` : ''}${attachments.length ? ` — ${attachments.length} image${attachments.length > 1 ? 's' : ''}` : ''}`,
+        subject: `${designTag ? `Design Inquiry — ${designTag} — ${name}` : `New Commission Inquiry — ${name}`}${attachments.length ? ` — ${attachments.length} image${attachments.length > 1 ? 's' : ''}` : ''}`,
         ...(attachments.length ? { attachments } : {}),
         html: `
           <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #0f2240;">
-            <h2 style="font-size: 24px; font-weight: 400; margin-bottom: 8px;">New Commission Inquiry</h2>
+            <h2 style="font-size: 24px; font-weight: 400; margin-bottom: 8px;">${designTag ? 'New Design Inquiry' : 'New Commission Inquiry'}</h2>
             <hr style="border: none; border-top: 1px solid #c8a84b; margin-bottom: 24px;" />
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
@@ -144,6 +163,7 @@ export async function POST(req: NextRequest) {
             <div style="padding: 40px 0;">
               <p style="font-size: 18px; font-weight: 400; margin-bottom: 16px;">Thank you, ${firstName}.</p>
               <p style="line-height: 1.8; color: #1e3a5f;">Jonathan has received your inquiry and will be in touch personally within 48 hours to begin your conversation.</p>
+              ${designTag ? `<p style="line-height: 1.8; color: #1e3a5f;">He has a note that you were looking at <strong>${designTag}</strong>, so your conversation can begin right where you left off.</p>` : ''}
               <p style="line-height: 1.8; color: #1e3a5f;">Every piece begins with a conversation — and yours has just started.</p>
             </div>
             <div style="text-align: center; padding-top: 32px; border-top: 1px solid #c8a84b;">
