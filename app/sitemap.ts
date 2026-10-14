@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { publishedPortfolioPieces } from '@/lib/portfolio-pieces'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.jafinejewelry.com'
@@ -8,5 +9,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/experience`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/portfolio`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+    ...publishedPortfolioPieces.map((p) => ({
+      url: `${baseUrl}/portfolio/${p.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
   ]
 }

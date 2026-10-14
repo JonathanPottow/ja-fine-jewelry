@@ -33,4 +33,5 @@ export const ANALYTICS_EVENTS = {
   LEAD_FORM_SUBMIT: 'lead_form_submit',
   EMAIL_SUBSCRIBE: 'email_subscribe',
   CTA_CLICK: 'cta_click',
+  PORTFOLIO_PIECE_VIEW: 'portfolio_piece_view',
 } as const

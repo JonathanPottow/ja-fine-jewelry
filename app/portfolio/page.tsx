@@ -39,7 +39,7 @@ export default function PortfolioPage() {
         </h1>
         <div style={{ width: '100%', height: '1px', background: 'var(--charcoal)', opacity: 0.15, marginBottom: '1rem' }} />
         <p style={{ maxWidth: '520px', lineHeight: 1.7, opacity: 0.7 }}>
-          Every piece begins with a conversation. Hover to see each commission come to life.
+          Every piece begins with a conversation. Select any commission to see it in motion, with its story and starting investment.
         </p>
       </div>
       <PortfolioFull />

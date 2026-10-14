@@ -1,9 +1,11 @@
 'use client'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Turnstile, { Honeypot } from '@/app/Turnstile'
 import InspirationUpload from '@/app/InspirationUpload'
 import styles from './page.module.css'
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
+import { getPieceBySlug } from '@/lib/portfolio-pieces'
+import { METAL_OPTIONS, isMetalKey, isValidLabCarat, LAB_INQUIRE_CARAT } from '@/lib/pricing'
 
 const faqs = [
   { q: 'What is the investment for a custom piece?', a: 'Most custom engagement rings begin around $2,500–$3,000 for the setting, plus the diamond. Complete rings typically start from about $4,000 with a lab grown center stone, and from about $6,500 with a natural diamond. There are no consultation fees. The right number depends on your vision, stone, and level of detail. Share your budget when you reach out and Jonathan will always be honest about what\'s possible.' },
@@ -27,14 +29,44 @@ export default function ContactPageClient() {
   const [turnstileToken, setTurnstileToken] = useState('')
   const [captchaKey, setCaptchaKey] = useState(0)
   const [images, setImages] = useState<File[]>([])
+  const [designRef, setDesignRef] = useState<{ slug: string; metal?: string; lab?: number } | null>(null)
   const onToken = useCallback((t: string) => setTurnstileToken(t), [])
+
+  // Arriving from a portfolio piece page: start the message with what they were looking at.
+  // Only values that match known pieces / metals / lab sizes are used, never raw text from the URL.
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search)
+      const piece = getPieceBySlug(params.get('piece') ?? '')
+      if (!piece) return
+      const metalParam = params.get('metal')
+      const metalLabel = isMetalKey(metalParam)
+        ? METAL_OPTIONS.find((m) => m.key === metalParam)?.label
+        : undefined
+      const lab = Number(params.get('lab'))
+      const labText = isValidLabCarat(lab)
+        ? lab === LAB_INQUIRE_CARAT
+          ? `, with a ${lab} ct or larger lab grown center diamond`
+          : `, with a ${lab} ct lab grown center diamond`
+        : ''
+      const text = `I'd love to talk about a design inspired by ${piece.name}${metalLabel ? ` in ${metalLabel}` : ''}${labText}. `
+      setForm((f) => (f.message ? f : { ...f, message: text }))
+      setDesignRef({
+        slug: piece.slug,
+        metal: isMetalKey(metalParam) ? metalParam : undefined,
+        lab: isValidLabCarat(lab) ? lab : undefined,
+      })
+    } catch {
+      /* prefill is a convenience only */
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('sending')
     try {
       const formData = new FormData()
-      formData.append('data', JSON.stringify({ ...form, website, startedAt, turnstileToken }))
+      formData.append('data', JSON.stringify({ ...form, website, startedAt, turnstileToken, design: designRef }))
       images.forEach(img => formData.append('images', img))
       const res = await fetch('/api/contact', { method: 'POST', body: formData })
       if (res.ok) {
@@ -42,6 +74,9 @@ export default function ContactPageClient() {
         trackEvent(ANALYTICS_EVENTS.LEAD_FORM_SUBMIT, {
           location: 'contact_page',
           has_phone: form.phone ? 'yes' : 'no',
+          piece: designRef?.slug,
+          metal: designRef?.metal,
+          lab_ct: designRef?.lab,
         })
       } else {
         setStatus('error')

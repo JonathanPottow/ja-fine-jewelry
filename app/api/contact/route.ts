@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { checkSpam } from '@/lib/spamGuard'
+import { getPieceBySlug } from '@/lib/portfolio-pieces'
+import { METAL_OPTIONS, LAB_INQUIRE_CARAT, isValidLabCarat, isMetalKey, settingPrice, labDiamondPrice, formatUSD } from '@/lib/pricing'
 
 export async function POST(req: NextRequest) {
   try {
@@ -26,6 +28,24 @@ export async function POST(req: NextRequest) {
       totalBytes += file.size
       const safeName = (file.name || `inspiration-${attachments.length + 1}.jpg`).replace(/[^\w.\- ]+/g, '_').slice(0, 80)
       attachments.push({ filename: safeName, content: Buffer.from(await file.arrayBuffer()).toString('base64') })
+    }
+
+    // Design of interest (arrives from a portfolio piece page). Only known pieces / metals / sizes are accepted.
+    let designLine = ''
+    let designTag = ''
+    let designHtml = ''
+    const d = data?.design
+    const designPiece = d && typeof d.slug === 'string' ? getPieceBySlug(d.slug) : undefined
+    if (designPiece && designPiece.published) {
+      const metalLabel = isMetalKey(d.metal) ? METAL_OPTIONS.find((m) => m.key === d.metal)?.label : undefined
+      const labCt = typeof d.lab === 'number' && isValidLabCarat(d.lab) ? d.lab : 0
+      const est =
+        designPiece.base14k !== null && isMetalKey(d.metal) && labCt !== LAB_INQUIRE_CARAT
+          ? formatUSD(settingPrice(designPiece.base14k, d.metal) + labDiamondPrice(labCt))
+          : ''
+      designTag = designPiece.name
+      designLine = `Design of interest: ${designPiece.name} (${/^\d/.test(designPiece.ref) ? 'CAD #' + designPiece.ref : designPiece.ref})${metalLabel ? ` — ${metalLabel}` : ''}${labCt ? ` — ${labCt}${labCt === LAB_INQUIRE_CARAT ? '+' : ''} ct lab grown center` : ''}${est ? ` — from ${est}` : ''}\nhttps://www.jafinejewelry.com/portfolio/${designPiece.slug}`
+      designHtml = `<p style="background:#f5f0e8;padding:12px 16px;border-left:3px solid #1e3a5f;line-height:1.7;"><strong>Design of interest:</strong> ${designPiece.name} <span style="color:#888;">(${/^\d/.test(designPiece.ref) ? 'CAD #' + designPiece.ref : designPiece.ref})</span>${metalLabel ? `<br/>Metal: ${metalLabel}` : ''}${labCt ? `<br/>Lab grown center: ${labCt}${labCt === LAB_INQUIRE_CARAT ? '+' : ''} ct` : ''}${est ? `<br/>Approx. starting point: ${est}` : ''}<br/><a href="https://www.jafinejewelry.com/portfolio/${designPiece.slug}">View the design page</a></p>`
     }
 
     const nameParts = (name || '').trim().split(' ')
@@ -67,7 +87,7 @@ export async function POST(req: NextRequest) {
         headers: wixHeaders,
         body: JSON.stringify({
           contactId: contactId,
-          content: `Commission Inquiry:\n\n${message}`
+          content: `Commission Inquiry:\n\n${designLine ? designLine + '\n\n' : ''}${message}`
         })
       }).catch(() => {})
     }
@@ -82,7 +102,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         from: 'Jonathan Alistair Fine Jewelry <hello@jafinejewelry.com>',
         to: 'jonathan@jafinejewelry.com',
-        subject: `New Commission Inquiry — ${name}${attachments.length ? ` — ${attachments.length} image${attachments.length > 1 ? 's' : ''}` : ''}`,
+        subject: `New Commission Inquiry — ${name}${designTag ? ` — ${designTag}` : ''}${attachments.length ? ` — ${attachments.length} image${attachments.length > 1 ? 's' : ''}` : ''}`,
         ...(attachments.length ? { attachments } : {}),
         html: `
           <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #0f2240;">
@@ -91,6 +111,7 @@ export async function POST(req: NextRequest) {
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
             <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+            ${designHtml}
             <p style="margin-top: 24px;"><strong>Message:</strong></p>
             <p style="background: #f5f0e8; padding: 16px; border-left: 3px solid #c8a84b; line-height: 1.7;">${message || 'No message provided'}</p>
             <hr style="border: none; border-top: 1px solid #e8e0d0; margin-top: 32px;" />

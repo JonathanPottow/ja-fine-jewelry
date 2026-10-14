@@ -1,72 +1,16 @@
 'use client'
-import { useRef, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './PortfolioGrid.module.css'
-
-const allPieces = [
-  { ref: '252856', file: 'converted_#252856.mp4', thumbTime: 0 },
-  { ref: '252862', file: 'converted_#252862.mp4', thumbTime: 0 },
-  { ref: '251880', file: 'converted_#251880.mp4', thumbTime: 0 },
-  { ref: '251941', file: 'converted_#251941.mp4', thumbTime: 0 },
-  { ref: '252224', file: 'converted_#252224.mp4', thumbTime: 0 },
-  { ref: '252421', file: 'converted_#252421.mp4', thumbTime: 0 },
-  { ref: '252470', file: 'converted_#252470.mp4', thumbTime: 0 },
-  { ref: '252489', file: 'converted_#252489.mp4', thumbTime: 0 },
-  { ref: '252722', file: 'converted_#252722.mp4', thumbTime: 0 },
-  { ref: '252844', file: 'converted_#252844.mp4', thumbTime: 0 },
-  { ref: '252896', file: 'converted_#252896.mp4', thumbTime: 0 },
-  { ref: '241070', file: 'converted_241070.mp4', thumbTime: 0 },
-  { ref: '241554 & 241555', file: 'converted_241554 & 241555.mp4', thumbTime: 0 },
-  { ref: '241587', file: 'converted_241587.mp4', thumbTime: 0 },
-  { ref: '241606', file: 'converted_241606.mp4', thumbTime: 0 },
-  { ref: '252025', file: 'converted_252025.mp4', thumbTime: 0 },
-  { ref: '252734', file: 'converted_252734.mp4', thumbTime: 0 },
-  { ref: '241120', file: 'converted_JA 241120 .mp4', thumbTime: 0 },
-  { ref: '241126', file: 'converted_JA 241126.mp4', thumbTime: 0 },
-  { ref: 'Stewart · Plat', file: 'converted_Stewart Plat.mp4', thumbTime: 2 },
-  { ref: 'Stewart · TT', file: 'converted_Stewart TT.mp4', thumbTime: 2 },
-]
-
-type Piece = typeof allPieces[0]
-
-function VideoCard({ piece, featured }: { piece: Piece, featured?: boolean }) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  const handleMouseEnter = () => videoRef.current?.play()
-  const handleMouseLeave = () => {
-    const v = videoRef.current
-    if (v) { v.pause(); v.currentTime = piece.thumbTime }
-  }
-
-  return (
-    <div
-      className={`${styles.card} ${featured ? styles.featured : ''}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <video
-        ref={videoRef}
-        className={styles.video}
-        src={`/portfolio/${encodeURIComponent(piece.file)}`}
-        muted
-        playsInline
-        loop
-        preload="metadata"
-        onLoadedMetadata={(e) => {
-          (e.target as HTMLVideoElement).currentTime = piece.thumbTime
-        }}
-      />
-      <div className={styles.overlay}>
-        <span className={styles.refLabel}>#{piece.ref}</span>
-      </div>
-    </div>
-  )
-}
+import PieceCard from './portfolio/PieceCard'
+import { publishedPortfolioPieces, type PortfolioPiece } from '@/lib/portfolio-pieces'
 
 export default function PortfolioGrid() {
-  const [picks, setPicks] = useState<Piece[]>([])
+  const [picks, setPicks] = useState<PortfolioPiece[]>([])
 
   useEffect(() => {
-    const shuffled = [...allPieces].sort(() => Math.random() - 0.5)
+    // Feature rings and bridal sets on the homepage; shuffle so repeat visitors see variety
+    const pool = publishedPortfolioPieces.filter((p) => p.category !== 'Pendants')
+    const shuffled = [...pool].sort(() => Math.random() - 0.5)
     setPicks(shuffled.slice(0, 3))
   }, [])
 
@@ -74,9 +18,9 @@ export default function PortfolioGrid() {
 
   return (
     <div className={styles.grid}>
-      <VideoCard piece={picks[0]} featured />
-      <VideoCard piece={picks[1]} />
-      <VideoCard piece={picks[2]} />
+      <PieceCard piece={picks[0]} className={styles.featured} showPrice={false} priority />
+      <PieceCard piece={picks[1]} showPrice={false} />
+      <PieceCard piece={picks[2]} showPrice={false} />
     </div>
   )
 }
