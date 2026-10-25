@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
+    "@vercel/blob": "2.8.1",
     "@wix/cms": "^1.0.0",
     "@wix/sdk": "^1.0.0",
     "next": "14.2.29",

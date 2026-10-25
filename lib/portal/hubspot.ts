@@ -1,5 +1,6 @@
-// HubSpot access for the client portal. Read-only, except addDealNote
-// (approved by Jonathan 2026-10-25: notes only, never stage or property changes).
+// HubSpot access for the client portal. Clients only read; their responses add a note
+// (addDealNote). The owner studio may change stage and portal fields (updateStudioDeal).
+// Both approved by Jonathan 2026-10-25.
 const API = 'https://api.hubapi.com'
 
 function headers() {
@@ -64,6 +65,45 @@ const num = (v: unknown) => {
   return Number.isFinite(n) ? n : null
 }
 
+const DEAL_PROPS = [
+  'dealname', 'dealstage', 'piece', 'hs_next_step', 'job_due_date',
+  'quoted_amount', 'paid_amount', 'owed_amount',
+  'portal_cad_urls', 'portal_quote_url', 'portal_message',
+]
+const https = (s: string) => /^https:\/\/[^\s]+$/.test(s)
+
+function toDeal(d: any): PortalDeal {
+  const p = d.properties || {}
+  const quoted = num(p.quoted_amount)
+  const paid = num(p.paid_amount)
+  let owed = num(p.owed_amount)
+  if (owed === null && quoted !== null && paid !== null) owed = Math.max(quoted - paid, 0)
+  return {
+    id: String(d.id),
+    name: p.dealname || 'Your piece',
+    stageId: p.dealstage || '',
+    piece: p.piece || '',
+    nextStep: p.hs_next_step || '',
+    dueDate: p.job_due_date || '',
+    quoted, paid, owed,
+    cadUrls: String(p.portal_cad_urls || '').split(/\s+/).filter(https),
+    quoteUrl: https(String(p.portal_quote_url || '').trim()) ? String(p.portal_quote_url).trim() : '',
+    message: p.portal_message || '',
+  }
+}
+
+async function readDeals(ids: string[], extra: string[] = []): Promise<any[]> {
+  if (!ids.length) return []
+  const r = await fetch(`${API}/crm/v3/objects/deals/batch/read`, {
+    method: 'POST',
+    headers: headers(),
+    cache: 'no-store',
+    body: JSON.stringify({ inputs: ids.slice(0, 100).map((id) => ({ id })), properties: [...DEAL_PROPS, ...extra] }),
+  })
+  if (!r.ok) return []
+  return (await r.json()).results || []
+}
+
 export async function getDeals(contactId: string): Promise<PortalDeal[]> {
   const a = await fetch(`${API}/crm/v4/objects/contacts/${contactId}/associations/deals`, {
     headers: headers(),
@@ -71,44 +111,111 @@ export async function getDeals(contactId: string): Promise<PortalDeal[]> {
   })
   if (!a.ok) return []
   const ids: string[] = ((await a.json()).results || []).map((x: any) => String(x.toObjectId))
-  if (!ids.length) return []
-  const r = await fetch(`${API}/crm/v3/objects/deals/batch/read`, {
+  return (await readDeals(ids.slice(0, 50))).map(toDeal).filter((d) => d.stageId !== STAGE_LOST)
+}
+
+// ─── Studio (owner only) ───
+
+// Stages Jonathan can pick in the studio, in pipeline order. Lost is left to HubSpot.
+export const STAGES = [
+  { id: '4488455914', label: 'Lead' },
+  { id: '4488455915', label: 'Consult' },
+  { id: '4488455916', label: 'Design / CAD' },
+  { id: '4488455917', label: 'Quoting' },
+  { id: '4488455918', label: 'Approved / In Production' },
+  { id: '4490450636', label: 'Needs Appraisal' },
+  { id: '4488455920', label: 'Repairs & Servicing' },
+  { id: '4488455919', label: 'Ready for Pickup' },
+  { id: '4488455921', label: 'Delivered / Paid' },
+  { id: '4490481371', label: 'Needs Review' },
+]
+
+export type StudioClient = { id: string; firstName: string; lastName: string; email: string }
+export type StudioDeal = PortalDeal & { updatedAt: string; client: StudioClient | null }
+
+async function clientsFor(dealIds: string[]): Promise<Record<string, StudioClient>> {
+  if (!dealIds.length) return {}
+  const a = await fetch(`${API}/crm/v4/associations/deals/contacts/batch/read`, {
+    method: 'POST',
+    headers: headers(),
+    cache: 'no-store',
+    body: JSON.stringify({ inputs: dealIds.map((id) => ({ id })) }),
+  })
+  if (!a.ok) return {}
+  const firstContact: Record<string, string> = {}
+  for (const row of (await a.json()).results || []) {
+    const to = row.to?.[0]?.toObjectId
+    if (to) firstContact[String(row.from.id)] = String(to)
+  }
+  const ids = Array.from(new Set(Object.values(firstContact)))
+  if (!ids.length) return {}
+  const c = await fetch(`${API}/crm/v3/objects/contacts/batch/read`, {
+    method: 'POST',
+    headers: headers(),
+    cache: 'no-store',
+    body: JSON.stringify({ inputs: ids.map((id) => ({ id })), properties: ['firstname', 'lastname', 'email'] }),
+  })
+  if (!c.ok) return {}
+  const byId: Record<string, StudioClient> = {}
+  for (const x of (await c.json()).results || []) {
+    const p = x.properties || {}
+    byId[String(x.id)] = { id: String(x.id), firstName: p.firstname || '', lastName: p.lastname || '', email: p.email || '' }
+  }
+  const out: Record<string, StudioClient> = {}
+  for (const [deal, contact] of Object.entries(firstContact)) if (byId[contact]) out[deal] = byId[contact]
+  return out
+}
+
+function toStudioDeals(raw: any[], clients: Record<string, StudioClient>): StudioDeal[] {
+  return raw.map((d) => ({ ...toDeal(d), updatedAt: d.properties?.hs_lastmodifieddate || d.updatedAt || '', client: clients[String(d.id)] || null }))
+}
+
+// Open commissions (not yet delivered), most recently touched first.
+export async function listStudioDeals(): Promise<StudioDeal[]> {
+  const open = STAGES.filter((s) => STAGE_STEP[s.id] < 6).map((s) => s.id)
+  const r = await fetch(`${API}/crm/v3/objects/deals/search`, {
     method: 'POST',
     headers: headers(),
     cache: 'no-store',
     body: JSON.stringify({
-      inputs: ids.slice(0, 50).map((id) => ({ id })),
-      properties: [
-        'dealname', 'dealstage', 'piece', 'hs_next_step', 'job_due_date',
-        'quoted_amount', 'paid_amount', 'owed_amount',
-        'portal_cad_urls', 'portal_quote_url', 'portal_message',
-      ],
+      filterGroups: [{ filters: [{ propertyName: 'dealstage', operator: 'IN', values: open }] }],
+      sorts: [{ propertyName: 'hs_lastmodifieddate', direction: 'DESCENDING' }],
+      properties: [...DEAL_PROPS, 'hs_lastmodifieddate'],
+      limit: 100,
     }),
   })
   if (!r.ok) return []
-  const results: any[] = (await r.json()).results || []
-  return results
-    .map((d) => {
-      const p = d.properties || {}
-      const quoted = num(p.quoted_amount)
-      const paid = num(p.paid_amount)
-      let owed = num(p.owed_amount)
-      if (owed === null && quoted !== null && paid !== null) owed = Math.max(quoted - paid, 0)
-      const https = (s: string) => /^https:\/\/[^\s]+$/.test(s)
-      return {
-        id: String(d.id),
-        name: p.dealname || 'Your piece',
-        stageId: p.dealstage || '',
-        piece: p.piece || '',
-        nextStep: p.hs_next_step || '',
-        dueDate: p.job_due_date || '',
-        quoted, paid, owed,
-        cadUrls: String(p.portal_cad_urls || '').split(/\s+/).filter(https),
-        quoteUrl: https(String(p.portal_quote_url || '').trim()) ? String(p.portal_quote_url).trim() : '',
-        message: p.portal_message || '',
-      } as PortalDeal
-    })
-    .filter((d) => d.stageId !== STAGE_LOST)
+  const raw: any[] = (await r.json()).results || []
+  return toStudioDeals(raw, await clientsFor(raw.map((d) => String(d.id))))
+}
+
+export async function getStudioDeal(dealId: string): Promise<StudioDeal | null> {
+  if (!/^\d+$/.test(dealId)) return null
+  const raw = await readDeals([dealId], ['hs_lastmodifieddate'])
+  if (!raw.length) return null
+  return toStudioDeals(raw, await clientsFor([dealId]))[0]
+}
+
+// The only deal fields the studio may change (approved by Jonathan 2026-10-25).
+export type StudioUpdate = { stageId: string; message: string; nextStep: string; cadUrls: string[]; quoteUrl: string }
+
+export async function updateStudioDeal(dealId: string, u: StudioUpdate): Promise<boolean> {
+  const r = await fetch(`${API}/crm/v3/objects/deals/${dealId}`, {
+    method: 'PATCH',
+    headers: headers(),
+    cache: 'no-store',
+    body: JSON.stringify({
+      properties: {
+        dealstage: u.stageId,
+        portal_message: u.message,
+        hs_next_step: u.nextStep,
+        portal_cad_urls: u.cadUrls.join('\n'),
+        portal_quote_url: u.quoteUrl,
+      },
+    }),
+  })
+  if (!r.ok) console.error('studio update failed', r.status, await r.text().catch(() => ''))
+  return r.ok
 }
 
 // Adds a note to the deal's timeline (and the contact's). Creates a note only.

@@ -48,3 +48,7 @@ export function verifyToken(token: string | undefined, kind: Payload['kind']): s
     return null
   }
 }
+
+// Studio owners: these emails sign in to /portal/studio instead of the client view.
+const OWNER_EMAILS = ['jonathan@jafinejewelry.com']
+export const isOwner = (email: string | null | undefined) => !!email && OWNER_EMAILS.includes(email.trim().toLowerCase())

@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import styles from './portal.module.css'
 
-export default function ResponseButtons({ dealId, stage }: { dealId: string; stage: 'design' | 'quote' }) {
+export default function ResponseButtons({ dealId, stage, preview }: { dealId: string; stage: 'design' | 'quote'; preview?: boolean }) {
   const [mode, setMode] = useState<'none' | 'changes'>('none')
   const [note, setNote] = useState('')
   const [done, setDone] = useState('')
@@ -10,6 +10,7 @@ export default function ResponseButtons({ dealId, stage }: { dealId: string; sta
   const [busy, setBusy] = useState(false)
 
   async function send(action: 'approve' | 'changes') {
+    if (preview) return setDone('Preview only. Nothing was sent.')
     setBusy(true)
     setFailed(false)
     const r = await fetch('/api/portal/respond', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ dealId, action, note }) }).catch(() => null)

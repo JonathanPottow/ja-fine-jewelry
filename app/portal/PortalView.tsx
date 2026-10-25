@@ -1,19 +1,9 @@
 import type { CSSProperties } from 'react'
 import { STEPS, STAGE_STEP, type PortalDeal } from '@/lib/portal/hubspot'
+import { STEP_NOTES } from '@/lib/portal/copy'
 import ResponseButtons from './ResponseButtons'
 import Gallery from './Gallery'
 import styles from './portal.module.css'
-
-// One warm line per client-facing step, shown under the journey track.
-const STEP_NOTES = [
-  'Your idea has arrived, and we are getting to know it.',
-  'Time to talk through your vision, stones and details together.',
-  'Your piece is taking shape in design.',
-  'Your quote is ready to review whenever you are.',
-  'Your piece is at the bench, being made by hand.',
-  'Your piece is finished and waiting for you.',
-  'It is yours. Thank you for trusting us with it.',
-]
 
 const usd = (n: number | null) => (n === null ? '—' : n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }))
 const fmtDate = (s: string) => {
@@ -22,13 +12,20 @@ const fmtDate = (s: string) => {
 }
 const rise = (i: number) => ({ '--i': i } as CSSProperties)
 
-export default function PortalView({ firstName, greeting, deals }: { firstName: string; greeting: string; deals: PortalDeal[] }) {
+// preview: owner's "View as client" mode. Shows a banner, and review buttons send nothing.
+export default function PortalView({ firstName, greeting, deals, preview }: { firstName: string; greeting: string; deals: PortalDeal[]; preview?: { backHref: string } }) {
   return (
     <div className={styles.shell}>
+      {preview && (
+        <div className={styles.previewBar}>
+          <span>Preview: this is what {firstName || 'your client'} sees</span>
+          <a href={preview.backHref}>Back to studio</a>
+        </div>
+      )}
       <main className={styles.page}>
         <div className={`${styles.top} ${styles.rise}`} style={rise(0)}>
           <span className={styles.eyebrow}>Private Client Portal</span>
-          <form action="/api/portal/logout" method="post"><button className={styles.signOut}>Sign out</button></form>
+          {!preview && <form action="/api/portal/logout" method="post"><button className={styles.signOut}>Sign out</button></form>}
         </div>
         <h1 className={`${styles.title} ${styles.rise}`} style={rise(1)}>
           {firstName ? <>{greeting}, <em>{firstName}</em></> : <>Your <em>commissions</em></>}
@@ -118,7 +115,7 @@ export default function PortalView({ firstName, greeting, deals }: { firstName: 
 
               {d.quoteUrl && <a className={styles.quoteLink} href={d.quoteUrl} target="_blank" rel="noopener noreferrer">View your full quote <span aria-hidden>→</span></a>}
 
-              {reviewing && <ResponseButtons dealId={d.id} stage={step === 2 ? 'design' : 'quote'} />}
+              {reviewing && <ResponseButtons dealId={d.id} stage={step === 2 ? 'design' : 'quote'} preview={!!preview} />}
             </section>
           )
         })}

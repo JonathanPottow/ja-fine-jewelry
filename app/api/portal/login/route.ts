@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { signToken, MAGIC_TTL_SECONDS } from '@/lib/portal/session'
+import { signToken, isOwner, MAGIC_TTL_SECONDS } from '@/lib/portal/session'
 import { findContact, getDeals } from '@/lib/portal/hubspot'
 
 export const dynamic = 'force-dynamic'
@@ -12,17 +12,27 @@ export async function POST(req: Request) {
     const { email } = await req.json()
     if (typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200) return ok
 
+    const origin = process.env.PORTAL_BASE_URL || new URL(req.url).origin
+    const token = signToken(email, 'magic', MAGIC_TTL_SECONDS)
+    const link = `${origin}/api/portal/verify?token=${encodeURIComponent(token)}`
+    const resend = new Resend(process.env.RESEND_API_KEY)
+
+    if (isOwner(email)) {
+      await resend.emails.send({
+        from: 'JAFJ Client Portal <hello@jafinejewelry.com>',
+        to: email,
+        subject: 'Your studio sign-in link',
+        html: `<p>Open the client studio: <a href="${link}">sign in</a>. This link expires in 15 minutes.</p>`,
+      })
+      return ok
+    }
+
     const contact = await findContact(email)
     if (!contact) return ok
     const deals = await getDeals(contact.id)
     if (!deals.length) return ok // only people with an active job get in
-
-    const origin = process.env.PORTAL_BASE_URL || new URL(req.url).origin
-    const token = signToken(email, 'magic', MAGIC_TTL_SECONDS)
-    const link = `${origin}/api/portal/verify?token=${encodeURIComponent(token)}`
     const name = contact.firstName ? `, ${contact.firstName.replace(/[<>&"]/g, '')}` : ''
 
-    const resend = new Resend(process.env.RESEND_API_KEY)
     await resend.emails.send({
       from: 'Jonathan Alistair Fine Jewelry <hello@jafinejewelry.com>',
       to: email,
