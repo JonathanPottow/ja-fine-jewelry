@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = { title: 'Studio | Jonathan Alistair Fine Jewelry', robots: { index: false, follow: false } }
 
 export default async function StudioDeal({ params }: { params: { dealId: string } }) {
-  if (!ownerEmail()) redirect('/portal/login')
+  if (!ownerEmail()) redirect('/portal/login?studio=1')
   const deal = await getStudioDeal(params.dealId)
   if (!deal) notFound()
   const stages = STAGES.map((s) => ({ ...s, clientSees: `Step ${(STAGE_STEP[s.id] ?? 0) + 1} · ${STEPS[STAGE_STEP[s.id] ?? 0]}` }))

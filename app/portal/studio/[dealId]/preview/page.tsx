@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: 'Client preview | Jonathan Alistair F
 
 // Shows this one commission exactly as the client's portal renders it.
 export default async function ClientPreview({ params }: { params: { dealId: string } }) {
-  if (!ownerEmail()) redirect('/portal/login')
+  if (!ownerEmail()) redirect('/portal/login?studio=1')
   const deal = await getStudioDeal(params.dealId)
   if (!deal) notFound()
   return <PortalView firstName={deal.client?.firstName || ''} greeting={greeting()} deals={[deal]} preview={{ backHref: `/portal/studio/${deal.id}` }} />

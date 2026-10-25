@@ -6,7 +6,12 @@ export default function PortalLogin() {
   const [email, setEmail] = useState('')
   const [state, setState] = useState<'idle' | 'sending' | 'sent'>('idle')
   const [expired, setExpired] = useState(false)
-  useEffect(() => setExpired(new URLSearchParams(window.location.search).has('expired')), [])
+  const [studio, setStudio] = useState(false) // /portal/studio sends Jonathan here with ?studio
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search)
+    setExpired(q.has('expired'))
+    setStudio(q.has('studio'))
+  }, [])
 
   async function submit(e: React.FormEvent) {
     e.preventDefault()
@@ -30,24 +35,24 @@ export default function PortalLogin() {
             <circle className={styles.twinkle} cx="46" cy="12" r="1.6" />
             <circle className={styles.twinkle} cx="17" cy="15" r="1.2" style={{ animationDelay: '1.4s' }} />
           </svg>
-          <span className={styles.eyebrow}>Private Client Portal</span>
-          <h1 className={styles.title}>Welcome <em>back</em></h1>
+          <span className={styles.eyebrow}>{studio ? 'Client Studio' : 'Private Client Portal'}</span>
+          <h1 className={styles.title}>{studio ? <>Studio <em>sign-in</em></> : <>Welcome <em>back</em></>}</h1>
 
           {state === 'sent' ? (
             <div className={styles.sent} role="status">
               <p className={styles.sentTitle}>Your link is on its way</p>
-              <p>If that email is on file with an active project, a private sign-in link will arrive shortly. It expires in 15 minutes. If you do not see it, please check your spam folder.</p>
+              <p>{studio ? 'If that is the studio email, a sign-in link titled "Your studio sign-in link" will arrive shortly.' : 'If that email is on file with an active project, a private sign-in link will arrive shortly.'} It expires in 15 minutes. If you do not see it, please check your spam folder.</p>
               <button className={styles.again} onClick={() => setState('idle')}>Use a different email</button>
             </div>
           ) : (<>
-            <p className={styles.intro}>Enter the email you use with Jonathan and we will send you a private sign-in link. No password needed.</p>
+            <p className={styles.intro}>{studio ? 'Enter your studio email and we will send you a sign-in link. No password needed.' : 'Enter the email you use with Jonathan and we will send you a private sign-in link. No password needed.'}</p>
             <form className={styles.form} onSubmit={submit}>
               <input className={styles.input} type="email" required placeholder="you@email.com" aria-label="Email address" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
               <button className={`${styles.btn} ${styles.btnGold}`} disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Send my link'}</button>
             </form>
             {expired && <p className={styles.note}>That link has expired. Please request a new one.</p>}
           </>)}
-          <p className={styles.private}>Private and secure. For our clients only.</p>
+          <p className={styles.private}>{studio ? 'For Jonathan only.' : 'Private and secure. For our clients only.'}</p>
         </div>
       </main>
     </div>

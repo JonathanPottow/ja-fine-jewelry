@@ -14,7 +14,7 @@ const ago = (iso: string) => {
 }
 
 export default async function Studio() {
-  if (!ownerEmail()) redirect('/portal/login')
+  if (!ownerEmail()) redirect('/portal/login?studio=1')
   const deals = await listStudioDeals()
 
   return (
