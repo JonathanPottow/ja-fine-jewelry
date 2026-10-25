@@ -1,4 +1,5 @@
-// Read-only HubSpot access for the client portal.
+// HubSpot access for the client portal. Read-only, except addDealNote
+// (approved by Jonathan 2026-10-25: notes only, never stage or property changes).
 const API = 'https://api.hubapi.com'
 
 function headers() {
@@ -108,4 +109,23 @@ export async function getDeals(contactId: string): Promise<PortalDeal[]> {
       } as PortalDeal
     })
     .filter((d) => d.stageId !== STAGE_LOST)
+}
+
+// Adds a note to the deal's timeline (and the contact's). Creates a note only.
+// Association type ids are HubSpot-defined: 214 = note to deal, 202 = note to contact.
+export async function addDealNote(dealId: string, contactId: string, html: string): Promise<boolean> {
+  const r = await fetch(`${API}/crm/v3/objects/notes`, {
+    method: 'POST',
+    headers: headers(),
+    cache: 'no-store',
+    body: JSON.stringify({
+      properties: { hs_timestamp: new Date().toISOString(), hs_note_body: html },
+      associations: [
+        { to: { id: dealId }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 214 }] },
+        { to: { id: contactId }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 202 }] },
+      ],
+    }),
+  })
+  if (!r.ok) console.error('portal note failed', r.status, await r.text().catch(() => ''))
+  return r.ok
 }

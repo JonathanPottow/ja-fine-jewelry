@@ -5,9 +5,9 @@ Next.js 14 (app router) on Vercel. Brand: cream/navy/gold, Cormorant Garamond + 
 ## Client portal (/portal) — hidden, unlinked, noindex
 Private client area for Jonathan Alistair Fine Jewelry clients. Passwordless: email magic link, then a 7-day signed cookie.
 - Login: app/portal/login/page.tsx -> POST /api/portal/login -> emails a 15-minute link (Resend) -> /api/portal/verify sets the cookie.
-- Data: read-only from HubSpot via lib/portal/hubspot.ts (private app token). A client sees only deals associated with their contact. Stage ids map to the 7 client-facing steps in STAGE_STEP.
+- Data: read live from HubSpot via lib/portal/hubspot.ts (private app token) on every page load, so stage and field changes in HubSpot show to the client on their next visit. The only write is addDealNote (see Rules). A client sees only deals associated with their contact. Stage ids map to the 7 client-facing steps in STAGE_STEP.
 - Deal fields used: dealname, dealstage, piece, hs_next_step, job_due_date, quoted_amount, paid_amount, owed_amount, plus portal_cad_urls (https image links), portal_quote_url, portal_message.
-- Approve / Request changes: POST /api/portal/respond emails jonathan@jafinejewelry.com (reply-to = client).
+- Approve / Request changes: POST /api/portal/respond emails jonathan@jafinejewelry.com (reply-to = client) and adds a note to the HubSpot deal and contact. Needs the private app to have note write access.
 - Env vars (Vercel, all environments): HUBSPOT_PRIVATE_APP_TOKEN, PORTAL_SECRET (32+ chars), RESEND_API_KEY. NEVER commit or print secret values.
 - Test client: jonathanpottow@gmail.com (HubSpot deal "Engagement ring new test").
 - Styling: app/portal/portal.module.css. The goal is to make it feel cute, fun and high-end for clients reviewing their piece.
@@ -16,4 +16,5 @@ Private client area for Jonathan Alistair Fine Jewelry clients. Passwordless: em
 - Do not link the portal from the public nav or sitemap until Jonathan says so.
 - Keep every client-facing string warm and plain. No exclamation-point spam, no emojis in emails.
 - Never write to HubSpot from the portal without Jonathan's explicit approval of the feature.
+  - Approved 2026-10-25: the respond route may create a note on the deal and contact when a client approves or requests changes. Notes only: never change deal stage or any other property.
 - Preview deployments are behind Vercel login; test magic links in a browser signed in to Vercel.
