@@ -53,7 +53,7 @@
 .ctaSection { background: var(--espresso); padding: 6rem 4rem; text-align: center; }
 .ctaTitle { font-family: var(--font-serif); font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 400; color: var(--cream); margin: 0 0 3rem; line-height: 1.2; }
 .ctaTitle em { font-style: italic; color: var(--tan); }
-.ctaBtn { display: inline-block; background: var(--bronze); color: var(--cream); padding: 1rem 3rem; font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: opacity 0.2s; }
+.ctaBtn { display: inline-block; background: var(--tan); color: var(--espresso); padding: 1rem 3rem; font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: opacity 0.2s; }
 .ctaBtn:hover { opacity: 0.85; }
 
 /* RESPONSIVE */

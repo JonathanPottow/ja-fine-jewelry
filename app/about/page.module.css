@@ -330,9 +330,9 @@
 }
 
 .ctaBtn:hover {
-  background: var(--bronze);
-  color: var(--cream);
-  border-color: var(--bronze);
+  background: var(--tan);
+  color: var(--espresso);
+  border-color: var(--tan);
 }
 
 /* Responsive */
