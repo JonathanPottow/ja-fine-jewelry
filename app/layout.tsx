@@ -8,9 +8,12 @@ export const metadata: Metadata = {
   title: 'Jonathan Alistair Fine Jewelry | Bespoke Fine Jewelry Charlotte NC',
   description: 'Jonathan Pottow creates heirloom-quality bespoke fine jewelry in Charlotte, NC.',
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: [
+      { url: '/brand/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/brand/favicon-64.png', sizes: '64x64', type: 'image/png' },
+    ],
+    shortcut: '/brand/favicon-64.png',
+    apple: '/brand/apple-touch-icon.png',
   },
   openGraph: {
     title: 'Jonathan Alistair Fine Jewelry',

@@ -1,6 +1,6 @@
 # JAFJ website (jafinejewelry.com)
 
-Next.js 14 (app router) on Vercel. Brand: cream/navy/gold, Cormorant Garamond + Jost (see app/globals.css and jonathan_alistair_brand_palette.pdf). Tone: warm, private, bespoke, never salesy.
+Next.js 14 (app router) on Vercel. Brand: cream/bottle green/gold (rebranded Oct 26 2026; logo in public/brand), Cormorant Garamond + Jost (see app/globals.css and jonathan_alistair_brand_palette.pdf). Tone: warm, private, bespoke, never salesy.
 
 ## Client portal (/portal) — hidden, unlinked, noindex
 Private client area for Jonathan Alistair Fine Jewelry clients. Passwordless: email magic link, then a 7-day signed cookie.

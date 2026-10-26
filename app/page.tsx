@@ -13,7 +13,7 @@ const localBusinessJsonLd = {
     'Bespoke fine jewelry and private commissions by Jonathan Pottow. Custom engagement rings, wedding bands, anniversary pieces, and heirloom redesigns in Charlotte, NC.',
   url: 'https://www.jafinejewelry.com',
   image: 'https://www.jafinejewelry.com/og-image.jpg',
-  logo: 'https://www.jafinejewelry.com/favicon.svg',
+  logo: 'https://www.jafinejewelry.com/brand/logo-full.png',
   founder: {
     '@type': 'Person',
     name: 'Jonathan Pottow',

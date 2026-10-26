@@ -70,7 +70,7 @@
   font-style: italic;
   font-weight: 300;
   line-height: 1.65;
-  color: #0f2240;
+  color: #0b3023;
   margin-bottom: 1rem;
 }
 .introQuote cite {
@@ -83,7 +83,7 @@
 .introText p {
   font-size: var(--text-body);
   line-height: var(--line-height-body);
-  color: #0f2240;
+  color: #0b3023;
   margin-bottom: 1.25rem;
 }
 
@@ -135,7 +135,7 @@
   font-family: var(--font-serif);
   font-size: clamp(26px, 3vw, 36px);
   font-weight: 300;
-  color: #0f2240;
+  color: #0b3023;
 }
 .stepSubtitle {
   font-size: var(--text-eyebrow);
@@ -146,7 +146,7 @@
 .stepBody {
   font-size: var(--text-body);
   line-height: var(--line-height-body);
-  color: #0f2240;
+  color: #0b3023;
   max-width: 480px;
   margin-top: 0.5rem;
 }
@@ -195,7 +195,7 @@
   font-size: clamp(18px, 2.5vw, 26px);
   font-style: italic;
   font-weight: 300;
-  color: #0f2240;
+  color: #0b3023;
   line-height: 1.65;
   margin-bottom: 1.5rem;
 }
@@ -214,7 +214,7 @@
   font-family: var(--font-serif);
   font-size: clamp(28px, 3vw, 40px);
   font-weight: 300;
-  color: #0f2240;
+  color: #0b3023;
   margin-bottom: 3rem;
 }
 .faqGrid {
@@ -226,14 +226,14 @@
 .faqQ {
   font-size: 14px;
   font-weight: 400;
-  color: #0f2240;
+  color: #0b3023;
   border-left: 2px solid var(--bronze);
   padding-left: 1rem;
 }
 .faqA {
   font-size: var(--text-body-sm);
   line-height: var(--line-height-body);
-  color: #0f2240;
+  color: #0b3023;
   padding-left: 1rem;
 }
 

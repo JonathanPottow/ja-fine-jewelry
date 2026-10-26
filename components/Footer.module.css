@@ -14,6 +14,14 @@
   align-items: start;
 }
 
+.fullLogo {
+  width: 230px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 0 0.9rem -0.6rem;
+}
+
 .logo {
   font-family: var(--font-serif);
   font-size: 22px;

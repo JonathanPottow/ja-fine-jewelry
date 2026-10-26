@@ -45,7 +45,8 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <span className={styles.logo}>Jonathan <em>Alistair</em></span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/logo-full.png" alt="Jonathan Alistair Fine Jewelry. Your jeweler, for life." width={620} height={438} className={styles.fullLogo} loading="lazy" />
           <p>Private commissions by appointment.<br />Jonathan Pottow.</p>
           {visibleSocial.length > 0 && (
             <ul className={styles.social} aria-label="Follow and review Jonathan Alistair Fine Jewelry">

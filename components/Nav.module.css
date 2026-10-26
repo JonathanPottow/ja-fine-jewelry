@@ -19,6 +19,9 @@
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
   font-family: var(--font-serif);
   font-size: 20px;
   font-weight: 300;
@@ -27,6 +30,7 @@
   flex-shrink: 0;
 }
 .logo em { font-style: italic; color: var(--bronze); }
+.mark { height: 44px; width: auto; display: block; }
 
 .links {
   display: flex;

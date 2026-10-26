@@ -12,8 +12,10 @@ export default function Nav() {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <Link href="/" className={styles.logo}>
-          Jonathan <em>Alistair</em>
+        <Link href="/" className={styles.logo} aria-label="Jonathan Alistair Fine Jewelry, home">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/logo-mark.png" alt="" width={74} height={44} className={styles.mark} />
+          <span>Jonathan <em>Alistair</em></span>
         </Link>
 
         {/* Desktop links */}
