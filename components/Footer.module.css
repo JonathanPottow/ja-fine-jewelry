@@ -15,11 +15,11 @@
 }
 
 .fullLogo {
-  width: 230px;
+  width: 130px;
   max-width: 100%;
   height: auto;
   display: block;
-  margin: 0 0 0.9rem -0.6rem;
+  margin: 0 0 0.9rem 0;
 }
 
 .logo {
