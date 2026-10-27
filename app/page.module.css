@@ -28,14 +28,14 @@
   font-size: clamp(44px, 5vw, 72px);
   line-height: 1.05;
   font-weight: 300;
-  color: #0b3023;
+  color: #02301f;
 }
 .headline em { font-style: italic; color: var(--bronze); }
 
 .subhead {
   font-size: 16px;
   line-height: 1.9;
-  color: #0b3023;
+  color: #02301f;
   max-width: 360px;
 }
 
@@ -102,7 +102,7 @@
   display: block;
   font-family: var(--font-serif);
   font-size: 17px;
-  color: #0b3023;
+  color: #02301f;
 }
 
 /* ─── MARQUEE ─── */
@@ -142,7 +142,7 @@
   font-family: var(--font-serif);
   font-size: 38px;
   font-weight: 300;
-  color: #0b3023;
+  color: #02301f;
   white-space: nowrap;
 }
 .sectionTitleLight {
@@ -182,7 +182,7 @@
   font-size: 13px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #0b3023;
+  color: #02301f;
   background: rgba(247,242,235,0.88);
   padding: 0.4rem 0.85rem;
 }
@@ -195,12 +195,12 @@
   font-family: var(--font-serif);
   font-size: clamp(30px, 3vw, 44px);
   font-weight: 300;
-  color: #0b3023;
+  color: #02301f;
   line-height: 1.2;
   margin: 0.5rem 0;
 }
 .aboutTitle em { font-style: italic; color: var(--bronze); }
-.aboutContent p { font-size: 16px; line-height: 1.95; color: #0b3023; }
+.aboutContent p { font-size: 16px; line-height: 1.95; color: #02301f; }
 .aboutCta {
   display: inline-block;
   margin-top: 0.5rem;
@@ -253,7 +253,7 @@
   font-size: clamp(24px, 3vw, 38px);
   font-weight: 300;
   font-style: italic;
-  color: #0b3023;
+  color: #02301f;
   line-height: 1.5;
   max-width: 680px;
   margin: 0 auto 1.5rem;
@@ -343,12 +343,12 @@
   font-family: var(--font-serif);
   font-size: clamp(36px, 4vw, 54px);
   font-weight: 300;
-  color: #0b3023;
+  color: #02301f;
   line-height: 1.15;
   margin: 1rem 0 1.5rem;
 }
 .contactTitle em { font-style: italic; color: var(--bronze); }
-.contactSubtext { font-size: 16px; line-height: 1.9; color: #0b3023; margin-bottom: 2rem; }
+.contactSubtext { font-size: 16px; line-height: 1.9; color: #02301f; margin-bottom: 2rem; }
 .contactDetails {
   display: flex;
   flex-direction: column;
@@ -369,7 +369,7 @@
   font-size: 13px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #0b3023;
+  color: #02301f;
 }
 .formGroup input,
 .formGroup select,
@@ -452,12 +452,12 @@
   font-family: var(--font-serif);
   font-size: 36px;
   font-weight: 300;
-  color: #0b3023;
+  color: #02301f;
 }
 .formSuccessText {
   font-size: 16px;
   line-height: 1.9;
-  color: #0b3023;
+  color: #02301f;
 }
 .formError {
   font-size: 12px;
@@ -511,7 +511,7 @@
   font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #0b3023;
+  color: #02301f;
   line-height: 1.3;
 }
 
@@ -591,7 +591,7 @@
   font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #0b3023;
+  color: #02301f;
 }
 
 /* Form fields fade in after piece selection */
@@ -650,7 +650,7 @@
 .uploadText {
   font-size: 12px;
   letter-spacing: 0.1em;
-  color: #0b3023;
+  color: #02301f;
   text-align: center;
 }
 
@@ -679,7 +679,7 @@
 
 .fileName {
   font-size: 12px;
-  color: #0b3023;
+  color: #02301f;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -727,7 +727,7 @@
   font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #0b3023;
+  color: #02301f;
   line-height: 1.4;
 }
 

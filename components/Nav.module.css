@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(247, 242, 235, 0.96);
+  background: rgba(2, 48, 31, 0.97);
   backdrop-filter: blur(8px);
   border-bottom: 0.5px solid var(--tan);
 }
@@ -26,10 +26,10 @@
   font-size: 20px;
   font-weight: 300;
   letter-spacing: 0.08em;
-  color: var(--ink);
+  color: var(--cream);
   flex-shrink: 0;
 }
-.logo em { font-style: italic; color: var(--bronze); }
+.logo em { font-style: italic; color: var(--tan); }
 .mark { height: 44px; width: auto; display: block; }
 
 .links {
@@ -42,14 +42,14 @@
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--bark);
+  color: var(--cream);
   transition: color 0.2s;
 }
-.link:hover { color: var(--espresso); }
+.link:hover { color: var(--tan); }
 
 .cta {
-  background: var(--espresso);
-  color: var(--cream);
+  background: var(--tan);
+  color: var(--espresso);
   padding: 0.6rem 1.35rem;
   font-size: 0.75rem;
   letter-spacing: 0.18em;
@@ -57,7 +57,7 @@
   transition: background 0.2s;
   white-space: nowrap;
 }
-.cta:hover { background: var(--bark); color: var(--cream); }
+.cta:hover { background: var(--cream); color: var(--espresso); }
 
 /* Hamburger */
 .hamburger {
@@ -74,7 +74,7 @@
   display: block;
   width: 24px;
   height: 1px;
-  background: var(--espresso);
+  background: var(--cream);
   transition: transform 0.25s, opacity 0.25s;
   transform-origin: center;
 }
@@ -84,7 +84,7 @@
 
 /* Mobile dropdown */
 .mobileMenu {
-  background: var(--cream);
+  background: var(--espresso);
   border-top: 0.5px solid var(--tan);
   display: flex;
   flex-direction: column;
@@ -94,8 +94,8 @@
 
 .mobileCta {
   display: inline-block;
-  background: var(--espresso);
-  color: var(--cream);
+  background: var(--tan);
+  color: var(--espresso);
   padding: 0.85rem 2rem;
   font-size: 0.75rem;
   letter-spacing: 0.2em;

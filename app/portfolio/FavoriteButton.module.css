@@ -20,7 +20,7 @@
   height: 2.1rem;
   padding: 0.45rem;
   background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(11,48,35, 0.1);
+  border: 1px solid rgba(2,48,31, 0.1);
   border-radius: 50%;
   z-index: 2;
   pointer-events: auto;
@@ -37,7 +37,7 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
-.detail:hover { border-color: var(--bronze); background: rgba(212,165,55, 0.08); }
-.detail.active { border-color: var(--bronze); background: rgba(212,165,55, 0.08); }
+.detail:hover { border-color: var(--bronze); background: rgba(252,197,66, 0.08); }
+.detail.active { border-color: var(--bronze); background: rgba(252,197,66, 0.08); }
 .detail svg { width: 1rem; height: 1rem; flex-shrink: 0; }
 .label { white-space: nowrap; }
