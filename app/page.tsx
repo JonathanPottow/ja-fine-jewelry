@@ -141,7 +141,7 @@ export default function Home() {
               experience for clients who deserved better than the generic jewelry store. Jonathan Alistair Fine Jewelry was born from that belief.
             </p>
             <p>
-              Today Jonathan is a founding board member of Charlotte ETA and a six-year member of
+              Today Jonathan is a six-year member of
               CYPG — investing in his community as genuinely as he invests in every client. His
               role is simple: to be your guide, your expert, and your advocate — sitting on your
               side of the table from the first conversation to the final piece.
