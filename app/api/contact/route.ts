@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
         `<tr><td style="padding:4px 14px 4px 0;color:#8a7a5a;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;vertical-align:top;">${k}</td><td style="padding:4px 0;font-size:15px;">${v}</td></tr>`
       designHtml = `
         <div style="border:1px solid #fcc542;background:#f5f0e8;padding:20px;margin:24px 0;">
-          <p style="margin:0 0 4px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#fcc542;">Design inquiry from the portfolio</p>
+          <p style="margin:0 0 4px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#a87b1c;">Design inquiry from the portfolio</p>
           <p style="margin:0 0 14px;font-size:24px;">${designPiece.name}</p>
           <a href="${pageUrl}"><img src="${imgUrl}" width="260" height="260" alt="${designPiece.name}" style="display:block;width:260px;height:260px;object-fit:cover;border:0;margin-bottom:14px;" /></a>
           <table style="border-collapse:collapse;margin-bottom:16px;">
@@ -159,7 +159,7 @@ export async function POST(req: NextRequest) {
         html: `
           <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #02301f; background: #f5f0e8;">
             <div style="text-align: center; padding-bottom: 32px; border-bottom: 1px solid #fcc542;">
-              <p style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #fcc542; margin: 0 0 8px;">Jonathan Alistair Fine Jewelry</p>
+              <p style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #a87b1c; margin: 0 0 8px;">Jonathan Alistair Fine Jewelry</p>
               <h1 style="font-size: 32px; font-weight: 400; margin: 0; color: #02301f;">Your jeweler. <em>For life.</em></h1>
             </div>
             <div style="padding: 40px 0;">
@@ -169,9 +169,9 @@ export async function POST(req: NextRequest) {
               <p style="line-height: 1.8; color: #0f4a34;">Every piece begins with a conversation — and yours has just started.</p>
             </div>
             <div style="text-align: center; padding-top: 32px; border-top: 1px solid #fcc542;">
-              <p style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #fcc542; margin: 0 0 8px;">Charlotte, North Carolina</p>
+              <p style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #a87b1c; margin: 0 0 8px;">Charlotte, North Carolina</p>
               <p style="font-size: 11px; color: #888; margin: 0;">
-                <a href="https://www.jafinejewelry.com" style="color: #fcc542; text-decoration: none;">jafinejewelry.com</a>
+                <a href="https://www.jafinejewelry.com" style="color: #a87b1c; text-decoration: none;">jafinejewelry.com</a>
               </p>
             </div>
           </div>

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import styles from './page.module.css'
 import ContactForm from './ContactForm'
 import PortfolioGrid from './PortfolioGrid'
+import Testimonials from './Testimonials'
 
 const localBusinessJsonLd = {
   '@context': 'https://schema.org',
@@ -42,7 +43,7 @@ const localBusinessJsonLd = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '5.0',
-    reviewCount: '63',
+    reviewCount: '71',
     bestRating: '5',
     worstRating: '1',
   },
@@ -213,33 +214,7 @@ export default function Home() {
             <h2 className={styles.sectionTitleLight}>Client Stories</h2>
             <div className={styles.sectionLineDark} />
           </div>
-          <div className={styles.testimonialsGrid}>
-            {[
-              {
-                quote: "Jonathan was so awesome to work with during the design process! He took meticulous notes during our conversations and helped blend my ideas together. My wife LOVES her engagement ring — he gave it a more personal touch by adding 4 small birthstones on the inside of the band representing our combined 4 kids. She gets compliments on it all the time.",
-                name: "Justin C.",
-                piece: "Engagement Ring · Charlotte, NC"
-              },
-              {
-                quote: "I had an incredible experience working with Jonathan to create a custom engagement ring. He took the time to understand exactly what I was looking for and made the entire process seamless and stress-free — something that's rare when designing something as personal and important as an engagement ring.",
-                name: "Marco V.",
-                piece: "Engagement Ring · Charlotte, NC"
-              },
-              {
-                quote: "Jonathan is a dream to work with! He made my engagement ring and our wedding bands — we got to be involved start to finish and he well exceeded our expectations. I cannot imagine getting jewelry anywhere else. I've already sent multiple friends his way and they're all thrilled.",
-                name: "Bella T.",
-                piece: "Engagement Ring & Wedding Bands · Charlotte, NC"
-              },
-            ].map((t, i) => (
-              <div key={i} className={`${styles.testimonialCard} fade-up delay-${i+1}`}>
-                <p className={styles.testimonialQuote}>"{t.quote}"</p>
-                <div className={styles.testimonialMeta}>
-                  <span className={styles.testimonialName}>{t.name}</span>
-                  <span className={styles.testimonialPiece}>{t.piece}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+          <Testimonials />
         </div>
       </section>
 

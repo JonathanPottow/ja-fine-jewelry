@@ -28,11 +28,11 @@ export async function POST(req: Request) {
       to: email,
       replyTo: 'jonathan@jafinejewelry.com',
       subject: 'Your private client portal link',
-      html: `<div style="font-family:Georgia,serif;max-width:480px;margin:0 auto;color:#0f2240;padding:24px">
-        <p style="letter-spacing:.2em;font-size:12px;color:#a08030;text-transform:uppercase">Jonathan Alistair Fine Jewelry</p>
+      html: `<div style="font-family:Georgia,serif;max-width:480px;margin:0 auto;color:#02301f;padding:24px">
+        <p style="letter-spacing:.2em;font-size:12px;color:#a87b1c;text-transform:uppercase">Jonathan Alistair Fine Jewelry</p>
         <h2 style="font-weight:300">Welcome back${name}</h2>
         <p>Tap below to open your private client portal. This link expires in 15 minutes and is only for you. Please don't forward it.</p>
-        <p style="margin:28px 0"><a href="${link}" style="background:#0f2240;color:#f5f0e8;padding:14px 28px;text-decoration:none;letter-spacing:.15em;font-size:12px;text-transform:uppercase">Open my portal</a></p>
+        <p style="margin:28px 0"><a href="${link}" style="background:#02301f;color:#f5f0e8;padding:14px 28px;text-decoration:none;letter-spacing:.15em;font-size:12px;text-transform:uppercase">Open my portal</a></p>
         <p style="font-size:13px;color:#555">If you didn't request this, you can safely ignore this email.</p></div>`,
     })
   } catch (e) {
