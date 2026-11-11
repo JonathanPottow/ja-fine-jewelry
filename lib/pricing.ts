@@ -12,8 +12,8 @@ export const METAL_OPTIONS: { key: MetalKey; label: string }[] = [
 /** Multiplier applied to a piece's 14k starting price. */
 export const METAL_MULTIPLIER: Record<MetalKey, number> = {
   '14k': 1,
-  '18k': 1.25, // ~25% above 14k
-  platinum: 1.25, // ~25% above 14k (see notes: review against today's platinum vs gold spot)
+  '18k': 1.2, // ~20% above 14k
+  platinum: 1.2, // ~20% above 14k (see notes: review against today's platinum vs gold spot)
 }
 
 /** Lab grown center diamonds — E–F color, VVS1–VVS2 clarity, IGI certified, any shape. */
