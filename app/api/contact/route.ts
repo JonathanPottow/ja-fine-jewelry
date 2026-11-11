@@ -8,6 +8,9 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData()
     const data = JSON.parse(formData.get('data') as string)
     const { name, email, phone, message } = data
+    if (typeof name !== 'string' || !name.trim() || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json({ error: 'Name and a valid email are required' }, { status: 400 })
+    }
 
     // Spam protection: bots get a fake "success" and nothing is sent
     const spam = await checkSpam(req, data)
@@ -71,49 +74,8 @@ export async function POST(req: NextRequest) {
 
     const nameParts = (name || '').trim().split(' ')
     const firstName = nameParts[0] || ''
-    const lastName = nameParts.slice(1).join(' ') || ''
 
-    const wixHeaders = {
-      'Content-Type': 'application/json',
-      'Authorization': process.env.WIX_API_KEY!,
-      'wix-site-id': '35200a65-a6be-48d2-82dd-36f6a34d1923',
-    }
-
-    // Step 1: Create contact in Wix CRM
-    const contactRes = await fetch('https://www.wixapis.com/contacts/v4/contacts', {
-      method: 'POST',
-      headers: wixHeaders,
-      body: JSON.stringify({
-        info: {
-          name: { first: firstName, last: lastName },
-          emails: { items: [{ tag: 'MAIN', email }] },
-          phones: phone ? { items: [{ tag: 'MOBILE', phone }] } : undefined,
-        },
-        allowDuplicates: true
-      })
-    })
-
-    const contactResult = await contactRes.json()
-    if (!contactRes.ok) {
-      console.error('Wix contact error:', JSON.stringify(contactResult))
-      return NextResponse.json({ error: 'Failed to create contact' }, { status: 500 })
-    }
-
-    const contactId = contactResult?.contact?.id
-
-    // Step 2: Add message as a note on the contact
-    if (contactId && message) {
-      await fetch(`https://www.wixapis.com/crm/notes/v2/notes`, {
-        method: 'POST',
-        headers: wixHeaders,
-        body: JSON.stringify({
-          contactId: contactId,
-          content: `${designTag ? 'Design Inquiry' : 'Commission Inquiry'}:\n\n${designLine ? designLine + '\n\n' : ''}${message}`
-        })
-      }).catch(() => {})
-    }
-
-    // Step 3: Send notification email to Jonathan via Resend
+    // Send notification email to Jonathan via Resend
     await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -144,7 +106,7 @@ export async function POST(req: NextRequest) {
       })
     }).catch(() => {})
 
-    // Step 4: Send branded confirmation email to client via Resend
+    // Send branded confirmation email to client via Resend
     await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
