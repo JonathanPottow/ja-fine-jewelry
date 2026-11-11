@@ -120,9 +120,8 @@ export async function POST(req: NextRequest) {
         subject: `Thank you, ${firstName} — Jonathan will be in touch shortly.`,
         html: `
           <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #02301f; background: #f5f0e8;">
-            <div style="text-align: center; padding-bottom: 32px; border-bottom: 1px solid #fcc542;">
-              <p style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #a87b1c; margin: 0 0 8px;">Jonathan Alistair Fine Jewelry</p>
-              <h1 style="font-size: 32px; font-weight: 400; margin: 0; color: #02301f;">Your jeweler. <em>For life.</em></h1>
+            <div style="text-align: center; background: #02301f; padding: 32px 20px; border-bottom: 2px solid #fcc542;" bgcolor="#02301f">
+              <a href="https://www.jafinejewelry.com"><img src="https://www.jafinejewelry.com/brand/logo-full.png" width="170" alt="Jonathan Alistair Fine Jewelry — Your jeweler, for life" style="display: inline-block; width: 170px; height: auto; border: 0;" /></a>
             </div>
             <div style="padding: 40px 0;">
               <p style="font-size: 18px; font-weight: 400; margin-bottom: 16px;">Thank you, ${firstName}.</p>
