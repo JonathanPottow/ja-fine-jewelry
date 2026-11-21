@@ -3,6 +3,7 @@ import styles from './page.module.css'
 import ContactForm from './ContactForm'
 import PortfolioGrid from './PortfolioGrid'
 import Testimonials from './Testimonials'
+import ProcessIcon from './ProcessIcon'
 
 const localBusinessJsonLd = {
   '@context': 'https://schema.org',
@@ -178,6 +179,7 @@ export default function Home() {
                 <span className={styles.processNum}>{step.num}</span>
                 <h3 className={styles.processTitle}>{step.title}</h3>
                 <p className={styles.processDesc}>{step.desc}</p>
+                <div className={styles.processFoot}><ProcessIcon name={step.title} /></div>
               </div>
             ))}
           </div>

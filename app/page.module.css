@@ -226,7 +226,17 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 2px;
 }
-.processCard { background: rgba(255,255,255,0.06); padding: 2.5rem 2rem; border: 0.5px solid rgba(201,185,154,0.2); }
+.processCard { display: flex; flex-direction: column; background: rgba(255,255,255,0.06); padding: 2.5rem 2rem; border: 0.5px solid rgba(201,185,154,0.2); }
+.processFoot { margin-top: auto; padding-top: 2rem; display: flex; justify-content: center; }
+.processBadge {
+  width: 76px; height: 76px; border-radius: 50%;
+  border: 1px solid rgba(252,197,66,0.65);
+  background: rgba(252,197,66,0.08);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--tan);
+  box-shadow: 0 0 0 4px var(--espresso), 0 0 0 5px rgba(252,197,66,0.25);
+}
+.processBadge svg { width: 42px; height: 42px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .processNum {
   display: block;
   font-family: var(--font-serif);
