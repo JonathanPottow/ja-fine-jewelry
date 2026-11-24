@@ -103,4 +103,9 @@
     padding: 3rem 1.5rem 2rem;
   }
   .copy { text-align: left; }
+  /* Thumb-sized tap areas on phones */
+  .social { gap: 0 1.4rem; margin-top: 1rem; }
+  .social a,
+  .links a { min-height: 44px; display: inline-flex; align-items: center; }
+  .links { gap: 0; align-items: flex-start; }
 }

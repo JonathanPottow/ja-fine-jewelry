@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/portal'],
+        disallow: ['/api/'],
       },
     ],
     sitemap: 'https://www.jafinejewelry.com/sitemap.xml',

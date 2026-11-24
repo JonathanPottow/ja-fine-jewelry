@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 
 // HubSpot live chat. Visitors chat on the site; Jonathan answers live from the
 // HubSpot app on his phone. The chat box itself (colors, greeting, hours, who is
-// notified) is set up in HubSpot: Inbox > Chatflows. Not shown in the client portal.
+// notified) is set up in HubSpot: Service > Chatflows.
 // This also loads HubSpot's visitor tracking, so the privacy policy should mention HubSpot.
 const HUBSPOT_ACCOUNT_ID = '247775647' // public account number, not a secret
 
@@ -17,22 +17,16 @@ declare global {
   }
 }
 
-const isPortal = (path: string) => path.startsWith('/portal')
 const isPiecePage = (path: string) => /^\/portfolio\/[^/]+/.test(path)
 
 export default function HubSpotChat() {
   const pathname = usePathname() || '/'
 
-  // Hide the chat in the client portal; lift it above the piece pages' bottom bar on phones.
+  // Lift the chat above the piece pages' bottom bar on phones.
   useEffect(() => {
     document.documentElement.toggleAttribute('data-chat-raised', isPiecePage(pathname))
-    const widget = window.HubSpotConversations?.widget
-    if (!widget) return
-    if (isPortal(pathname)) widget.remove()
-    else if (!widget.status().loaded) widget.load()
   }, [pathname])
 
-  if (isPortal(pathname)) return null
   return <Script id="hs-script-loader" strategy="afterInteractive" src={`https://js-na2.hs-scripts.com/${HUBSPOT_ACCOUNT_ID}.js`} />
 }
 

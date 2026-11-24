@@ -60,7 +60,8 @@
 @media (max-width: 1024px) {
   .philosophyInner { grid-template-columns: 1fr; gap: 3rem; }
   .philosophyStats { grid-template-columns: repeat(4, 1fr); }
-  .introInner { grid-template-columns: 1fr; gap: 2rem; }
+  .introInner { grid-template-columns: 1fr; gap: 1.25rem; }
+  .verticalLine { display: none; } /* the side line only makes sense next to the text on wide screens */
 }
 @media (max-width: 768px) {
   .hero { padding: 4rem 1.5rem; }

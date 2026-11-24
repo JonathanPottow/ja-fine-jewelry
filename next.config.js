@@ -5,6 +5,9 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // The client portal was removed (no client accounts); old links go home.
+      { source: '/portal', destination: '/', permanent: true },
+      { source: '/portal/:path*', destination: '/', permanent: true },
       { source: '/portfolio/the-linville', destination: '/portfolio/the-stellenbosch', permanent: true },
       { source: '/portfolio/the-meridian', destination: '/portfolio/the-clifton', permanent: true },
       { source: '/portfolio/the-clemence', destination: '/portfolio/the-protea', permanent: true },

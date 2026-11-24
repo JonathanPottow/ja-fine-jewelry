@@ -32,7 +32,8 @@ export default function Nav() {
         <button
           className={styles.hamburger}
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
         >
           <span className={menuOpen ? styles.barTop + ' ' + styles.barTopOpen : styles.barTop} />
           <span className={menuOpen ? styles.barMid + ' ' + styles.barMidOpen : styles.barMid} />
