@@ -4,9 +4,10 @@ import Turnstile, { Honeypot } from '@/app/Turnstile'
 import InspirationUpload from '@/app/InspirationUpload'
 import styles from './page.module.css'
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
+import TopicPicker from '@/components/TopicPicker'
 
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', message: '', topic: '' })
   const [status, setStatus] = useState<'idle'|'sending'|'sent'|'error'>('idle')
 
   const [startedAt] = useState(() => Date.now())
@@ -26,7 +27,7 @@ export default function ContactForm() {
       const res = await fetch('/api/contact', { method: 'POST', body: formData })
       if (res.ok) {
         setStatus('sent')
-        trackEvent(ANALYTICS_EVENTS.LEAD_FORM_SUBMIT, { location: 'homepage' })
+        trackEvent(ANALYTICS_EVENTS.LEAD_FORM_SUBMIT, { location: 'homepage', topic: form.topic || undefined })
       } else {
         setStatus('error')
         setTurnstileToken('')
@@ -45,6 +46,7 @@ export default function ContactForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
+      <TopicPicker value={form.topic} onChange={(topic) => setForm({ ...form, topic })} />
       <div className={styles.formGroup}>
         <label>Your Name</label>
         <input

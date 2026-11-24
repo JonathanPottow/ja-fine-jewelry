@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { checkSpam } from '@/lib/spamGuard'
+import { topicLabel } from '@/lib/inquiryTopics'
+
+// Visitor text goes into HTML email, so it is escaped first.
+const esc = (v: unknown) =>
+  String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] as string)
 import { getPieceBySlug, pieceStill } from '@/lib/portfolio-pieces'
 import { METAL_OPTIONS, LAB_INQUIRE_CARAT, isValidLabCarat, isMetalKey, settingPrice, labDiamondPrice, formatUSD } from '@/lib/pricing'
 
@@ -8,6 +13,7 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData()
     const data = JSON.parse(formData.get('data') as string)
     const { name, email, phone, message } = data
+    const topic = topicLabel(data?.topic) // only known topics, never raw text
     if (typeof name !== 'string' || !name.trim() || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: 'Name and a valid email are required' }, { status: 400 })
     }
@@ -85,18 +91,19 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         from: 'Jonathan Alistair Fine Jewelry <hello@jafinejewelry.com>',
         to: 'jonathan@jafinejewelry.com',
-        subject: `${designTag ? `Design Inquiry — ${designTag} — ${name}` : `New Commission Inquiry — ${name}`}${attachments.length ? ` — ${attachments.length} image${attachments.length > 1 ? 's' : ''}` : ''}`,
+        subject: `${designTag ? `Design Inquiry — ${designTag} — ${name}` : topic ? `New Inquiry — ${topic} — ${name}` : `New Commission Inquiry — ${name}`}${attachments.length ? ` — ${attachments.length} image${attachments.length > 1 ? 's' : ''}` : ''}`,
         ...(attachments.length ? { attachments } : {}),
         html: `
           <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #02301f;">
-            <h2 style="font-size: 24px; font-weight: 400; margin-bottom: 8px;">${designTag ? 'New Design Inquiry' : 'New Commission Inquiry'}</h2>
+            <h2 style="font-size: 24px; font-weight: 400; margin-bottom: 8px;">${designTag ? 'New Design Inquiry' : topic ? `New Inquiry: ${topic}` : 'New Commission Inquiry'}</h2>
             <hr style="border: none; border-top: 1px solid #fcc542; margin-bottom: 24px;" />
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-            <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+            ${topic ? `<p><strong>Looking for help with:</strong> ${topic}</p>` : ''}
+            <p><strong>Name:</strong> ${esc(name)}</p>
+            <p><strong>Email:</strong> <a href="mailto:${esc(email)}">${esc(email)}</a></p>
+            <p><strong>Phone:</strong> ${phone ? esc(phone) : 'Not provided'}</p>
             ${designHtml}
             <p style="margin-top: 24px;"><strong>Message:</strong></p>
-            <p style="background: #f5f0e8; padding: 16px; border-left: 3px solid #fcc542; line-height: 1.7;">${message || 'No message provided'}</p>
+            <p style="background: #f5f0e8; padding: 16px; border-left: 3px solid #fcc542; line-height: 1.7; white-space: pre-wrap;">${message ? esc(message) : 'No message provided'}</p>
             <hr style="border: none; border-top: 1px solid #e8e0d0; margin-top: 32px;" />
             ${attachments.length ? `<p><strong>Inspiration images:</strong> ${attachments.length} attached</p>` : ''}
             ${skippedImages ? `<p style="color:#a03020;"><strong>Note:</strong> ${skippedImages} image(s) were too large to attach — ask the client to text or email them.</p>` : ''}
@@ -124,7 +131,7 @@ export async function POST(req: NextRequest) {
               <a href="https://www.jafinejewelry.com"><img src="https://www.jafinejewelry.com/brand/logo-full.png" width="170" alt="Jonathan Alistair Fine Jewelry — Your jeweler, for life" style="display: inline-block; width: 170px; height: auto; border: 0;" /></a>
             </div>
             <div style="padding: 40px 0;">
-              <p style="font-size: 18px; font-weight: 400; margin-bottom: 16px;">Thank you, ${firstName}.</p>
+              <p style="font-size: 18px; font-weight: 400; margin-bottom: 16px;">Thank you, ${esc(firstName)}.</p>
               <p style="line-height: 1.8; color: #0f4a34;">Jonathan has received your inquiry and will be in touch personally within 48 hours to begin your conversation.</p>
               ${designTag ? `<p style="line-height: 1.8; color: #0f4a34;">He has a note that you were looking at <strong>${designTag}</strong>, so your conversation can begin right where you left off.</p>` : ''}
               <p style="line-height: 1.8; color: #0f4a34;">Every piece begins with a conversation — and yours has just started.</p>

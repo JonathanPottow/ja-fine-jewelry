@@ -3,6 +3,7 @@ import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import Animations from '@/components/Animations'
+import HubSpotChat from '@/components/HubSpotChat'
 
 export const metadata: Metadata = {
   title: 'Jonathan Alistair Fine Jewelry | Bespoke Fine Jewelry Charlotte NC',
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         {children}
         <Footer />
+        <HubSpotChat />
       </body>
     </html>
   )

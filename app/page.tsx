@@ -4,6 +4,30 @@ import ContactForm from './ContactForm'
 import PortfolioGrid from './PortfolioGrid'
 import Testimonials from './Testimonials'
 import ProcessIcon from './ProcessIcon'
+import { AskJonathanButton } from '@/components/HubSpotChat'
+
+const BEYOND = [
+  {
+    topic: 'gift',
+    title: 'Anniversary & Gifts',
+    text: 'Pieces that mark the years: anniversaries, milestones, and the gift you want to get exactly right.',
+  },
+  {
+    topic: 'heirloom',
+    title: 'Heirloom Redesigns',
+    text: 'A family diamond or a ring that no longer fits your life, reimagined into something you will wear every day.',
+  },
+  {
+    topic: 'watches',
+    title: 'Fine Watches',
+    text: 'From a first serious watch to a grail piece, sourced through a trusted private network.',
+  },
+  {
+    topic: 'sourcing',
+    title: 'Private Sourcing',
+    text: 'Looking for something specific? A particular stone, a signed piece, a hard-to-find design. Jonathan will find it.',
+  },
+]
 
 const localBusinessJsonLd = {
   '@context': 'https://schema.org',
@@ -12,7 +36,7 @@ const localBusinessJsonLd = {
   name: 'Jonathan Alistair Fine Jewelry',
   alternateName: 'JA Fine Jewelry',
   description:
-    'Bespoke fine jewelry and private commissions by Jonathan Pottow. Custom engagement rings, wedding bands, anniversary pieces, and heirloom redesigns in Charlotte, NC.',
+    'Bespoke fine jewelry and private commissions by Jonathan Pottow. Custom engagement rings and wedding bands, plus anniversary pieces, heirloom redesigns, fine watches and private sourcing, in Charlotte, NC.',
   url: 'https://www.jafinejewelry.com',
   image: 'https://www.jafinejewelry.com/og-image.jpg',
   logo: 'https://www.jafinejewelry.com/brand/logo-full.png',
@@ -39,7 +63,8 @@ const localBusinessJsonLd = {
     { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Anniversary Pieces' } },
     { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Heirloom Redesigns' } },
     { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Custom Pendants' } },
-    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Jewelry Appraisals' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Fine Watches' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Private Jewelry & Watch Sourcing' } },
   ],
   aggregateRating: {
     '@type': 'AggregateRating',
@@ -69,8 +94,8 @@ export default function Home() {
             <em className="hero-word" style={{animationDelay: '0.85s'}}>For life.</em>
           </h1>
           <p className={`${styles.subhead} hero-word`} style={{animationDelay: "1s"}}>
-            Jonathan Pottow creates heirloom-quality pieces through a deeply
-            personal process — from first conversation to final setting.
+            Your private jeweler and expert in your corner, from the engagement ring
+            and wedding bands to any fine jewelry or watch you are looking for.
           </p>
           <div className={`${styles.ctaRow} hero-word`} style={{animationDelay: "1.2s"}}>
             <a href="/contact" className={styles.ctaPrimary}>Let's Talk</a>
@@ -202,6 +227,35 @@ export default function Home() {
           <Link href="/portfolio" className={styles.sectionLink}>View all →</Link>
         </div>
         <PortfolioGrid />
+      </section>
+
+      {/* ─── BEYOND THE RING ─── */}
+      <section id="beyond" className={styles.beyondSection}>
+        <div className={styles.beyondInner}>
+          <div className={`${styles.beyondHead} fade-up`}>
+            <p className={styles.eyebrow}>Beyond the ring</p>
+            <h2 className={styles.beyondTitle}>The expert in <em>your corner.</em></h2>
+            <p className={styles.beyondIntro}>
+              Bridal is where most relationships begin. It is rarely where they end. Whatever you are
+              looking for next, Jonathan knows where to find it and who should make it.
+            </p>
+          </div>
+          <div className={styles.beyondGrid}>
+            {BEYOND.map((b) => (
+              <Link key={b.topic} href={`/contact?topic=${b.topic}`} className={`${styles.beyondCard} fade-up`}>
+                <h3 className={styles.beyondCardTitle}>{b.title}</h3>
+                <p className={styles.beyondCardText}>{b.text}</p>
+                <span className={styles.beyondCardLink}>Start a conversation →</span>
+              </Link>
+            ))}
+          </div>
+          <div className={`${styles.beyondAsk} fade-up`}>
+            <p className={styles.beyondAskText}>
+              Not sure yet? <em>Just ask.</em> No jewelry question is too small, even if you are not buying.
+            </p>
+            <AskJonathanButton className={styles.ctaPrimary} />
+          </div>
+        </div>
       </section>
 
       {/* ─── TESTIMONIALS ─── */}

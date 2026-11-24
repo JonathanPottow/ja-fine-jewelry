@@ -134,3 +134,8 @@ img {
   transform: translateY(-4px);
   opacity: 0.9;
 }
+
+/* HubSpot live chat: sit above the portfolio piece pages' bottom bar on phones */
+@media (max-width: 900px) {
+  html[data-chat-raised] #hubspot-messages-iframe-container { bottom: 76px !important; }
+}

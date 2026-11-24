@@ -1,0 +1,27 @@
+.picker { border: 0; padding: 0; margin: 0 0 2rem; min-width: 0; }
+.legend {
+  font-size: var(--text-label);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--espresso);
+  margin-bottom: 0.9rem;
+  padding: 0;
+}
+.options { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.option {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--bark);
+  background: transparent;
+  border: 0.5px solid var(--bronze);
+  border-radius: 0;
+  padding: 0.7rem 1rem;
+  min-height: 44px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.option:hover { background: var(--sand); }
+.selected,
+.selected:hover { background: var(--espresso); color: var(--tan); border-color: var(--espresso); }
+.option:focus-visible { outline: 1px solid var(--bronze); outline-offset: 2px; }

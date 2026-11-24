@@ -5,6 +5,8 @@ import InspirationUpload from '@/app/InspirationUpload'
 import styles from './page.module.css'
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
 import { getPieceBySlug, pieceStill, type PortfolioPiece } from '@/lib/portfolio-pieces'
+import TopicPicker from '@/components/TopicPicker'
+import { isTopicKey } from '@/lib/inquiryTopics'
 import { METAL_OPTIONS, isMetalKey, isValidLabCarat, LAB_INQUIRE_CARAT, settingPrice, labDiamondPrice, formatUSD } from '@/lib/pricing'
 
 const faqs = [
@@ -21,7 +23,7 @@ const faqs = [
 ]
 
 export default function ContactPageClient() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '', topic: '' })
   const [status, setStatus] = useState('idle')
 
   const [startedAt] = useState(() => Date.now())
@@ -38,8 +40,11 @@ export default function ContactPageClient() {
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search)
+      const topicParam = params.get('topic')
+      if (isTopicKey(topicParam)) setForm((f) => ({ ...f, topic: topicParam }))
       const piece = getPieceBySlug(params.get('piece') ?? '')
       if (!piece) return
+      setForm((f) => (f.topic ? f : { ...f, topic: 'bridal' }))
       const metalParam = params.get('metal')
       const metalLabel = isMetalKey(metalParam)
         ? METAL_OPTIONS.find((m) => m.key === metalParam)?.label
@@ -79,6 +84,7 @@ export default function ContactPageClient() {
         setStatus('sent')
         trackEvent(ANALYTICS_EVENTS.LEAD_FORM_SUBMIT, {
           location: 'contact_page',
+          topic: form.topic || undefined,
           has_phone: form.phone ? 'yes' : 'no',
           piece: designRef?.slug,
           metal: designRef?.metal,
@@ -146,6 +152,7 @@ export default function ContactPageClient() {
 
       <div className={styles.formWrap}>
         <form onSubmit={handleSubmit} className={styles.form}>
+          <TopicPicker value={form.topic} onChange={(topic) => setForm({ ...form, topic })} />
           <div className={styles.formGroup}>
             <label>Your Name</label>
             <input type="text" required placeholder="Full name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
