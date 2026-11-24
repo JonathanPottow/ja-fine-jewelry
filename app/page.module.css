@@ -125,8 +125,28 @@
   text-transform: uppercase;
 }
 .marqueeList li { white-space: nowrap; }
+/* Phone: a tidy 2-column grid split by thin gold lines */
 @media (max-width: 640px) {
-  .marqueeList { gap: 0.5rem 1.6rem; font-size: 11px; letter-spacing: 0.16em; }
+  .marquee { padding: 0.5rem 1.25rem; }
+  .marqueeList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    font-size: 10.5px;
+    letter-spacing: 0.13em;
+  }
+  .marqueeList li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.5;
+    padding: 1rem 0.25rem;
+    border-bottom: 1px solid rgba(252, 197, 66, 0.2);
+  }
+  .marqueeList li:nth-child(odd) { border-right: 1px solid rgba(252, 197, 66, 0.2); }
+  .marqueeList li:nth-last-child(-n + 2) { border-bottom: 0; }
 }
 
 /* ─── SHARED SECTION STYLES ─── */
