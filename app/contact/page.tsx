@@ -51,7 +51,7 @@ const faqs = [
   },
   {
     q: 'What happens after my piece is delivered?',
-    a: 'Jonathan stands behind every piece he creates. If something is not right — a fit issue, a sizing adjustment, anything at all — reach out and it will be taken care of. The relationship does not end at delivery. For many clients, it is just the beginning.',
+    a: 'Jonathan stands behind every piece he delivers. If something is not right — a fit issue, a sizing adjustment, anything at all — reach out and it will be taken care of. The relationship does not end at delivery. For many clients, it is just the beginning.',
   },
 ]
 

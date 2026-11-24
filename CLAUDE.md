@@ -8,7 +8,7 @@ Next.js 14 (app router) on Vercel. Brand: cream/bottle green/gold (rebranded Oct
 - Services: bespoke engagement rings and wedding bands (main focus), anniversary/gift pieces, heirloom redesigns, fine watches, private sourcing. Jonathan does NOT offer repairs, resizing, cleaning or appraisals. Position him as a private jeweler and expert, not the person physically making pieces.
 
 ## Client portal: removed
-The /portal client area was removed on 2026-11-24 at Jonathan's request (no client accounts). Old links redirect home. The code is in git history and on the portal-deploy branch; do not rebuild it unless he asks.
+The /portal client area was removed on 2026-11-24 at Jonathan's request (no client accounts). Old links redirect home. The original portal code is in git history (before commit 72ea50c); do not rebuild it unless he asks.
 
 ## Rules
 - Keep every client-facing string warm and plain. No exclamation-point spam, no emojis in emails.

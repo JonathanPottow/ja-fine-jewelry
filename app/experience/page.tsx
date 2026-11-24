@@ -63,7 +63,7 @@ const steps = [
     num: '04',
     title: 'The Creation',
     subtitle: 'Crafted with intention.',
-    body: 'Your piece is handcrafted using ethically sourced materials. Every stone is hand-selected for quality and character. This is not production jewelry — it is made specifically for the person who will wear it, with no shortcuts.',
+    body: 'Your piece is handcrafted by trusted master jewelers using ethically sourced materials, with Jonathan overseeing every step. Every stone is hand-selected for quality and character. This is not production jewelry — it is made specifically for the person who will wear it, with no shortcuts.',
     svg: (
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
         <polygon points="40,15 50,32 68,35 55,48 58,66 40,57 22,66 25,48 12,35 30,32" stroke="#8a6e4b" strokeWidth="1" fill="none"/>

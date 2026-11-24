@@ -76,6 +76,7 @@ export default function Footer() {
         </div>
         <div className={styles.copy}>
           <p>© {new Date().getFullYear()} Jonathan Alistair Fine Jewelry. All rights reserved.</p>
+          <p><Link href="/privacy" className={styles.privacy}>Privacy Policy</Link></p>
         </div>
       </div>
     </footer>

@@ -95,6 +95,16 @@
 .copy p {
   color: rgba(245,240,232,0.9);
 }
+.copy .privacy {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.85);
+}
+.copy .privacy:hover { color: var(--tan); }
 
 @media (max-width: 768px) {
   .inner {

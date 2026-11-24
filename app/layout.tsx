@@ -7,7 +7,7 @@ import HubSpotChat from '@/components/HubSpotChat'
 
 export const metadata: Metadata = {
   title: 'Jonathan Alistair Fine Jewelry | Bespoke Fine Jewelry Charlotte NC',
-  description: 'Jonathan Pottow creates heirloom-quality bespoke fine jewelry in Charlotte, NC.',
+  description: 'Jonathan Pottow is a private jeweler in Charlotte, NC, guiding clients nationwide through bespoke engagement rings, fine jewelry and watches.',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },

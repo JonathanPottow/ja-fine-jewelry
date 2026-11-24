@@ -4,7 +4,7 @@ import PortfolioFull from './PortfolioFull'
 export const metadata: Metadata = {
   title: 'Portfolio | Custom Engagement Rings & Bespoke Jewelry | Jonathan Alistair Fine Jewelry',
   description:
-    'Explore the full portfolio of bespoke fine jewelry commissions by Jonathan Pottow — custom engagement rings, wedding bands, anniversary pieces and heirloom redesigns crafted in Charlotte, NC.',
+    'Explore the full portfolio of bespoke fine jewelry commissions by Jonathan Pottow — custom engagement rings, wedding bands, anniversary pieces and heirloom redesigns designed in Charlotte, NC.',
   alternates: { canonical: '/portfolio' },
   openGraph: {
     title: 'Portfolio | Jonathan Alistair Fine Jewelry',

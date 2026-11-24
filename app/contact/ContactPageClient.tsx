@@ -19,7 +19,7 @@ const faqs = [
   { q: 'Can you source watches?', a: 'Yes. Jonathan has access to a curated network of luxury watch sources and can assist clients looking for specific timepieces — whether a grail watch, a gift, or an addition to a collection. Reach out with what you have in mind and he will let you know what is possible.' },
   { q: 'Can you work with my existing jewelry or stones?', a: 'Absolutely — and heirloom redesigns are among the most meaningful commissions Jonathan takes on. Whether it is your grandmother\'s diamond, a ring that no longer fits your life, or stones sitting in a drawer, Jonathan can reimagine them into something you will wear every day. The history stays. The piece becomes new.' },
   { q: 'Can we work together if I am not in Charlotte?', a: 'Yes — and many of Jonathan\'s clients are not local. The process begins with a private consultation by phone or video, and finished pieces are shipped securely and insured across the United States. For clients who can visit Charlotte, an in-person appointment is always available and warmly welcomed.' },
-  { q: 'What happens after my piece is delivered?', a: 'Jonathan stands behind every piece he creates. If something is not right — a fit issue, a sizing adjustment, anything at all — reach out and it will be taken care of. The relationship does not end at delivery. For many clients, it is just the beginning.' },
+  { q: 'What happens after my piece is delivered?', a: 'Jonathan stands behind every piece he delivers. If something is not right — a fit issue, a sizing adjustment, anything at all — reach out and it will be taken care of. The relationship does not end at delivery. For many clients, it is just the beginning.' },
 ]
 
 export default function ContactPageClient() {

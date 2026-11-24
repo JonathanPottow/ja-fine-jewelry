@@ -35,7 +35,6 @@ const personJsonLd = {
     'Diamond Sourcing',
     'Heirloom Redesign',
     'Wedding Bands',
-    'Jewelry Appraisal',
     'Luxury Watch Dealing',
     'Fine Jewelry Brokerage',
   ],
@@ -153,7 +152,7 @@ export default function AboutPage() {
             {
               year: 'Today',
               title: 'Jewelry, Luxury Brokerage & Fine Watches',
-              desc: 'What started as bespoke jewelry commissions has grown into a full private practice. Jonathan now creates custom pieces, brokers luxury jewelry, and deals in fine watches — all through the same one-on-one process his clients have come to trust. He and his wife are raising two sons — Deacan and Finnley — in Charlotte, and his practice continues to grow entirely through word of mouth, built on the only currency that has ever mattered to him: the trust of the people he serves.',
+              desc: 'What started as bespoke jewelry commissions has grown into a full private practice. Jonathan now designs custom pieces, sources and brokers luxury jewelry, and deals in fine watches — all through the same one-on-one process his clients have come to trust. He and his wife are raising two sons — Deacan and Finnley — in Charlotte, and his practice continues to grow entirely through word of mouth, built on the only currency that has ever mattered to him: the trust of the people he serves.',
             },
           ].map((item, i) => (
             <div key={i} className={styles.timelineItem}>
@@ -232,7 +231,7 @@ export default function AboutPage() {
           </p>
           <p>
             Jonathan believes the best businesses are extensions of the communities they serve. Every
-            referral he receives, every relationship he builds, every piece he creates — it all stays
+            referral he receives, every relationship he builds, every piece he delivers — it all stays
             here. It all comes back to Charlotte. And that is exactly how he wants it.
           </p>
         </div>

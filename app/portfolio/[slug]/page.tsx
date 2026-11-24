@@ -112,7 +112,7 @@ export default function PiecePage({ params }: PageProps) {
 
           <p className={styles.story}>
             {piece.story ??
-              'A private commission crafted by Jonathan Pottow. Every piece begins with a conversation, and ends with something deeply personal, made to be worn for a lifetime.'}
+              'A private commission designed with Jonathan Pottow. Every piece begins with a conversation, and ends with something deeply personal, made to be worn for a lifetime.'}
           </p>
 
           <PieceConfigurator

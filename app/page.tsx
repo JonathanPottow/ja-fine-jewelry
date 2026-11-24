@@ -87,15 +87,15 @@ export default function Home() {
       {/* ─── HERO ─── */}
       <section id="home" className={styles.hero}>
         <div className={styles.heroText}>
-          <p className={`${styles.eyebrow} hero-word`} style={{animationDelay: "0s"}}>Bespoke Fine Jewelry · Private Commission</p>
+          <p className={`${styles.eyebrow} hero-word`} style={{animationDelay: "0s"}}>Bespoke Fine Jewelry · Charlotte &amp; Nationwide</p>
           <h1 className={styles.headline}>
             <span className="hero-word">Your jeweler.</span>
             <br />
             <em className="hero-word" style={{animationDelay: '0.85s'}}>For life.</em>
           </h1>
           <p className={`${styles.subhead} hero-word`} style={{animationDelay: "1s"}}>
-            Your private jeweler and expert in your corner, from the engagement ring
-            and wedding bands to any fine jewelry or watch you are looking for.
+            Jonathan Pottow is the private jeweler and expert in your corner, from the
+            engagement ring and wedding bands to any fine jewelry or watch you are looking for.
           </p>
           <div className={`${styles.ctaRow} hero-word`} style={{animationDelay: "1.2s"}}>
             <a href="/contact" className={styles.ctaPrimary}>Let's Talk</a>
@@ -197,7 +197,7 @@ export default function Home() {
             {[
               { num: '01', title: 'Discovery', delay: 'delay-1', desc: 'A private conversation to understand your vision, story, and the person who will wear this piece for a lifetime.' },
               { num: '02', title: 'Design', delay: 'delay-2', desc: 'Detailed CAD renderings crafted specifically for you — precise, three-dimensional representations of your piece so you can see exactly what it will look like before anything is made. Refined until every detail is exactly right.' },
-              { num: '03', title: 'Creation', delay: 'delay-3', desc: 'Handcrafted in the USA using ethically sourced materials. Every stone selected, every setting placed with intention and precision.' },
+              { num: '03', title: 'Creation', delay: 'delay-3', desc: 'Handcrafted in the USA by trusted master jewelers, using ethically sourced materials. Jonathan oversees every stone and every detail.' },
               { num: '04', title: 'Delivery', delay: 'delay-4', desc: 'A moment as special as the piece itself. Your commission is presented personally, with the full story of its making.' },
             ].map((step: {num: string, title: string, desc: string, delay: string}) => (
               <div key={step.num} className={`${styles.processCard} fade-up ${step.delay}`}>
@@ -283,6 +283,7 @@ export default function Home() {
             <div className={styles.contactDetails}>
               <span>By appointment only</span>
               <span>Charlotte, North Carolina</span>
+              <span>Clients nationwide</span>
             </div>
           </div>
           <ContactForm />
