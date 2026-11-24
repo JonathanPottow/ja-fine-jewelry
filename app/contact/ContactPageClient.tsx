@@ -6,7 +6,8 @@ import styles from './page.module.css'
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
 import { getPieceBySlug, pieceStill, type PortfolioPiece } from '@/lib/portfolio-pieces'
 import TopicPicker from '@/components/TopicPicker'
-import { isTopicKey } from '@/lib/inquiryTopics'
+import MeetingPicker from '@/components/MeetingPicker'
+import { isTopicKey, isMeetingKey } from '@/lib/inquiryTopics'
 import { METAL_OPTIONS, isMetalKey, isValidLabCarat, LAB_INQUIRE_CARAT, settingPrice, labDiamondPrice, formatUSD } from '@/lib/pricing'
 
 const faqs = [
@@ -23,7 +24,7 @@ const faqs = [
 ]
 
 export default function ContactPageClient() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '', topic: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '', topic: '', meeting: '', availability: '' })
   const [status, setStatus] = useState('idle')
 
   const [startedAt] = useState(() => Date.now())
@@ -42,6 +43,8 @@ export default function ContactPageClient() {
       const params = new URLSearchParams(window.location.search)
       const topicParam = params.get('topic')
       if (isTopicKey(topicParam)) setForm((f) => ({ ...f, topic: topicParam }))
+      const meetParam = params.get('meet')
+      if (isMeetingKey(meetParam)) setForm((f) => ({ ...f, meeting: meetParam as string }))
       const piece = getPieceBySlug(params.get('piece') ?? '')
       if (!piece) return
       setForm((f) => (f.topic ? f : { ...f, topic: 'bridal' }))
@@ -85,6 +88,7 @@ export default function ContactPageClient() {
         trackEvent(ANALYTICS_EVENTS.LEAD_FORM_SUBMIT, {
           location: 'contact_page',
           topic: form.topic || undefined,
+          meeting: form.meeting || undefined,
           has_phone: form.phone ? 'yes' : 'no',
           piece: designRef?.slug,
           metal: designRef?.metal,
@@ -110,7 +114,7 @@ export default function ContactPageClient() {
   return (
     <div className={styles.page}>
       <div className={styles.pageHeader}>
-        <p className={styles.eyebrow}>Private Commissions</p>
+        <p className={styles.eyebrow}>By Private Appointment</p>
         <h1 className={styles.pageTitle}>Begin Your<br /><em>Journey</em></h1>
         <p className={styles.pageIntro}>Every commission starts with a conversation. Tell Jonathan a little about what you have in mind.</p>
       </div>
@@ -152,6 +156,12 @@ export default function ContactPageClient() {
 
       <div className={styles.formWrap}>
         <form onSubmit={handleSubmit} className={styles.form}>
+          <MeetingPicker
+            value={form.meeting}
+            onChange={(meeting) => setForm({ ...form, meeting })}
+            availability={form.availability}
+            onAvailability={(availability) => setForm({ ...form, availability })}
+          />
           <TopicPicker value={form.topic} onChange={(topic) => setForm({ ...form, topic })} />
           <div className={styles.formGroup}>
             <label>Your Name</label>

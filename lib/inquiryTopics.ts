@@ -18,3 +18,18 @@ export function topicLabel(key: unknown): string | undefined {
 export function isTopicKey(key: unknown): key is InquiryTopicKey {
   return INQUIRY_TOPICS.some((t) => t.key === key)
 }
+
+// How the visitor would like to meet. Same rules: only these keys are accepted.
+export const MEETING_OPTIONS = [
+  { key: 'charlotte', label: 'Meet in Charlotte', note: 'A private appointment in person' },
+  { key: 'video', label: 'Video consultation', note: 'From anywhere, at a time that suits you' },
+  { key: 'message', label: 'Send a message', note: 'Ask a question or share an idea' },
+] as const
+
+export function meetingLabel(key: unknown): string | undefined {
+  return MEETING_OPTIONS.find((m) => m.key === key)?.label
+}
+
+export function isMeetingKey(key: unknown): boolean {
+  return MEETING_OPTIONS.some((m) => m.key === key)
+}

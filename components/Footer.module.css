@@ -36,6 +36,14 @@
   color: rgba(245,240,232,0.85);
 }
 
+.brand .byAppt {
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--tan);
+  margin-bottom: 0.4rem;
+}
+
 .brand p {
   font-size: 12px;
   line-height: 1.8;

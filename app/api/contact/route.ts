@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { checkSpam } from '@/lib/spamGuard'
-import { topicLabel } from '@/lib/inquiryTopics'
+import { topicLabel, meetingLabel } from '@/lib/inquiryTopics'
 
 // Visitor text goes into HTML email, so it is escaped first.
 const esc = (v: unknown) =>
@@ -14,6 +14,9 @@ export async function POST(req: NextRequest) {
     const data = JSON.parse(formData.get('data') as string)
     const { name, email, phone, message } = data
     const topic = topicLabel(data?.topic) // only known topics, never raw text
+    const meeting = meetingLabel(data?.meeting)
+    const availability = typeof data?.availability === 'string' ? data.availability.trim().slice(0, 200) : ''
+    const subjectTag = [meeting, topic].filter(Boolean).join(' · ')
     if (typeof name !== 'string' || !name.trim() || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: 'Name and a valid email are required' }, { status: 400 })
     }
@@ -91,12 +94,14 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         from: 'Jonathan Alistair Fine Jewelry <hello@jafinejewelry.com>',
         to: 'jonathan@jafinejewelry.com',
-        subject: `${designTag ? `Design Inquiry — ${designTag} — ${name}` : topic ? `New Inquiry — ${topic} — ${name}` : `New Commission Inquiry — ${name}`}${attachments.length ? ` — ${attachments.length} image${attachments.length > 1 ? 's' : ''}` : ''}`,
+        subject: `${designTag ? `Design Inquiry — ${designTag} — ${name}` : subjectTag ? `New Inquiry — ${subjectTag} — ${name}` : `New Commission Inquiry — ${name}`}${attachments.length ? ` — ${attachments.length} image${attachments.length > 1 ? 's' : ''}` : ''}`,
         ...(attachments.length ? { attachments } : {}),
         html: `
           <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #02301f;">
             <h2 style="font-size: 24px; font-weight: 400; margin-bottom: 8px;">${designTag ? 'New Design Inquiry' : topic ? `New Inquiry: ${topic}` : 'New Commission Inquiry'}</h2>
             <hr style="border: none; border-top: 1px solid #fcc542; margin-bottom: 24px;" />
+            ${meeting ? `<p><strong>How they'd like to begin:</strong> ${meeting}</p>` : ''}
+            ${availability ? `<p><strong>Preferred days &amp; times:</strong> ${esc(availability)}</p>` : ''}
             ${topic ? `<p><strong>Looking for help with:</strong> ${topic}</p>` : ''}
             <p><strong>Name:</strong> ${esc(name)}</p>
             <p><strong>Email:</strong> <a href="mailto:${esc(email)}">${esc(email)}</a></p>

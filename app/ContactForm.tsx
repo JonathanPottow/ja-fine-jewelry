@@ -5,9 +5,10 @@ import InspirationUpload from '@/app/InspirationUpload'
 import styles from './page.module.css'
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
 import TopicPicker from '@/components/TopicPicker'
+import MeetingPicker from '@/components/MeetingPicker'
 
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: '', email: '', message: '', topic: '' })
+  const [form, setForm] = useState({ name: '', email: '', message: '', topic: '', meeting: '', availability: '' })
   const [status, setStatus] = useState<'idle'|'sending'|'sent'|'error'>('idle')
 
   const [startedAt] = useState(() => Date.now())
@@ -27,7 +28,7 @@ export default function ContactForm() {
       const res = await fetch('/api/contact', { method: 'POST', body: formData })
       if (res.ok) {
         setStatus('sent')
-        trackEvent(ANALYTICS_EVENTS.LEAD_FORM_SUBMIT, { location: 'homepage', topic: form.topic || undefined })
+        trackEvent(ANALYTICS_EVENTS.LEAD_FORM_SUBMIT, { location: 'homepage', topic: form.topic || undefined, meeting: form.meeting || undefined })
       } else {
         setStatus('error')
         setTurnstileToken('')
@@ -46,6 +47,12 @@ export default function ContactForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
+      <MeetingPicker
+        value={form.meeting}
+        onChange={(meeting) => setForm({ ...form, meeting })}
+        availability={form.availability}
+        onAvailability={(availability) => setForm({ ...form, availability })}
+      />
       <TopicPicker value={form.topic} onChange={(topic) => setForm({ ...form, topic })} />
       <div className={styles.formGroup}>
         <label>Your Name</label>

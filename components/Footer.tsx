@@ -47,7 +47,8 @@ export default function Footer() {
         <div className={styles.brand}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/logo-full.png" alt="Jonathan Alistair Fine Jewelry. Your jeweler, for life." width={620} height={502} className={styles.fullLogo} loading="lazy" />
-          <p>Private commissions by appointment.<br />Jonathan Pottow.</p>
+          <p className={styles.byAppt}>By private appointment</p>
+          <p>Charlotte, North Carolina &amp; nationwide.<br />Jonathan Pottow, Founder &amp; Private Jeweler.</p>
           {visibleSocial.length > 0 && (
             <ul className={styles.social} aria-label="Follow and review Jonathan Alistair Fine Jewelry">
               {visibleSocial.map((s) => (

@@ -139,33 +139,15 @@ export default function Home() {
             <img src="/jonathan-homepage.jpg" alt="Jonathan Pottow" style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block'}} />
           </div>
           <div className={`${styles.aboutContent} fade-up delay-2`}>
-            <p className={styles.eyebrow}>South African born. Charlotte rooted. Built on trust.</p>
+            <p className={styles.eyebrow}>Founder &amp; Private Jeweler</p>
             <h3 className={styles.aboutTitle}>
-              More than a jeweler.<br /><em>Your expert.</em>
+              Jonathan <em>Pottow</em>
             </h3>
             <p>
-              Jonathan Pottow's passion for fine jewelry began long before his career — it started
-              with his grandfather, a South African collector whose deep appreciation for fine goods
-              and exceptional craftsmanship shaped the way Jonathan sees the world. That early
-              education in quality, meaning, and heritage became the quiet foundation of everything
-              he would later build.
-            </p>
-            <p>
-              Jonathan entered the industry in 2013 at a premier luxury jewelry group in Raleigh, working his way
-              from the front desk to diamond consultant, then to General Manager of a new St. Louis
-              location by 2017. In 2019, with his wife expecting their first son Deacan, he returned
-              home to Charlotte — a city he loves deeply and has no intention of leaving.
-            </p>
-            <p>
-              In 2020, during the uncertainty of the pandemic, Jonathan saw an opportunity: to create
-              something that didn't exist in the market. A safe, deeply personal, entirely bespoke
-              experience for clients who deserved better than the generic jewelry store. Jonathan Alistair Fine Jewelry was born from that belief.
-            </p>
-            <p>
-              Today Jonathan is a six-year member of
-              CYPG — investing in his community as genuinely as he invests in every client. His
-              role is simple: to be your guide, your expert, and your advocate — sitting on your
-              side of the table from the first conversation to the final piece.
+              South African born and Charlotte rooted, Jonathan grew up around his grandfather&rsquo;s love of
+              fine goods and has spent more than a decade in luxury jewelry. In 2020 he founded Jonathan
+              Alistair Fine Jewelry to offer what a jewelry store can&rsquo;t: a private, one-on-one
+              relationship with an expert on your side of the table.
             </p>
             <div className={styles.aboutCredentials}>
               <div className={styles.credential}>
@@ -274,16 +256,15 @@ export default function Home() {
       <section id="inquire" className={styles.contactSection}>
         <div className={styles.contactInner}>
           <div>
-            <p className={styles.eyebrow}>Private Commissions</p>
+            <p className={styles.eyebrow}>By Private Appointment</p>
             <h2 className={styles.contactTitle}>Begin your<br /><em>journey.</em></h2>
             <p className={styles.contactSubtext}>
               Every piece starts with a conversation. Share a few words about what you have in mind,
               and Jonathan will reach out personally within 48 hours.
             </p>
             <div className={styles.contactDetails}>
-              <span>By appointment only</span>
-              <span>Charlotte, North Carolina</span>
-              <span>Clients nationwide</span>
+              <span>In person in Charlotte, North Carolina</span>
+              <span>Or by video, nationwide</span>
             </div>
           </div>
           <ContactForm />
