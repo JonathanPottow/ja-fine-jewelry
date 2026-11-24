@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['static.wixstatic.com', 'images.unsplash.com'],
+    domains: ['images.unsplash.com'],
   },
   async redirects() {
     return [
